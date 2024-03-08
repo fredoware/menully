@@ -1,0 +1,60 @@
+:root {
+  --text-color: #7f7f90;
+}
+
+.bottom-sheet-dialog{
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.bottom-sheet-dialog .card{
+  background: #f5741d;
+  color: white;
+  margin: 10px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background: #f5741d !important;
+  border: #f5741d !important;
+}
+
+.menu-header {
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.item-name{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.item-description{
+  color: var(--text-color);
+}
+
+.item-price{
+  font-size: 16px;
+  color: red;
+  font-weight: bold;
+}
+
+.square-container {
+  position: relative;
+  width: 100%; /* Set container width to 100% */
+  overflow: hidden; /* Hide overflow content */
+  padding-top: 100%; /* Maintain 1:1 aspect ratio */
+}
+
+.square-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Fill the container */
+  height: auto; /* Maintain aspect ratio */
+}
