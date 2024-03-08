@@ -8,7 +8,8 @@
   <title>Menully - Digital QR Menu</title>
 
   <meta property="og:title" content="QR Menu" />
-  <meta property="og:image" content="https://qr-menu.fredoware.com/pages/templates/source/img/open-graph2.jpg" />
+  <meta property="og:url" content="https://menully.com" />
+  <meta property="og:image" content="https://menully.com/pages/templates/source/img/open-graph.jpg" />
 
   <!-- Favicons -->
   <link href="pages/templates/source/img/favicon.png" rel="icon">
