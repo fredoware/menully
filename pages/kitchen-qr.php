@@ -27,7 +27,7 @@
 
   <script type="text/javascript">
   var qrcode = new QRCode(document.getElementById("qrcode-2"), {
-  	text: "https://qr-menu.fredoware.com/check-in.php?store=<?=$storeName;?>",
+  	text: "https://menully.com/check-in.php?store=<?=$storeName;?>",
   	width: 300,
   	height: 300,
   	colorDark : "#000",
