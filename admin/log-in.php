@@ -22,4 +22,4 @@
 
 
 
-<?php include $ROOT_DIR . "../templates/footer.php"; ?>
+<?php include "templates/footer.php"; ?>

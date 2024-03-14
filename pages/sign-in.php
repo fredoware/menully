@@ -1,5 +1,5 @@
 <?php
-  include "templates/header.php";
+  include "templates/header-blank.php";
 
 ?>
 <div class="row" style="justify-content: center; margin:10px;">

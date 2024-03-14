@@ -15,6 +15,10 @@ switch ($action) {
 			store_log_in();
 			break;
 
+		case 'store-sign-up' :
+			store_sign_up();
+			break;
+
 		case 'update-cart' :
 			update_cart();
 			break;
@@ -42,9 +46,39 @@ switch ($action) {
 	default :
 }
 
+function store_sign_up(){
+
+	$model = store();
+	$model->obj["storeCode"] = $_POST["storeCode"];
+	$model->obj["owner"] = $_POST["owner"];
+	$model->obj["name"] = $_POST["name"];
+	$model->obj["phone"] = $_POST["phone"];
+	$model->obj["email"] = $_POST["email"];
+	$model->obj["address"] = $_POST["address"];
+	$model->obj["email"] = $_POST["email"];
+
+		// Create directory
+	$newDri = "../media/" . $_POST["storeCode"];
+	mkdir($newDri);
+	$model->obj["password"] = $_POST["password"];
+	if ($_FILES['logo']['name'] != "") {
+		$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
+		$model->obj["logo"] = $image_file_name;
+	}
+	$model->create();
+
+
+	header('Location: sign-in.php?success=You have successfull created a store. Please log in to continue');
+}
+
 function store_log_in(){
 		$storeCode = $_POST["storeCode"];
 		$password = $_POST["password"];
+
+	  $_SESSION["store"] = $storeCode;
+		$_SESSION["cart"] = array();
+		$_SESSION["myOrders"] = array();
+		$_SESSION["customer"] = "";
 
 		$countStore = store()->count("storeCode='$storeCode' and password='$password'");
 		if ($countStore==0):

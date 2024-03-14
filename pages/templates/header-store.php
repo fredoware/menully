@@ -11,7 +11,7 @@ include_once("../config/Models.php");
 
 if (isset($_SESSION["store"])) {
   $storeName = $_SESSION["store"];
-  $store = store()->get("name='$storeName'");
+  $store = store()->get("storeCode='$storeName'");
 }
 else{
   header("Location: qr-expired.php");
