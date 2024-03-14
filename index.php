@@ -29,6 +29,7 @@
 
   <!-- Template Main CSS File -->
   <link href="pages/templates/source/main.css" rel="stylesheet">
+  <link href="pages/templates/custom.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Yummy

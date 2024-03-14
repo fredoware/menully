@@ -14,9 +14,23 @@
   margin: 10px;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background: #f5741d !important;
-  border: #f5741d !important;
+
+.btn-primary,
+.btn-primary:focus {
+  font-size: 14px !important;
+  color: #fff !important;
+  background: var(--color-primary) !important;
+  border: var(--color-primary) !important;
+  padding: 8px 20px !important;
+  margin-left: 30px !important;
+  border-radius: 50px !important;
+  transition: 0.3s !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus:hover {
+  color: #fff !important;
+  background: rgba(206, 18, 18, 0.8) !important;
 }
 
 .menu-header {
