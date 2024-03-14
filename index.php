@@ -7,7 +7,7 @@
 
   <title>Menully - Digital QR Menu</title>
 
-  <meta property="og:title" content="QR Menu" />
+  <meta property="og:title" content="Menully QR Menu" />
   <meta property="og:url" content="https://menully.com" />
   <meta property="og:image" content="https://menully.com/pages/templates/source/img/open-graph.jpg" />
 
@@ -46,6 +46,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
+        <img src="pages/templates/source/img/menully-logo.png" style="margin-right:15px;">
         <h1>Menully<span>,</span></h1>
       </a>
 
@@ -53,7 +54,7 @@
         <ul>
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#benifits">Benifits</a></li>
+          <li><a href="#benefits">Benefits</a></li>
           <li><a href="#prices">Prices</a></li>
           <li><a href="#services">Services</a></li>
         </ul>
@@ -119,7 +120,7 @@
     </section><!-- End About Section -->
 
     <!-- ======= Why Us Section ======= -->
-    <section id="benifits" class="why-us section-bg">
+    <section id="benefits" class="why-us section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
