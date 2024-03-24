@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^([^/]+)/best-sellers?$ pages/best-sellers.php?store=$1 [L,QSA]
+RewriteRule ^([^/]+)/menu?$ pages/menu-item.php?store=$1 [L,QSA]
+RewriteRule ^([^/]+)/cart?$ pages/my-cart.php?store=$1 [L,QSA]
+RewriteRule ^([^/]+)/$ pages/?store=$1 [L,QSA]
