@@ -43,7 +43,86 @@ switch ($action) {
 			best_seller_option();
 			break;
 
+		case 'category-save' :
+			category_save();
+			break;
+
+		case 'item-save' :
+			item_save();
+			break;
+
 	default :
+}
+
+
+function item_save()
+{
+
+		$storeId = $_SESSION["storeId"];
+		$store = store()->get("Id=$storeId");
+
+		$model = menuItem();
+  	$model->obj["storeId"] = $_POST["storeId"];
+  	$model->obj["menuCategoryId"] = $_POST["menuCategoryId"];
+  	$model->obj["name"] = $_POST["name"];
+  	$model->obj["price"] = $_POST["price"];
+  	$model->obj["description"] = $_POST["description"];
+
+		if ($_POST["form-type"] == "add") {
+			if ($_FILES['image']['name'] != "") {
+				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+				$model->obj["image"] = $image_file_name;
+			}
+			$model->create();
+		}
+
+		if ($_POST["form-type"] == "edit") {
+			$Id = $_POST["Id"];
+			if ($_FILES['image']['name'] != "") {
+				$item = menuItem()->get("Id=$Id");
+				unlink('../media/' . $item->image);
+				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+				$model->obj["image"] = $image_file_name;
+			}
+			$model->update("Id=$Id");
+		}
+
+
+header('Location: kitchen-item.php?Id=' . $_POST["menuCategoryId"]);
+}
+
+
+
+function category_save()
+{
+		$storeId = $_SESSION["storeId"];
+		$store = store()->get("Id=$storeId");
+
+		$model = menuCategory();
+  	$model->obj["storeId"] = $_POST["storeId"];
+  	$model->obj["name"] = $_POST["name"];
+  	$model->obj["description"] = $_POST["description"];
+
+		if ($_POST["form-type"] == "add") {
+			if ($_FILES['image']['name'] != "") {
+				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+				$model->obj["image"] = $image_file_name;
+			}
+			$model->create();
+		}
+
+		if ($_POST["form-type"] == "edit") {
+			$Id = $_POST["Id"];
+			if ($_FILES['image']['name'] != "") {
+				$category = menuCategory()->get("Id=$Id");
+				unlink('../media/' . $category->image);
+				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+				$model->obj["image"] = $image_file_name;
+			}
+			$model->update("Id=$Id");
+		}
+
+header('Location: kitchen-item-category.php' );
 }
 
 function store_sign_up(){

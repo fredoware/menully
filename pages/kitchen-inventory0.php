@@ -3,7 +3,6 @@
 
   $category_list = menuCategory()->list("storeId=$store->Id");
 
-
 ?>
 
 <main id="main">

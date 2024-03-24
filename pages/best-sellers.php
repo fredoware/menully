@@ -155,7 +155,7 @@
 
 
 
-<div class="content-fluid bottom-sheet-dialog" onclick="location.href='my-cart.php'" id="bottom-sheet" style="display:none">
+<div class="content-fluid bottom-sheet-dialog" onclick="location.href='cart'" id="bottom-sheet" style="display:none">
   <div class="card">
     <div class="card-body">
       <div class="row">
@@ -213,7 +213,7 @@ function add_to_cart(itemId, price){
   quantity.innerHTML = 1;
   $.ajax({
       type: "GET",
-      url: "process.php?action=add-to-cart&itemId=" + itemId + "&value=" + itemValue,
+      url: "../pages/process.php?action=add-to-cart&itemId=" + itemId + "&value=" + itemValue,
     });
   bottomSheet.style.display = "";
 }

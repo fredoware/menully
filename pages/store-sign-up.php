@@ -33,8 +33,11 @@
           <input type="text" name="email" class="form-control" required>
           Password:
           <input type="password" name="password" class="form-control" required>
-          Logo:
-          <input type="file" class="form-control" name="logo" required>
+
+          <label for="fileInput">
+            <img id="logo" src="templates/source/img/default-store-logo.jpg" style="width:100%;">
+          </label>
+          <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)" required style="display:none">
           <button type="submit" class="btn btn-primary mt-5">Sign Up</button>
         </form>
       </div>
@@ -44,6 +47,14 @@
 
 
 <script type="text/javascript">
+
+  var loadFile = function(event) {
+    var output = document.getElementById('logo');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
 
   var storeName = document.getElementById("input-storeName");
   var storeCode = document.getElementById("input-storeCode");

@@ -145,14 +145,14 @@ function update_quantity(itemId, price, addedValue){
     totalPrice.innerHTML = format_money(newQuantity*parseFloat(price));
     $.ajax({
         type: "GET",
-        url: "process.php?action=update-cart&itemId=" + itemId + "&value=" + newQuantity,
+        url: "../pages/process.php?action=update-cart&itemId=" + itemId + "&value=" + newQuantity,
       });
   }
   else{
     cartItem.style.display = "none";
     $.ajax({
         type: "GET",
-        url: "process.php?action=remove-from-cart&itemId=" + itemId,
+        url: "../pages/process.php?action=remove-from-cart&itemId=" + itemId,
       });
   }
 }

@@ -1,5 +1,5 @@
 :root {
-  --text-color: #7f7f90;
+  --text-color: #f5970a;
 }
 
 .bottom-sheet-dialog{
@@ -14,23 +14,35 @@
   margin: 10px;
 }
 
+.clickable:hover{
+  cursor: pointer;
+  background: #f2f2f2;
+}
+
 
 .btn-primary,
 .btn-primary:focus {
-  font-size: 14px !important;
   color: #fff !important;
-  background: var(--color-primary) !important;
-  border: var(--color-primary) !important;
-  padding: 8px 20px !important;
-  margin-left: 30px !important;
-  border-radius: 50px !important;
-  transition: 0.3s !important;
+  background: var(--text-color) !important;
+  border: var(--text-color) !important;
 }
 
 .btn-primary:hover,
 .btn-primary:focus:hover {
   color: #fff !important;
   background: rgba(206, 18, 18, 0.8) !important;
+}
+
+.btn,
+.btn:focus {
+  font-size: 14px !important;
+  color: #fff !important;
+  transition: 0.3s !important;
+}
+
+.btn:hover,
+.btn:focus:hover {
+  color: #fff !important;
 }
 
 .menu-header {
