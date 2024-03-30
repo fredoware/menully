@@ -203,7 +203,7 @@ function place_order(){
 	$_SESSION["myOrders"][] = $orderNumber;
 
 	$model = orderMain();
-	$model->obj["customer"] = $_POST["customer"];
+	$model->obj["customerId"] = $_POST["customerId"];
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
@@ -227,7 +227,6 @@ function place_order(){
 	}
 
 	$_SESSION["cart"] = array();
-	$_SESSION["customer"] = $_POST["customer"];
 
 	header('Location: ../'.$store.'/order');
 }

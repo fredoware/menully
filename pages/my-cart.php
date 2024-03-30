@@ -1,6 +1,9 @@
 <?php
   include "templates/header.php";
 
+  $customerGoogleId = $_SESSION['login_id'];
+  $customer = customer()->get("google_id='$customerGoogleId'");
+
   $cart = $_SESSION["cart"];
 
   $totalAmount = 0;
@@ -75,8 +78,14 @@
 
 </main>
 
+<?php if (isset($_SESSION['login_id'])): ?>
 
-<div class="content-fluid bottom-sheet-dialog"  data-bs-toggle="modal" data-bs-target="#orderModal">
+  <div class="content-fluid bottom-sheet-dialog"  data-bs-toggle="modal" data-bs-target="#orderModal">
+  <?php else: ?>
+
+  <div class="content-fluid bottom-sheet-dialog" onclick="location.href='../google-log-in/login.php'">
+<?php endif; ?>
+
   <div class="card">
     <div class="card-body">
       <div class="row">
@@ -102,7 +111,8 @@
         <input type="hidden" name="storeCode"  class="form-control" value="<?=$storeCode?>" required>
         <div class="modal-body">
           <b>Customer</b>
-          <input type="text" name="customer"  class="form-control" value="<?=$_SESSION["customer"]?>" required>
+          <input type="hidden" name="customerId" value="<?=$customer->Id?>">
+          <input type="text" name="customer"  class="form-control" value="<?=$customer->name?>" disabled>
           <b>Notes to kitchen</b>
           <textarea name="notes" class="form-control"></textarea>
         </div>

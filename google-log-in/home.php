@@ -5,9 +5,12 @@ if(!isset($_SESSION['login_id'])){
     exit;
 }
 $id = $_SESSION['login_id'];
-$get_user = mysqli_query($db_connection, "SELECT * FROM `users` WHERE `google_id`='$id'");
+$get_user = mysqli_query($db_connection, "SELECT * FROM `customer` WHERE `google_id`='$id'");
 if(mysqli_num_rows($get_user) > 0){
     $user = mysqli_fetch_assoc($get_user);
+
+    echo $_SESSION['loginStore'];
+    header('Location: ../'.$_SESSION['loginStore'].'/cart');
 }
 else{
     header('Location: logout.php');

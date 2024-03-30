@@ -18,6 +18,7 @@ if (!isset($_SESSION["cart"])) {
 
 if (isset($_GET["store"])) {
   $storeCode = $_GET["store"];
+	$_SESSION['loginStore'] = $_GET["store"];
   $store = store()->get("storeCode='$storeCode'");
 
   $category_list = menuCategory()->list("storeId=$store->Id");
