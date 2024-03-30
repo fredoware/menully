@@ -1,0 +1,13 @@
+{
+  "web": {
+    "client_id": "680392531429-fp4al3s18rgts1g66oa696r72qp7q8p6.apps.googleusercontent.com",
+    "project_id": "menully",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": [
+      "http://localhost/menully/google-api/login.php"
+    ]
+  }
+}
