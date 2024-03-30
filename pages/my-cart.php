@@ -98,7 +98,8 @@
         <h1 class="modal-title fs-5">Order Detail</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="process.php?action=place-order" method="post">
+      <form action="../pages/process.php?action=place-order" method="post">
+        <input type="hidden" name="storeCode"  class="form-control" value="<?=$storeCode?>" required>
         <div class="modal-body">
           <b>Customer</b>
           <input type="text" name="customer"  class="form-control" value="<?=$_SESSION["customer"]?>" required>

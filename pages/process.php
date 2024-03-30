@@ -198,6 +198,7 @@ function change_item_status(){
 function place_order(){
 	$cart = $_SESSION["cart"];
 	$orderNumber = rand(100000,999999);
+	$store = $_POST["storeCode"];
 
 	$_SESSION["myOrders"][] = $orderNumber;
 
@@ -206,7 +207,7 @@ function place_order(){
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
-	$model->obj["storeCode"] = $_SESSION["store"];
+	$model->obj["storeCode"] = $store;
 	$model->create();
 
 
@@ -228,7 +229,7 @@ function place_order(){
 	$_SESSION["cart"] = array();
 	$_SESSION["customer"] = $_POST["customer"];
 
-	header('Location: my-order.php');
+	header('Location: ../'.$store.'/order');
 }
 
 function add_to_cart()

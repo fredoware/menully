@@ -11,12 +11,14 @@ include_once("../config/Models.php");
 
 if (!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = array();
+	$_SESSION["myOrders"] = array();
+	$_SESSION["customer"] = "";
 }
 
 
 if (isset($_GET["store"])) {
-  $storeName = $_GET["store"];
-  $store = store()->get("storeCode='$storeName'");
+  $storeCode = $_GET["store"];
+  $store = store()->get("storeCode='$storeCode'");
 
   $category_list = menuCategory()->list("storeId=$store->Id");
 }
@@ -83,9 +85,9 @@ else{
 						<?php endforeach; ?>
 						<hr>
             <li><a href="cart">My Cart</a></li>
-            <li><a href="my-order.php">My Order</a></li>
-            <li><a href="store-qr.php">Store QR Code</a></li>
-            <li><a href="sign-in.php">Sign in</a></li>
+            <li><a href="order">My Order</a></li>
+            <li><a href="store-qr">Store QR Code</a></li>
+            <li><a href="../pages/sign-in.php">Sign in</a></li>
         </ul>
       </nav><!-- .navbar -->
 
