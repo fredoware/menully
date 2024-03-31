@@ -15,12 +15,20 @@ if (!isset($_SESSION["cart"])) {
 	$_SESSION["customer"] = "";
 }
 
+if (isset($_SESSION['login_id'])) {
+	  $userGoogleId = $_SESSION['login_id'];
+	  $user = user()->get("google_id='$userGoogleId'");
+		$myStoreList = array();
+		$storePeopleList = store_people()->list("userId=$user->Id");
+		foreach ($storePeopleList as $row) {
+			$myStore = store()->get("Id=$row->storeId");
+			array_push($myStoreList, $myStore);
+		}
+}
 
 if (isset($_GET["store"])) {
   $storeCode = $_GET["store"];
-	$_SESSION['loginStore'] = $_GET["store"];
   $store = store()->get("storeCode='$storeCode'");
-
   $category_list = menuCategory()->list("storeId=$store->Id");
 }
 else{
@@ -73,22 +81,32 @@ else{
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="best-sellers" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="../<?=$storeCode?>/" class="logo d-flex align-items-center me-auto me-lg-0">
         <img src="../media/<?=$store->logo?>">
         <h1><?=$store->name?></h1>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-            <li><a href="best-sellers" style="color:red;">Best Sellers!</a></li>
-						<?php foreach ($category_list as $row): ?>
-	            <li><a href="menu?Id=<?=$row->Id?>"><?=$row->name?></a></li>
-						<?php endforeach; ?>
-						<hr>
+            <li><a href="../<?=$storeCode?>/">Home</a></li>
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
             <li><a href="store-qr">Store QR Code</a></li>
-            <li><a href="../pages/sign-in.php">Sign in</a></li>
+						<?php if ($myStoreList): ?>
+							<hr>
+	            <li class="my-store-label">My Stores</li>
+							<?php foreach ($myStoreList as $row): ?>
+		            <li class="my-store-item"><a href="../pages/process.php?action=store-log-in&store=<?=$row->storeCode?>"><?=$row->name?></a></li>
+							<?php endforeach; ?>
+							<hr>
+						<?php endif; ?>
+						<?php if (isset($_SESSION['login_id'])): ?>
+							<li><a href="../google-log-in/logout.php">Sign Out</a></li>
+						<?php else:
+					    $_SESSION['returnLink'] = $actual_link;
+					     ?>
+	            <li><a href="../google-log-in/login.php">Sign in</a></li>
+						<?php endif; ?>
         </ul>
       </nav><!-- .navbar -->
 
@@ -97,3 +115,22 @@ else{
 
     </div>
   </header><!-- End Header -->
+
+	<div class="modal fade" id="menuCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Select Category</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+				<ul class="list-group">
+					<li class="list-group-item category-item" onclick="location.href='best-sellers'" style="color:red;">Best Sellers!</li>
+					<?php foreach ($category_list as $row): ?>
+							<li class="list-group-item category-item" onclick="location.href='menu?Id=<?=$row->Id?>'"><?=$row->name?></li>
+					<?php endforeach; ?>
+				</ul>
+      </div>
+    </div>
+  </div>
+</div>

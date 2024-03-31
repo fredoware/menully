@@ -1,4 +1,5 @@
 <?php
+$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
 $success = (isset($_GET['success']) && $_GET['success'] != '') ? $_GET['success'] : '';
 function get_query_string($keyword, $default){

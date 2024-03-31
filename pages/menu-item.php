@@ -24,9 +24,20 @@
   <section>
     <div class="container" data-aos="fade-up">
 
-      <div class="menu-header text-center">
-        <h6><?=$category->name;?></h6>
+      <div class="menu-item-header">
+        <div class="row">
+          <div class="col-2 mih-left" onclick="window.history.go(-1)">
+            <i class="bi bi-arrow-left"></i>
+          </div>
+          <div class="col mih-center">
+              <h6><?=$category->name;?></h6>
+          </div>
+          <div class="col-2 mih-right" data-bs-toggle="modal" data-bs-target="#menuCategory">
+            <i class="bi bi-menu-app"></i>
+          </div>
+        </div>
       </div>
+
 
       <div class="row gy-5">
 
@@ -94,22 +105,21 @@
 
 
               ?>
-              <div class="col-lg-4 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
+              <div class="col-lg-4 col-6 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
 
-                <div class="card" style="opacity: 0.4; filter: alpha(opacity=40);">
+                <div class="card"  style="opacity: 0.4; filter: alpha(opacity=40);">
+                  <div class="card-header">
+                      <?php if ($item->image): ?>
+                        <div class="square-container">
+                          <img src="../media/<?=$item->image;?>">
+                        </div>
+                      <?php endif; ?>
+                  </div>
                   <div class="card-body">
                     <div class="row">
-                      <?php if ($item->image): ?>
-                      <div class="col">
-                          <img src="../media/<?=$item->image;?>" width="100%" alt="">
-                      </div>
-                    <?php endif; ?>
-                      <div class="col">
-                        <h4><?=$item->name;?></h4>
-                        <p class="ingredients">
-                          <?=$item->description;?>
-                        </p>
-                        <p class="price">
+                      <div class="col text-center">
+                        <div class="item-name"><?=$item->name;?></div>
+                        <p class="item-price">
                           <?=format_money($item->price);?>
                         </p>
                       </div>

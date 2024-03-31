@@ -11,7 +11,6 @@
       $result += $item->price*$row->quantity;
     }
 
-
     return format_money($result);
   }
 

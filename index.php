@@ -1,3 +1,6 @@
+<?php
+  session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +80,10 @@
             Say goodbye to outdated and PDF menus. Upgrade to the world's first QR digital menu. Generate unlimited QR codes. Exhibit the specific price associated with different seating options. Showcase your best-selling product and special offers/combos at the top of the menu.
           </p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="pages/store-sign-up.php" class="btn-book-a-table">Create QR Menu</a>
+            <?php
+              $_SESSION['returnLink'] = '../pages/store-sign-up.php';
+               ?>
+            <a href="google-log-in/login.php" class="btn-book-a-table">Create QR Menu</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">

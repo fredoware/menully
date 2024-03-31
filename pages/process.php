@@ -127,14 +127,14 @@ header('Location: kitchen-item-category.php' );
 
 function store_sign_up(){
 
+	$storeCode = $_POST["storeCode"];
+	$ownerId = $_POST["ownerId"];
+
 	$model = store();
 	$model->obj["storeCode"] = $_POST["storeCode"];
-	$model->obj["owner"] = $_POST["owner"];
 	$model->obj["name"] = $_POST["name"];
 	$model->obj["phone"] = $_POST["phone"];
-	$model->obj["email"] = $_POST["email"];
 	$model->obj["address"] = $_POST["address"];
-	$model->obj["email"] = $_POST["email"];
 
 		// Create directory
 	$newDri = "../media/" . $_POST["storeCode"];
@@ -146,26 +146,38 @@ function store_sign_up(){
 	}
 	$model->create();
 
+	$store = store()->get("storeCode='$storeCode'");
 
-	header('Location: sign-in.php?success=You have successfull created a store. Please log in to continue');
+	$model = store_people();
+	$model->obj["userId"] = $ownerId;
+	$model->obj["storeId"] = $store->Id;
+	$model->obj["role"] = "Admin";
+	$model->create();
+
+	header('Location: process.php?action=store-log-in&store=' . $storeCode);
 }
 
+// function store_log_in(){
+// 		$storeCode = $_POST["storeCode"];
+// 		$password = $_POST["password"];
+//
+// 	  $_SESSION["store"] = $storeCode;
+// 		$_SESSION["cart"] = array();
+// 		$_SESSION["myOrders"] = array();
+// 		$_SESSION["customer"] = "";
+//
+// 		$countStore = store()->count("storeCode='$storeCode' and password='$password'");
+// 		if ($countStore==0):
+// 			header('Location: sign-in.php?error=Account does not exist');
+// 		else:
+// 		  $_SESSION["store"] = $storeCode;
+// 			header('Location: kitchen-main.php');
+// 		endif;
+// }
+
 function store_log_in(){
-		$storeCode = $_POST["storeCode"];
-		$password = $_POST["password"];
-
-	  $_SESSION["store"] = $storeCode;
-		$_SESSION["cart"] = array();
-		$_SESSION["myOrders"] = array();
-		$_SESSION["customer"] = "";
-
-		$countStore = store()->count("storeCode='$storeCode' and password='$password'");
-		if ($countStore==0):
-			header('Location: sign-in.php?error=Account does not exist');
-		else:
-		  $_SESSION["store"] = $storeCode;
-			header('Location: kitchen-main.php');
-		endif;
+  $_SESSION["store"] = $_GET["store"];
+	header('Location: kitchen-main.php');
 }
 
 function change_order_status(){

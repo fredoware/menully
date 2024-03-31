@@ -20,128 +20,130 @@
   <section>
     <div class="container" data-aos="fade-up">
 
-      <div class="menu-header text-center">
-        <h6>Best Sellers!</h6>
+      <div class="menu-item-header">
+        <div class="row">
+          <div class="col-2 mih-left" onclick="window.history.go(-1)">
+            <i class="bi bi-arrow-left"></i>
+          </div>
+          <div class="col mih-center">
+            <h6>Best Sellers!</h6>
+          </div>
+          <div class="col-2 mih-right" data-bs-toggle="modal" data-bs-target="#menuCategory">
+            <i class="bi bi-menu-app"></i>
+          </div>
+        </div>
       </div>
 
       <div class="row gy-5">
 
-       <?php foreach ($available_items as $item):
+               <?php foreach ($available_items as $item):
 
 
-          ?>
-          <div class="col-lg-4 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
+                  ?>
+                  <div class="col-lg-4 col-6 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
 
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <?php if ($item->image): ?>
-                  <div class="col">
-                    <div class="square-container">
-                      <img src="../media/<?=$item->image;?>">
-                    </div>
-                  </div>
-                <?php endif; ?>
-                  <div class="col">
-                    <div class="item-name"><?=$item->name;?></div>
-                    <p class="item-description">
-                      <?=$item->description;?>
-                    </p>
-                    <p class="item-price">
-                      <?=format_money($item->price);?>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="itemModal<?=$item->Id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <?php if ($item->image): ?>
-                  <div class="square-container">
-                    <img src="../media/<?=$item->image;?>">
-                  </div>
-                <?php endif; ?>
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5"><?=$item->name;?></h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p class="ingredients">
-                    <?=$item->description;?>
-                  </p>
-                  <p class="price">
-                    <?=format_money($item->price);?>
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', -1)">-</button>
-                  <button type="button" class="btn btn-warning" id="quantity<?=$item->Id?>">1</button>
-                  <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', 1)">+</button>
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="add_to_cart('<?=$item->Id?>', '<?=$item->price;?>')">Add to cart</button>
-                </div>
-              </div>
-            </div>
-          </div>
-       <?php endforeach; ?>
-
-
-           <?php foreach ($unavailable_items as $item):
-
-
-              ?>
-              <div class="col-lg-4 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
-
-                <div class="card" style="opacity: 0.4; filter: alpha(opacity=40);">
-                  <div class="card-body">
-                    <div class="row">
-                      <?php if ($item->image): ?>
-                      <div class="col">
-                        <div class="square-container">
-                          <img src="../media/<?=$item->image;?>">
+                    <div class="card">
+                      <div class="card-header">
+                          <?php if ($item->image): ?>
+                            <div class="square-container">
+                              <img src="../media/<?=$item->image;?>">
+                            </div>
+                          <?php endif; ?>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col text-center">
+                            <div class="item-name"><?=$item->name;?></div>
+                            <p class="item-price">
+                              <?=format_money($item->price);?>
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    <?php endif; ?>
-                      <div class="col">
-                        <h4><?=$item->name;?></h4>
-                        <p class="ingredients">
-                          <?=$item->description;?>
-                        </p>
-                        <p class="price">
-                          <?=format_money($item->price);?>
-                        </p>
-                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <!-- Modal -->
-              <div class="modal fade" id="itemModal<?=$item->Id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <?php if ($item->image): ?>
-                      <div class="square-container">
-                        <img src="../media/<?=$item->image;?>">
+                  <!-- Modal -->
+                  <div class="modal fade" id="itemModal<?=$item->Id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <?php if ($item->image): ?>
+                          <div class="square-container">
+                            <img src="../media/<?=$item->image;?>">
+                          </div>
+                        <?php endif; ?>
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5"><?=$item->name;?></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="ingredients">
+                            <?=$item->description;?>
+                          </p>
+                          <p class="price">
+                            <?=format_money($item->price);?>
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', -1)">-</button>
+                          <button type="button" class="btn btn-warning" id="quantity<?=$item->Id?>">1</button>
+                          <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', 1)">+</button>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="add_to_cart('<?=$item->Id?>', '<?=$item->price;?>')">Add to cart</button>
+                        </div>
                       </div>
-                    <?php endif; ?>
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5"><?=$item->name;?></h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="color:red;">
-                      Sorry, this item is not available.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     </div>
                   </div>
-                </div>
-              </div>
-           <?php endforeach; ?>
+               <?php endforeach; ?>
+
+
+                   <?php foreach ($unavailable_items as $item):
+
+
+                      ?>
+                      <div class="col-lg-4 col-6 menu-item" style="margin-bottom:-30px" data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">
+
+                        <div class="card"  style="opacity: 0.4; filter: alpha(opacity=40);">
+                          <div class="card-header">
+                              <?php if ($item->image): ?>
+                                <div class="square-container">
+                                  <img src="../media/<?=$item->image;?>">
+                                </div>
+                              <?php endif; ?>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col text-center">
+                                <div class="item-name"><?=$item->name;?></div>
+                                <p class="item-price">
+                                  <?=format_money($item->price);?>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="itemModal<?=$item->Id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <?php if ($item->image): ?>
+                              <img src="../media/<?=$item->image;?>" width="100%" alt="">
+                            <?php endif; ?>
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5"><?=$item->name;?></h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="color:red;">
+                              Sorry, this item is not available.
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   <?php endforeach; ?>
 
 
               </div>

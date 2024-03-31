@@ -1,6 +1,11 @@
 <?php
   include "templates/header-blank.php";
 
+  if (isset($_SESSION['login_id'])) {
+  	  $userGoogleId = $_SESSION['login_id'];
+  	  $user = user()->get("google_id='$userGoogleId'");
+  }
+
 ?>
 <style media="screen">
   .form-control{
@@ -8,13 +13,11 @@
   }
 </style>
 
-
 <div class="row" style="justify-content: center; margin:10px;">
-  <div class="col-lg-4" style="margin-top:100px;padding:10px;">
+  <div class="col-lg-4" style="margin-top:50px;padding:10px;">
     <div class="card">
       <div class="card-header text-center">
-        <h4>Create Store</h4> <br>
-        <a href="sign-in.php">Already have an account? Log in here</a>
+        <h4>Create a Store</h4>
       </div>
       <div class="card-body">
         <form class="" action="process.php?action=store-sign-up" enctype="multipart/form-data" method="post">
@@ -24,16 +27,14 @@
           <i id="store-code-error"></i>
           <input type="text" name="storeCode" id="input-storeCode" onkeyup="store_code_validity()" class="form-control" required>
           Owner:
-          <input type="text" name="owner" class="form-control" required>
+          <input type="hidden" name="ownerId" value="<?=$user->Id?>" required>
+          <input type="text" name="owner" class="form-control"  value="<?=$user->name?>" disabled>
           Phone Number:
           <input type="text" name="phone" class="form-control" required>
           Address:
           <input type="text" name="address" class="form-control" required>
           Email Address:
-          <input type="text" name="email" class="form-control" required>
-          Password:
-          <input type="password" name="password" class="form-control" required>
-
+          <input type="text" name="email" class="form-control" value="<?=$user->email?>" disabled>
           <label for="fileInput">
             <img id="logo" src="templates/source/img/default-store-logo.jpg" style="width:100%;">
           </label>

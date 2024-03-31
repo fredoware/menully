@@ -3,17 +3,17 @@
 
   $category_list = menuCategory()->list("storeId=$store->Id");
 
-  $cart = $_SESSION["cart"];
-
-  $totalAmount = 0;
-  $totalQuantity = 0;
-
-  foreach ($cart as $key => $qty){
-    $item = menuItem()->get("Id=$key");
-    $totalAmount += $item->price*$qty;
-    $totalQuantity += $qty;
-
-  }
+  // $cart = $_SESSION["cart"];
+  //
+  // $totalAmount = 0;
+  // $totalQuantity = 0;
+  //
+  // foreach ($cart as $key => $qty){
+  //   $item = menuItem()->get("Id=$key");
+  //   $totalAmount += $item->price*$qty;
+  //   $totalQuantity += $qty;
+  //
+  // }
 
 ?>
 

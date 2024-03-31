@@ -49,9 +49,9 @@ function user() {
 }
 
 
-function customer() {
+function store_people() {
 	$crud = new CRUD;
-	$crud->table = "customer";
+	$crud->table = "store_people";
 	return $crud;
 }
 

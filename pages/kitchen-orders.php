@@ -50,7 +50,7 @@
 
 <?php foreach ($order_list as $item):
   $totalAmount = get_total_amount($item->orderNumber);
-  $customer = customer()->get("Id=$item->customerId");
+  $customer = user()->get("Id=$item->customerId");
    ?>
 
    <div class="col-lg-4 menu-item mb-3" id="itemCard<?=$item->Id?>">

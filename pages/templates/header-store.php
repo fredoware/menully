@@ -80,7 +80,7 @@ else{
             <li><a href="kitchen-item-category.php">Menu Set up</a></li>
             <li><a href="kitchen-best-sellers.php" style="color:green;">Best Sellers!</a></li>
             <li><a href="kitchen-not-available.php" style="color:red;">Unavailable items</a></li>
-            <li><a href="kitchen-customer-menu.php">Customer Order</a></li>
+            <!-- <li><a href="kitchen-customer-menu.php">Customer Order</a></li> -->
             <li><a href="kitchen-qr.php">Store QR Code</a></li>
         </ul>
       </nav><!-- .navbar -->
