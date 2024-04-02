@@ -105,9 +105,7 @@
       <div class="col-6">
         <?php if (isset($_SESSION['login_id'])): ?>
           <div class="btn-place-order"  data-bs-toggle="modal" data-bs-target="#orderModal">
-          <?php else:
-            $_SESSION['returnLink'] = $actual_link;
-             ?>
+          <?php else: ?>
              <div class="btn-place-order"  onclick="location.href='../google-log-in/login.php'">
         <?php endif; ?>
           Place Order

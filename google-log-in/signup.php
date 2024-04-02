@@ -1,8 +1,5 @@
 <?php
 require 'header.php';
-
-$error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
-
 if(isset($_SESSION['login_id'])){
     header('Location: home.php');
     exit;
@@ -64,28 +61,34 @@ if(isset($_GET['code'])):
 else:
     // Google Login Url = $client->createAuthUrl();
 ?>
+
 <br><br>
 <center>
 <img src="../pages/templates/source/img/menully-logo.png" alt="" style="width:150px;">
 </center>
 
 <div class="row" style="margin:20px;">
-  <form action="process.php?action=sign-in" method="post">
+  <form action="process.php?action=sign-up" method="post">
     <div class="col-12">
-      <i style="color:red"><?=$error;?></i>
-      <br>
+      <b>Nick Name</b>
+      <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="col-12">
       <b>Username</b>
-      <input type="text" class="form-control" name="username" required>
+      <br>
+      <i id="username-error"></i>
+      <input type="text" class="form-control" id="input-username" onkeyup="username_validity()" name="username" required>
     </div>
     <div class="col-12">
       <b>Password</b>
       <input type="password" class="form-control" name="password" required>
 
-      <button type="submit" class="btn btn-primary mt-2">Sign In</button>
+      <button type="submit" class="btn btn-primary mt-2">Register</button>
     </div>
   </form>
+
   <div class="col-12 text-center mt-2">
-    Not a member yet? <a href="signup.php">Register here</a>
+    Already a member? <a href="login.php">Sign in here</a>
     <p>Or</p>
     <a href="<?php echo $client->createAuthUrl(); ?>" type="button" class="login-with-google-btn" >
       Sign in with Google
@@ -94,3 +97,32 @@ else:
 </div>
 
 <?php endif; ?>
+
+<script type="text/javascript">
+
+var username = document.getElementById("input-username");
+var usernameError = document.getElementById("username-error");
+
+function username_validity(){
+  $.ajax({
+      type: "GET",
+      url: "../pages/api-check-username-exist.php?username=" + username.value,
+      success: function(data){
+        const obj = JSON.parse(data);
+        if (obj.result>0) {
+          usernameError.innerHTML = "Username Not Available";
+          usernameError.style.color = "red";
+          username.setCustomValidity("Username Already Exists");
+        }
+        else{
+          usernameError.innerHTML = "Username Available";
+          usernameError.style.color = "green";
+          username.setCustomValidity("");
+        }
+      }
+    });
+}
+</script>
+
+
+<?php include "../pages/templates/footer.php"; ?>

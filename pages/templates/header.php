@@ -9,6 +9,8 @@ session_start();
 include_once("../config/database.php");
 include_once("../config/Models.php");
 
+$_SESSION['returnLink'] = $actual_link;
+
 if (!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = array();
 	$_SESSION["voucherId"] = 0;
@@ -106,9 +108,7 @@ else{
 						<?php if (isset($_SESSION['login_id'])): ?>
 							<li><a href="">My Account</a></li>
 							<li><a href="../google-log-in/logout.php">Sign Out</a></li>
-						<?php else:
-					    $_SESSION['returnLink'] = $actual_link;
-					     ?>
+						<?php else: ?>
 	            <li><a href="../google-log-in/login.php">Sign in</a></li>
 						<?php endif; ?>
         </ul>

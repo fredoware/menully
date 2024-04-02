@@ -182,7 +182,7 @@ $(function () {
     });
 
     $('#input-discount').on("keyup", function() {
-      var text = "Php" + $(this).val() + " Off";
+      var text = "Php " + $(this).val() + " Off";
       $('#input-name').val(text);
       $('#discount-display').html(text);
     });
