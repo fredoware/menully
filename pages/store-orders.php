@@ -18,7 +18,7 @@
     }
 
 
-    return format_money($result);
+    return $result;
   }
 
 ?>
@@ -56,15 +56,86 @@
    <div class="col-lg-4 menu-item mb-3" id="itemCard<?=$item->Id?>">
      <div class="card" data-bs-toggle="modal" data-bs-target="#orderModal<?=$item->Id?>">
        <div class="card-body">
-         <div class="row text-center">
-           <div class="col">
-             Customer: <?=$customer->name?> <br><?=$item->orderNumber?>
+         <div class="row">
+           <div class="col order-label">
+             Date Ordered:
            </div>
-           <div class="col">
-             Total: <p><?=$totalAmount?></p>
+           <div class="col order-value">
+             <?=$item->date?>
            </div>
-           <div class="col">
-             Status: <p><?=$item->status?></p>
+         </div>
+
+         <div class="row">
+           <div class="col order-label">
+             Order Number:
+           </div>
+           <div class="col order-value">
+             <?=$item->orderNumber?>
+           </div>
+         </div>
+
+         <div class="row">
+           <div class="col order-label">
+             Customer:
+           </div>
+           <div class="col order-value">
+             <?=$customer->name?>
+           </div>
+         </div>
+
+         <?php if ($item->voucherId):
+           $voucher = voucher()->get("Id=$item->voucherId");
+           $finalAmount = $totalAmount-$voucher->discount;
+           ?>
+
+           <div class="row">
+             <div class="col order-label">
+               Sub-Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($totalAmount)?>
+             </div>
+           </div>
+
+           <div class="row mt-3 mb-3">
+             <div class="col order-label">
+               Voucher:
+             </div>
+             <div class="col order-value">
+               <span class="cart-selected-voucher"><?=$voucher->name?></span>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col order-label">
+               Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($finalAmount)?>
+             </div>
+           </div>
+
+           <?php else: ?>
+
+           <div class="row">
+             <div class="col order-label">
+               Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($totalAmount)?>
+             </div>
+           </div>
+
+         <?php endif; ?>
+
+
+
+         <div class="row">
+           <div class="col order-label">
+             Status:
+           </div>
+           <div class="col order-value">
+             <?=$item->status?>
            </div>
          </div>
        </div>
@@ -103,14 +174,50 @@
 
              <hr>
 
-             <div class="row">
-               <div class="col">
-                 Total
+             <?php if ($item->voucherId):
+               $voucher = voucher()->get("Id=$item->voucherId");
+               $finalAmount = $totalAmount-$voucher->discount;
+               ?>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Sub-Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($totalAmount)?>
+                 </div>
                </div>
-               <div class="col-4 text-end">
-                 <?=$totalAmount?>
+
+               <div class="row mt-3 mb-3">
+                 <div class="col-3 order-label">
+                   Voucher:
+                 </div>
+                 <div class="col order-value">
+                   <span class="cart-selected-voucher"><?=$voucher->name?></span>
+                 </div>
                </div>
-             </div>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($finalAmount)?>
+                 </div>
+               </div>
+
+               <?php else: ?>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($totalAmount)?>
+                 </div>
+               </div>
+
+             <?php endif; ?>
            </div>
            <div class="modal-footer">
 

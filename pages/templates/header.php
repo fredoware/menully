@@ -11,14 +11,14 @@ include_once("../config/Models.php");
 
 if (!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = array();
-	$_SESSION["myOrders"] = array();
-	$_SESSION["customer"] = "";
+	$_SESSION["voucherId"] = 0;
+	$_SESSION["voucherDiscount"] = 0;
 }
 
+$myStoreList = array();
 if (isset($_SESSION['login_id'])) {
 	  $userGoogleId = $_SESSION['login_id'];
 	  $user = user()->get("google_id='$userGoogleId'");
-		$myStoreList = array();
 		$storePeopleList = store_people()->list("userId=$user->Id");
 		foreach ($storePeopleList as $row) {
 			$myStore = store()->get("Id=$row->storeId");
@@ -66,6 +66,8 @@ else{
   <link href="../pages/templates/source/main.css" rel="stylesheet">
   <link href="../pages/templates/custom.css" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- =======================================================
   * Template Name: Yummy
   * Updated: Jan 30 2024 with Bootstrap v5.3.2
@@ -89,6 +91,7 @@ else{
       <nav id="navbar" class="navbar">
         <ul>
             <li><a href="../<?=$storeCode?>/">Home</a></li>
+            <li><a href="vouchers">Vouchers & Gifts 🎁</a></li>
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
             <li><a href="store-qr">Store QR Code</a></li>
@@ -101,6 +104,7 @@ else{
 							<hr>
 						<?php endif; ?>
 						<?php if (isset($_SESSION['login_id'])): ?>
+							<li><a href="">My Account</a></li>
 							<li><a href="../google-log-in/logout.php">Sign Out</a></li>
 						<?php else:
 					    $_SESSION['returnLink'] = $actual_link;
@@ -125,7 +129,7 @@ else{
       </div>
       <div class="modal-body">
 				<ul class="list-group">
-					<li class="list-group-item category-item" onclick="location.href='best-sellers'" style="color:red;">Best Sellers!</li>
+					<li class="list-group-item category-item" onclick="location.href='best-sellers'" style="color:red;">Best Sellers! 😋</li>
 					<?php foreach ($category_list as $row): ?>
 							<li class="list-group-item category-item" onclick="location.href='menu?Id=<?=$row->Id?>'"><?=$row->name?></li>
 					<?php endforeach; ?>

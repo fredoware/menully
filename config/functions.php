@@ -13,6 +13,29 @@ function format_money($value){
 	return "₱" . number_format($value, 2, '.', ',');
 }
 
+function days_hours_left($dateTime){
+	//Convert to date
+	// $dateTime="2011-09-23 19:10:18";//Your date
+	$date=strtotime($dateTime);//Converted to a PHP date (a second count)
+
+	//Calculate difference
+	$diff=$date-time();//time returns current time in seconds
+	$days=floor($diff/(60*60*24));//seconds/minute*minutes/hour*hours/day)
+	$hours=round(($diff-$days*60*60*24)/(60*60));
+
+	//Report
+	if ($days>0) {
+		$result = "Expiring $days days $hours hours left";
+	}
+	else if ($days==0){
+		$result = "Expiring $hours hours left";
+	}
+	else{
+		$result = "Expired";
+	}
+	return $result;
+}
+
 function char_limit($x, $length){
 	$result = $x;
   if(strlen($x)<=$length)

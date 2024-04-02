@@ -11,6 +11,14 @@ switch ($action) {
 			add_to_cart();
 			break;
 
+		case 'claim-voucher' :
+			claim_voucher();
+			break;
+
+		case 'use-voucher' :
+			use_voucher();
+			break;
+
 		case 'store-log-in' :
 			store_log_in();
 			break;
@@ -51,9 +59,63 @@ switch ($action) {
 			item_save();
 			break;
 
+		case 'voucher-save' :
+			voucher_save();
+			break;
+
+		case 'change-voucher-status' :
+			change_voucher_status();
+			break;
+
 	default :
 }
 
+function change_voucher_status(){
+	$Id = $_GET["Id"];
+	$model = voucher();
+	$model->obj["status"] = $_GET["status"];
+	$model->update("Id=$Id");
+
+	header('Location: store-vouchers.php?status='.$_GET['status']);
+}
+
+function claim_voucher(){
+
+	$model = user_voucher();
+	$model->obj["voucherId"] = $_GET["voucherId"];
+	$model->obj["userId"] = $_GET["userId"];
+	$model->obj["dateClaimed"] = "NOW()";
+	$model->create();
+
+	header('Location: ../'.$_GET['store'].'/vouchers');
+}
+
+
+function use_voucher(){
+
+	$voucherId = $_GET["voucherId"];
+	$voucher = voucher()->get("Id=$voucherId");
+
+	$cart = $_SESSION["cart"];
+
+  $totalAmount = 0;
+
+  foreach ($cart as $key => $qty){
+    $item = menuItem()->get("Id=$key");
+    $totalAmount += $item->price*$qty;
+  }
+
+	if ($totalAmount>$voucher->minimumSpend) {
+		$_SESSION["voucherId"] = $_GET["voucherId"];
+		$_SESSION["voucherDiscount"] = $voucher->discount;
+
+		header('Location: ../'.$_GET['store'].'/cart');
+	}
+	else{
+			header('Location: ../'.$_GET['store'].'/cart?error=Min spend must be ' . format_money($voucher->minimumSpend));
+	}
+
+}
 
 function item_save()
 {
@@ -88,7 +150,35 @@ function item_save()
 		}
 
 
-header('Location: kitchen-item.php?Id=' . $_POST["menuCategoryId"]);
+header('Location: store-menu-item.php?Id=' . $_POST["menuCategoryId"]);
+}
+
+
+
+function voucher_save()
+{
+
+		$model = voucher();
+  	$model->obj["storeId"] = $_POST["storeId"];
+  	$model->obj["type"] = $_POST["type"];
+  	$model->obj["discount"] = $_POST["discount"];
+  	$model->obj["name"] = $_POST["name"];
+  	$model->obj["minimumSpend"] = $_POST["minimumSpend"];
+  	$model->obj["maxQuantity"] = $_POST["maxQuantity"];
+  	$model->obj["currentQuantity"] = $_POST["maxQuantity"];
+  	$model->obj["validUntil"] = $_POST["validUntil"];
+
+		if ($_POST["form-type"] == "add") {
+			$model->create();
+		}
+
+		if ($_POST["form-type"] == "edit") {
+			$Id = $_POST["Id"];
+			$model->update("Id=$Id");
+		}
+
+
+header('Location: store-vouchers.php');
 }
 
 
@@ -122,7 +212,7 @@ function category_save()
 			$model->update("Id=$Id");
 		}
 
-header('Location: kitchen-item-category.php' );
+header('Location: store-menu-category.php' );
 }
 
 function store_sign_up(){
@@ -171,13 +261,13 @@ function store_sign_up(){
 // 			header('Location: sign-in.php?error=Account does not exist');
 // 		else:
 // 		  $_SESSION["store"] = $storeCode;
-// 			header('Location: kitchen-main.php');
+// 			header('Location: store-main.php');
 // 		endif;
 // }
 
 function store_log_in(){
   $_SESSION["store"] = $_GET["store"];
-	header('Location: kitchen-main.php');
+	header('Location: store-main.php');
 }
 
 function change_order_status(){
@@ -211,15 +301,16 @@ function place_order(){
 	$cart = $_SESSION["cart"];
 	$orderNumber = rand(100000,999999);
 	$store = $_POST["storeCode"];
-
-	$_SESSION["myOrders"][] = $orderNumber;
+	$voucherId = $_SESSION["voucherId"];
+	$customerId = $_POST["customerId"];
 
 	$model = orderMain();
-	$model->obj["customerId"] = $_POST["customerId"];
+	$model->obj["customerId"] = $customerId;
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
 	$model->obj["storeCode"] = $store;
+	$model->obj["voucherId"] = $voucherId;
 	$model->create();
 
 
@@ -238,7 +329,14 @@ function place_order(){
 
 	}
 
+	$model = user_voucher();
+	$model->obj["status"] = "Used";
+	$model->obj["dateUsed"] = "NOW()";
+	$model->update("voucherId=$voucherId and userId=$customerId");
+
+
 	$_SESSION["cart"] = array();
+	$_SESSION["voucherId"] = 0;
 
 	header('Location: ../'.$store.'/order');
 }

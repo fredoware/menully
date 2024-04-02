@@ -12,12 +12,19 @@
   <section>
     <div class="container" data-aos="fade-up">
 
-      <div class="menu-header text-center">
-        <h6><?=$category->name;?></h6>
+      <div class="menu-item-header">
+        <div class="row">
+          <div class="col-2 mih-left" onclick="location.href='store-menu-category.php'">
+            <i class="bi bi-arrow-left"></i>
+          </div>
+          <div class="col mih-center">
+            <h6><?=$category->name;?></h6>
+          </div>
+          <div class="col-2 mih-right" data-bs-toggle="modal" data-bs-target="#menuCategory">
+            <a type="button" href="javascript:void(0)" id="btn-add-category"><i class="bi bi-plus-circle-fill"></i></a>
+          </div>
+        </div>
       </div>
-
-      <a type="button" class="btn btn-secondary" href="kitchen-item-category.php">Back</a>
-      <a type="button" class="btn btn-warning" href="javascript:void(0)" id="btn-add-category">Add Item</a>
 
       <div class="modal fade" id="formItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">

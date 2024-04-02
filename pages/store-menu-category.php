@@ -10,12 +10,20 @@
   <section id="menu" class="menu">
     <div class="container" data-aos="fade-up">
 
-      <div class="section-header">
-        <h2>Menu Categories</h2>
+      <div class="menu-item-header">
+        <div class="row">
+          <div class="col-2 mih-left" onclick="location.href='store-main.php'">
+            <i class="bi bi-arrow-left"></i>
+          </div>
+          <div class="col mih-center">
+              <h6>Menu Categories</h6>
+          </div>
+          <div class="col-2 mih-right" data-bs-toggle="modal" data-bs-target="#menuCategory">
+            <a type="button" href="javascript:void(0)" id="btn-add-category"><i class="bi bi-plus-circle-fill"></i></a>
+          </div>
+        </div>
       </div>
 
-
-      <a type="button" class="btn btn-warning" href="javascript:void(0)" id="btn-add-category">Add Category</a>
 
       <div class="modal fade" id="formItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -57,7 +65,7 @@
               <p><i><?=$row->description?></i></p>
             </div>
             <div class="card-footer">
-              <a href="kitchen-item.php?Id=<?=$row->Id?>" class="btn btn-primary">View</a>
+              <a href="store-menu-item.php?Id=<?=$row->Id?>" class="btn btn-primary">View</a>
               <a href="#" class="btn btn-warning">Edit</a>
               <a href="#" class="btn btn-danger">Delete</a>
             </div>

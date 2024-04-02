@@ -9,10 +9,51 @@
   width: 100%;
 }
 .bottom-sheet-dialog .card{
-  background: #f5741d;
+  background: var(--text-color);
   color: white;
   margin: 10px;
 }
+
+.dialog-place-order{
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+  background: white;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2) !important;
+}
+.dialog-place-order .col-6{
+  padding: 10px;
+}
+.dialog-place-order .row{
+  margin: 20px;
+}
+
+.btn-place-order{
+  background: var(--text-color);
+  color: white;
+  padding: 15px;
+}
+
+.cart-selected-voucher{
+  border-style: dotted;
+  border-color: #09e083;
+  color: #09e083;
+  padding: 5px 10px 5px 10px;
+}
+
+
+/* =================================================== */
+
+.order-label{
+  font-weight: bold;
+}
+
+.order-value{
+  text-align: right !important;
+}
+
+/* ======================================================== */
 
 .clickable:hover{
   cursor: pointer;
@@ -78,6 +119,32 @@
 
 
 /* --------------------------- */
+
+.voucher-gift{
+  background-image: linear-gradient(to bottom right, orange, orange);
+  color:white;
+}
+
+.voucher-discount{
+    background-image: linear-gradient(to bottom right, #6494d3, #9ffadc);
+    color:white;
+}
+
+.voucher-title{
+  font-weight: bold;
+}
+
+.voucher-min-spend{
+
+}
+
+.voucher-expiring{
+  font-size: 12px;
+  color:red;
+}
+
+
+/* ===================================== */
 
 .card{
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2) !important;

@@ -55,4 +55,18 @@ function store_people() {
 	return $crud;
 }
 
+
+function voucher() {
+	$crud = new CRUD;
+	$crud->table = "voucher";
+	return $crud;
+}
+
+
+function user_voucher() {
+	$crud = new CRUD;
+	$crud->table = "user_voucher";
+	return $crud;
+}
+
 ?>

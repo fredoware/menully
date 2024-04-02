@@ -18,3 +18,24 @@
 </body>
 
 </html>
+
+
+
+<script type="text/javascript">
+<?php if ($success): ?>
+	Swal.fire({
+		title: "Success",
+		text: "<?=$success;?>",
+		icon: "success"
+		});
+<?php endif; ?>
+
+
+<?php if ($error): ?>
+	Swal.fire({
+		title: "Error",
+		text: "<?=$error;?>",
+		icon: "error"
+		});
+<?php endif; ?>
+</script>

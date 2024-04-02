@@ -13,7 +13,6 @@
   foreach ($cart as $key => $qty){
     $item = menuItem()->get("Id=$key");
     $totalAmount += $item->price*$qty;
-
   }
 
 ?>
@@ -45,7 +44,7 @@
               </div>
             <?php endif; ?>
               <div class="col">
-                <h4><?=$item->name;?></h4>
+                <b><?=$item->name;?></b>
                 <p class="ingredients">
                   <?=$item->description;?>
                 </p>
@@ -80,26 +79,42 @@
 
 </main>
 
-<?php if (isset($_SESSION['login_id'])): ?>
-  <div class="content-fluid bottom-sheet-dialog"  data-bs-toggle="modal" data-bs-target="#orderModal">
-  <?php else:
-    $_SESSION['returnLink'] = $actual_link;
-     ?>
-  <div class="content-fluid bottom-sheet-dialog" onclick="location.href='../google-log-in/login.php'">
-<?php endif; ?>
+<br><br><br><br>
 
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col" style="text-align:left;margin-left:20px">
-          Place Order
+
+  <div class="content-fluid dialog-place-order">
+    <div class="row">
+      <div class="col-6">
+        Voucher:
+      </div>
+      <div class="col-6" onclick="location.href='vouchers'">
+        <?php if ($_SESSION["voucherId"]):
+          $voucherId = $_SESSION["voucherId"];
+          $voucher = voucher()->get("Id=$voucherId");
+           ?>
+           <span class="cart-selected-voucher"><?=$voucher->name?></span>
+          <?php else: ?>
+            <span>Select Voucher <i class="bi bi-chevron-right"></i></span>
+        <?php endif; ?>
+      </div>
+      <div class="col-6">
+        <div class="mt-3">
+            Total: <span id="cartDisplayTotalAmount">0</span>
         </div>
-        <div class="col-3" id="cartDisplayTotalAmount">
-          0
+      </div>
+      <div class="col-6">
+        <?php if (isset($_SESSION['login_id'])): ?>
+          <div class="btn-place-order"  data-bs-toggle="modal" data-bs-target="#orderModal">
+          <?php else:
+            $_SESSION['returnLink'] = $actual_link;
+             ?>
+             <div class="btn-place-order"  onclick="location.href='../google-log-in/login.php'">
+        <?php endif; ?>
+          Place Order
         </div>
       </div>
     </div>
-  </div>
+
 </div>
 
 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

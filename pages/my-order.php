@@ -1,7 +1,7 @@
 <?php
   include "templates/header.php";
 
-  $my_orders = $_SESSION["myOrders"];
+  $myOrderList = orderMain()->list("customerId=$user->Id");
 
   function get_total_amount($orderNumber){
     $result = 0;
@@ -11,7 +11,7 @@
       $result += $item->price*$row->quantity;
     }
 
-    return format_money($result);
+    return $result;
   }
 
 ?>
@@ -29,30 +29,91 @@
 
 
 
-<?php foreach ($my_orders as $row):
-  $item = orderMain()->get("orderNumber='$row'");
+<?php foreach ($myOrderList as $item):
   $totalAmount = get_total_amount($item->orderNumber);
    ?>
 
    <div class="col-lg-4 menu-item mb-3">
-     <div class="card" data-bs-toggle="modal" data-bs-target="#orderModal<?=$row?>">
+     <div class="card" data-bs-toggle="modal" data-bs-target="#orderModal<?=$item->Id?>">
        <div class="card-body">
-         <div class="row text-center">
-           <div class="col">
-             Order # <p><?=$item->orderNumber?></p>
+         <div class="row">
+           <div class="col order-label">
+             Date Ordered:
            </div>
-           <div class="col">
-             Total: <p><?=$totalAmount?></p>
+           <div class="col order-value">
+             <?=$item->date?>
            </div>
-           <div class="col">
-             Status: <p><?=$item->status?></p>
+         </div>
+
+         <div class="row">
+           <div class="col order-label">
+             Order Number:
+           </div>
+           <div class="col order-value">
+             <?=$item->orderNumber?>
+           </div>
+         </div>
+
+         <?php if ($item->voucherId):
+           $voucher = voucher()->get("Id=$item->voucherId");
+           $finalAmount = $totalAmount-$voucher->discount;
+           ?>
+
+           <div class="row">
+             <div class="col order-label">
+               Sub-Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($totalAmount)?>
+             </div>
+           </div>
+
+           <div class="row mt-3 mb-3">
+             <div class="col order-label">
+               Voucher:
+             </div>
+             <div class="col order-value">
+               <span class="cart-selected-voucher"><?=$voucher->name?></span>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col order-label">
+               Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($finalAmount)?>
+             </div>
+           </div>
+
+           <?php else: ?>
+
+           <div class="row">
+             <div class="col order-label">
+               Total:
+             </div>
+             <div class="col order-value">
+               <?=format_money($totalAmount)?>
+             </div>
+           </div>
+
+         <?php endif; ?>
+
+
+
+         <div class="row">
+           <div class="col order-label">
+             Status:
+           </div>
+           <div class="col order-value">
+             <?=$item->status?>
            </div>
          </div>
        </div>
      </div>
    </div>
 
-   <div class="modal fade" id="orderModal<?=$row?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="orderModal<?=$item->Id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
@@ -78,15 +139,56 @@
 
               <?php endforeach; ?>
 
-             <hr>
-             <div class="row">
-               <div class="col">
-                 Total
+              <hr>
+
+              <b>Notes:</b> <?=$item->notes;?>
+
+              <hr>
+              
+             <?php if ($item->voucherId):
+               $voucher = voucher()->get("Id=$item->voucherId");
+               $finalAmount = $totalAmount-$voucher->discount;
+               ?>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Sub-Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($totalAmount)?>
+                 </div>
                </div>
-               <div class="col-4 text-end">
-                 <?=$totalAmount?>
+
+               <div class="row mt-3 mb-3">
+                 <div class="col-3 order-label">
+                   Voucher:
+                 </div>
+                 <div class="col order-value">
+                   <span class="cart-selected-voucher"><?=$voucher->name?></span>
+                 </div>
                </div>
-             </div>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($finalAmount)?>
+                 </div>
+               </div>
+
+               <?php else: ?>
+
+               <div class="row">
+                 <div class="col order-label">
+                   Total:
+                 </div>
+                 <div class="col order-value">
+                   <?=format_money($totalAmount)?>
+                 </div>
+               </div>
+
+             <?php endif; ?>
            </div>
        </div>
      </div>

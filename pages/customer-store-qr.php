@@ -1,5 +1,5 @@
 <?php
-  include "templates/header-store.php";
+  include "templates/header.php";
 
 ?>
 
@@ -27,7 +27,7 @@
 
   <script type="text/javascript">
   var qrcode = new QRCode(document.getElementById("qrcode-2"), {
-  	text: "https://menully.com/<?=$storeName;?>/",
+  	text: "https://menully.com/<?=$storeCode;?>/",
   	width: 300,
   	height: 300,
   	colorDark : "#000",

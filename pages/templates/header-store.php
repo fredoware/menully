@@ -63,25 +63,27 @@ else{
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="kitchen-main.php" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="store-main.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <img src="../media/<?=$store->logo?>">
         <h1><?=$store->name?></h1>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-            <li><a href="kitchen-main.php" style="color:red;">Notification</a></li>
+            <li><a href="store-main.php" style="color:red;">Notification</a></li>
 						<hr>
-            <li><a href="kitchen-orders.php?status=Pending">Pending Orders</a></li>
-            <li><a href="kitchen-orders.php?status=Confirmed">Confirmed Orders</a></li>
-            <li><a href="kitchen-orders.php?status=Delivered">Delivered Orders</a></li>
-            <li><a href="kitchen-orders.php?status=Canceled">Canceled Orders</a></li>
+            <li><a href="store-orders.php?status=Pending">Pending Orders</a></li>
+            <li><a href="store-orders.php?status=Confirmed">Confirmed Orders</a></li>
+            <li><a href="store-orders.php?status=Delivered">Delivered Orders</a></li>
+            <li><a href="store-orders.php?status=Canceled">Canceled Orders</a></li>
 						<hr>
-            <li><a href="kitchen-item-category.php">Menu Set up</a></li>
-            <li><a href="kitchen-best-sellers.php" style="color:green;">Best Sellers!</a></li>
-            <li><a href="kitchen-not-available.php" style="color:red;">Unavailable items</a></li>
-            <!-- <li><a href="kitchen-customer-menu.php">Customer Order</a></li> -->
-            <li><a href="kitchen-qr.php">Store QR Code</a></li>
+            <li><a href="store-menu-category.php">Menu Set up</a></li>
+            <li><a href="store-vouchers.php">Voucher Set up</a></li>
+            <li><a href="store-best-sellers.php" style="color:green;">Best Sellers!</a></li>
+            <li><a href="store-not-available.php" style="color:red;">Unavailable items</a></li>
+            <!-- <li><a href="store-customer-menu.php">Customer Order</a></li> -->
+            <li><a href="store-qr.php">Store QR Code</a></li>
+            <li><a href="../<?=$store->storeCode?>/">Customer's View</a></li>
         </ul>
       </nav><!-- .navbar -->
 
