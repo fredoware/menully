@@ -93,6 +93,7 @@ else{
       <nav id="navbar" class="navbar">
         <ul>
             <li><a href="../<?=$storeCode?>/">Home</a></li>
+            <li><a href="" data-bs-toggle="modal" data-bs-target="#menuCategory">Menu</a></li>
             <li><a href="vouchers">Vouchers & Gifts 🎁</a></li>
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
