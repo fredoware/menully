@@ -66,8 +66,8 @@
         <td class="item-data"
 
           data-id="<?=$row->Id;?>"
-          data-firstName="<?=$row->firstName;?>"
-          data-lastName="<?=$row->lastName;?>"
+          data-firstName="<?=$row->name;?>"
+          data-lastName="<?=$row->email;?>"
           data-username="<?=$row->username;?>"
           data-password="<?=$row->password;?>"
           data-role="<?=$row->role;?>">

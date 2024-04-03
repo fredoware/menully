@@ -68,8 +68,14 @@ else:
 <center>
 <img src="../pages/templates/source/img/menully-logo.png" alt="" style="width:150px;">
 </center>
-
+<br>
 <div class="row" style="margin:20px;">
+    <center>
+      <a href="<?php echo $client->createAuthUrl(); ?>" type="button" class="login-with-google-btn" >
+        Sign in with Google
+      </a>
+      <br><br> Or
+    </center>
   <form action="process.php?action=sign-in" method="post">
     <div class="col-12">
       <i style="color:red"><?=$error;?></i>
@@ -86,10 +92,6 @@ else:
   </form>
   <div class="col-12 text-center mt-2">
     Not a member yet? <a href="signup.php">Register here</a>
-    <p>Or</p>
-    <a href="<?php echo $client->createAuthUrl(); ?>" type="button" class="login-with-google-btn" >
-      Sign in with Google
-    </a>
   </div>
 </div>
 
