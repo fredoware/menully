@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require 'header.php';
 if(!isset($_SESSION['login_id'])){
     header('Location: login.php');
     exit;

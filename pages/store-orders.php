@@ -35,7 +35,7 @@
       </h2>
 
 
-                    <form  action="kitchen-orders.php" method="get"  class="input-group mt-3 mb-3">
+                    <form  action="store-orders.php" method="get"  class="input-group mt-3 mb-3">
 
                         <input type="hidden" name="status" value="<?=$status?>">
                         <input type="date" class="form-control" value="<?=$date?>" name="date"  onchange="this.form.submit()"  required/>
