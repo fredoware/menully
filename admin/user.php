@@ -48,8 +48,8 @@
 
   <table class="table">
     <th>#</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
+    <th>Name</th>
+    <th>Email</th>
     <th>Username</th>
     <th>Role</th>
     <th>Actions</th>
@@ -74,8 +74,8 @@
 
 
           <?=$count?></td>
-          <td><?=$row->firstName?></td>
-          <td><?=$row->lastName?></td>
+          <td><?=$row->name?></td>
+          <td><?=$row->email?></td>
           <td><?=$row->username?></td>
           <td><?=$row->role?></td>
 

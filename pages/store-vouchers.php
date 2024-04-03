@@ -30,7 +30,7 @@
 
       <div class="menu-item-header">
         <div class="row">
-          <div class="col-2 mih-left" onclick="location.href='kitchen-item-category.php'">
+          <div class="col-2 mih-left" onclick="location.href='store-menu-category.php'">
             <i class="bi bi-arrow-left"></i>
           </div>
           <div class="col mih-center">
