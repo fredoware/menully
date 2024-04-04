@@ -92,7 +92,9 @@
           $voucherId = $_SESSION["voucherId"];
           $voucher = voucher()->get("Id=$voucherId");
            ?>
-           <span class="cart-selected-voucher"><?=$voucher->name?></span>
+           <div class="cart-selected-voucher">
+             <span><?=$voucher->name?></span>
+           </div>
           <?php else: ?>
             <span>Select Voucher <i class="bi bi-chevron-right"></i></span>
         <?php endif; ?>

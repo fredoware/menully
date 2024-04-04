@@ -73,7 +73,9 @@
                Voucher:
              </div>
              <div class="col order-value">
-               <span class="cart-selected-voucher"><?=$voucher->name?></span>
+               <div class="cart-selected-voucher">
+                 <span><?=$voucher->name?></span>
+               </div>
              </div>
            </div>
 
@@ -144,7 +146,7 @@
               <b>Notes:</b> <?=$item->notes;?>
 
               <hr>
-              
+
              <?php if ($item->voucherId):
                $voucher = voucher()->get("Id=$item->voucherId");
                $finalAmount = $totalAmount-$voucher->discount;
