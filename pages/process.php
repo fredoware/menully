@@ -185,7 +185,7 @@ header('Location: store-vouchers.php');
 
 function category_save()
 {
-		$storeId = $_SESSION["storeId"];
+		$storeId = $_POST["storeId"];
 		$store = store()->get("Id=$storeId");
 
 		$model = menuCategory();
