@@ -1,7 +1,7 @@
 <?php
   include "templates/header-store.php";
 
-  $category_list = menuCategory()->list("storeId=$store->Id");
+  $category_list = menuCategory()->list("storeId=$store->Id order by priority");
 
 ?>
 

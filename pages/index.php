@@ -1,8 +1,6 @@
 <?php
   include "../pages/templates/header.php";
 
-  $category_list = menuCategory()->list("storeId=$store->Id");
-
   $cart = $_SESSION["cart"];
 
   $totalAmount = 0;

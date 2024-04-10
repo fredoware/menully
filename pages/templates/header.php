@@ -31,7 +31,7 @@ if (isset($_SESSION['login_id'])) {
 if (isset($_GET["store"])) {
   $storeCode = $_GET["store"];
   $store = store()->get("storeCode='$storeCode'");
-  $category_list = menuCategory()->list("storeId=$store->Id");
+  $category_list = menuCategory()->list("storeId=$store->Id order by priority");
 }
 else{
   header("Location: qr-expired.php");
@@ -95,6 +95,7 @@ else{
             <li><a href="../<?=$storeCode?>/">Home</a></li>
             <li><a href="" data-bs-toggle="modal" data-bs-target="#menuCategory">Menu</a></li>
             <li><a href="vouchers">Vouchers & Gifts 🎁</a></li>
+            <li><a href="spin-wheel">Spin Wheel 🎮</a></li>
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
             <li><a href="store-qr">Store QR Code</a></li>
