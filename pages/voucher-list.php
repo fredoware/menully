@@ -5,7 +5,7 @@
 
   $myVoucherList = array();
   if (isset($_SESSION['login_id'])) {
-    $userVoucherList = user_voucher()->list("userId=$user->Id and status='Pending'");
+    $userVoucherList = userVoucher()->list("userId=$user->Id and status='Pending'");
     foreach ($userVoucherList as $row) {
       $voucher = voucher()->get("Id=$row->voucherId");
       array_push($myVoucherList, $voucher);
@@ -14,7 +14,7 @@
     $voucherList = array();
     $allVoucherList = voucher()->list("status='Active' and storeId=$store->Id");
     foreach ($allVoucherList as $row) {
-      $voucherExist = user_voucher()->count("userId=$user->Id and voucherId=$row->Id");
+      $voucherExist = userVoucher()->count("userId=$user->Id and voucherId=$row->Id");
       if (!$voucherExist) {
           array_push($voucherList, $row);
       }

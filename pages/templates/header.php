@@ -21,7 +21,7 @@ $myStoreList = array();
 if (isset($_SESSION['login_id'])) {
 	  $userGoogleId = $_SESSION['login_id'];
 	  $user = user()->get("google_id='$userGoogleId'");
-		$storePeopleList = store_people()->list("userId=$user->Id");
+		$storePeopleList = storePeople()->list("userId=$user->Id");
 		foreach ($storePeopleList as $row) {
 			$myStore = store()->get("Id=$row->storeId");
 			array_push($myStoreList, $myStore);
@@ -70,13 +70,6 @@ else{
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- =======================================================
-  * Template Name: Yummy
-  * Updated: Jan 30 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -95,7 +88,7 @@ else{
             <li><a href="../<?=$storeCode?>/">Home</a></li>
             <li><a href="" data-bs-toggle="modal" data-bs-target="#menuCategory">Menu</a></li>
             <li><a href="vouchers">Vouchers & Gifts 🎁</a></li>
-            <li><a href="spin-wheel">Spin Wheel 🎮</a></li>
+            <!-- <li><a href="spin-wheel">Spin Wheel 🎮</a></li> -->
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
             <li><a href="store-qr">Store QR Code</a></li>

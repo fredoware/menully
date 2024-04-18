@@ -49,7 +49,7 @@ function user() {
 }
 
 
-function store_people() {
+function storePeople() {
 	$crud = new CRUD;
 	$crud->table = "store_people";
 	return $crud;
@@ -63,7 +63,7 @@ function voucher() {
 }
 
 
-function user_voucher() {
+function userVoucher() {
 	$crud = new CRUD;
 	$crud->table = "user_voucher";
 	return $crud;

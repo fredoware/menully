@@ -16,6 +16,12 @@ if (isset($_SESSION["store"])) {
 else{
   header("Location: qr-expired.php");
 }
+
+if (isset($_SESSION['login_id'])) {
+	  $userGoogleId = $_SESSION['login_id'];
+	  $user = user()->get("google_id='$userGoogleId'");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,6 +88,8 @@ else{
             <li><a href="store-best-sellers.php" style="color:green;">Best Sellers!</a></li>
             <li><a href="store-not-available.php" style="color:red;">Unavailable items</a></li>
             <!-- <li><a href="store-customer-menu.php">Customer Order</a></li> -->
+						<hr>
+            <li><a href="store-people.php">People</a></li>
             <li><a href="store-qr.php">Store QR Code</a></li>
             <li><a href="../<?=$store->storeCode?>/">Customer's View</a></li>
         </ul>

@@ -7,6 +7,14 @@ $action = $_GET['action'];
 
 switch ($action) {
 
+		case 'delete-people' :
+			delete_people();
+			break;
+
+		case 'people-add' :
+			people_add();
+			break;
+
 		case 'add-to-cart' :
 			add_to_cart();
 			break;
@@ -68,6 +76,28 @@ switch ($action) {
 			break;
 
 	default :
+}
+
+function delete_people(){
+	$Id = $_GET["Id"];
+	storePeople()->delete("Id=$Id");
+
+	header('Location: store-people.php?success=Deleted a role');
+}
+
+function people_add(){
+	$storeId = $_POST["storeId"];
+	$username = $_POST["username"];
+	$role = $_POST["role"];
+	$user = user()->get("username='$username'");
+
+	$model = storePeople();
+	$model->obj["storeId"] = $storeId;
+	$model->obj["userId"] = $user->Id;
+	$model->obj["role"] = $role;
+	$model->create();
+
+	header('Location: store-people.php?success=created a role');
 }
 
 function change_voucher_status(){
