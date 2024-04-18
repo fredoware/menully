@@ -45,7 +45,7 @@ if(isset($_GET['code'])):
         }
         else{
             // if user not exists we will insert the user
-            $insert = mysqli_query($db_connection, "INSERT INTO `user`(`google_id`,`name`,`email`,`profile_image`) VALUES('$id','$full_name','$email','$profile_pic')");
+            $insert = mysqli_query($db_connection, "INSERT INTO `user`(`google_id`,`name`,`email`,`username`,`profile_image`) VALUES('$id','$full_name','$email','$email','$profile_pic')");
             if($insert){
                 $_SESSION['login_id'] = $id;
                 header('Location: home.php');
