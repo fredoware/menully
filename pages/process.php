@@ -111,7 +111,7 @@ function change_voucher_status(){
 
 function claim_voucher(){
 
-	$model = user_voucher();
+	$model = userVoucher();
 	$model->obj["voucherId"] = $_GET["voucherId"];
 	$model->obj["userId"] = $_GET["userId"];
 	$model->obj["dateClaimed"] = "NOW()";
@@ -359,7 +359,7 @@ function place_order(){
 
 	}
 
-	$model = user_voucher();
+	$model = userVoucher();
 	$model->obj["status"] = "Used";
 	$model->obj["dateUsed"] = "NOW()";
 	$model->update("voucherId=$voucherId and userId=$customerId");

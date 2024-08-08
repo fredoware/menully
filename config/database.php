@@ -1,17 +1,17 @@
 <?php
 class Database
 {
-    // private static $dbName = 'fredoware.db' ;
-    // private static $dbHost = 'localhost' ;
-    // private static $dbUsername = 'root';
-    // private static $dbUserPassword = '';
-    // private static $port = '';
-
-    private static $dbName = 'u437487943_fredowaredb' ;
+    private static $dbName = 'fredoware.db' ;
     private static $dbHost = 'localhost' ;
-    private static $dbUsername = 'u437487943_fredowaresql';
-    private static $dbUserPassword = 'feZxmasqw1212!@!@';
+    private static $dbUsername = 'root';
+    private static $dbUserPassword = '';
     private static $port = '';
+
+    // private static $dbName = 'u437487943_fredowaredb' ;
+    // private static $dbHost = 'localhost' ;
+    // private static $dbUsername = 'u437487943_fredowaresql';
+    // private static $dbUserPassword = 'feZxmasqw1212!@!@';
+    // private static $port = '';
 
     private static $cont  = null;
 

@@ -2,19 +2,6 @@
   include "templates/header-store.php";
 
   $category_list = menuCategory()->list("storeId=$store->Id");
-
-  // $cart = $_SESSION["cart"];
-  //
-  // $totalAmount = 0;
-  // $totalQuantity = 0;
-  //
-  // foreach ($cart as $key => $qty){
-  //   $item = menuItem()->get("Id=$key");
-  //   $totalAmount += $item->price*$qty;
-  //   $totalQuantity += $qty;
-  //
-  // }
-
 ?>
 
 <main id="main">
@@ -29,7 +16,7 @@
       <button type="button" id="activateButton" class="btn btn-primary text-center" onclick="activateNotif()">Click to Activate Receiver</button>
       <h1 class="text-center" id="receiver" style="display:none">Stay here to receive notification</h1>
 
-      <div class="alert alert-danger" role="alert" id="alertBar" style="display:none;" onclick="location.href='kitchen-orders.php?status=Pending'">
+      <div class="alert alert-danger" role="alert" id="alertBar" style="display:none;" onclick="location.href='store-orders.php?status=Pending'">
           <span id="totalPending">0</span> new pending orders!
        </div>
 
