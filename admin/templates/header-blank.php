@@ -26,7 +26,7 @@ include_once("../config/Models.php");
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dirty Dog Organic Farm</title>
+  <title>Admin Dashboard -Menully</title>
   <link rel="shortcut icon" type="image/png" href="templates/favicon.png" />
   <link rel="stylesheet" href="templates/assets/css/styles.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

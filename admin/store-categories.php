@@ -72,7 +72,7 @@ $category_list = menuCategory()->list("storeId=$Id order by priority");
         <div class="col-lg-4 mt-2">
           <div class="card clickable">
             <div class="card-body text-center">
-            <img src="../media/<?=$row->image?>" class="crop-box">
+            <img src="../media/<?=$row->image?>" onerror="this.src='templates/no-image.JPG';" class="crop-box">
               <h5><?=$row->name?></h5>
               <p><i><?=$row->description?></i></p>
             </div>
