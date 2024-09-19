@@ -48,6 +48,12 @@ function user() {
 	return $crud;
 }
 
+function account() {
+	$crud = new CRUD;
+	$crud->table = "user";
+	return $crud;
+}
+
 
 function storePeople() {
 	$crud = new CRUD;

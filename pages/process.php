@@ -259,7 +259,6 @@ function store_sign_up(){
 		// Create directory
 	$newDri = "../media/" . $_POST["storeCode"];
 	mkdir($newDri);
-	$model->obj["password"] = $_POST["password"];
 	if ($_FILES['logo']['name'] != "") {
 		$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
 		$model->obj["logo"] = $image_file_name;
@@ -268,7 +267,7 @@ function store_sign_up(){
 
 	$store = store()->get("storeCode='$storeCode'");
 
-	$model = store_people();
+	$model = storePeople();
 	$model->obj["userId"] = $ownerId;
 	$model->obj["storeId"] = $store->Id;
 	$model->obj["role"] = "Admin";

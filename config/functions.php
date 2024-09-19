@@ -12,6 +12,13 @@ function get_session($keyword, $default){
 function format_money($value){
 	return "₱" . number_format($value, 2, '.', ',');
 }
+function format_date($originalDate){
+ 	return date("M d,Y", strtotime($originalDate));
+}
+
+function format_time($time){
+ 	return date('h:i a', strtotime($time));
+}
 
 function days_hours_left($dateTime){
 	//Convert to date
@@ -80,26 +87,26 @@ function uploadFile($uploadedImage, $dir){
 	$tempName = $uploadedImage['tmp_name'];
 	$target_path = "../media/" . $dir . "/";
 
-	// Start Resizing
-	list($width, $height, $type, $attr) = getimagesize( $tempName );
-	if ( $width > $maxDim || $height > $maxDim ) {
-			$target_filename = $tempName;
-			$ratio = $width/$height;
-			if( $ratio < 1) {
-					$new_width = $maxDim;
-					$new_height = $maxDim/$ratio;
-			} else {
-					$new_width = $maxDim*$ratio;
-					$new_height = $maxDim;
-			}
-			$src = imagecreatefromstring( file_get_contents( $tempName ) );
-			$dst = imagecreatetruecolor( $new_width, $new_height );
-			imagecopyresampled( $dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
-			imagedestroy( $src );
-			imagepng( $dst, $target_filename ); // adjust format as needed
-			imagedestroy( $dst );
-	// End Resizing
-	}
+	// // Start Resizing
+	// list($width, $height, $type, $attr) = getimagesize( $tempName );
+	// if ( $width > $maxDim || $height > $maxDim ) {
+	// 		$target_filename = $tempName;
+	// 		$ratio = $width/$height;
+	// 		if( $ratio < 1) {
+	// 				$new_width = $maxDim;
+	// 				$new_height = $maxDim/$ratio;
+	// 		} else {
+	// 				$new_width = $maxDim*$ratio;
+	// 				$new_height = $maxDim;
+	// 		}
+	// 		$src = imagecreatefromstring( file_get_contents( $tempName ) );
+	// 		$dst = imagecreatetruecolor( $new_width, $new_height );
+	// 		imagecopyresampled( $dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+	// 		imagedestroy( $src );
+	// 		imagepng( $dst, $target_filename ); // adjust format as needed
+	// 		imagedestroy( $dst );
+	// // End Resizing
+	// }
 
 	$newfilename = round(microtime(true)) . ".png";
 	if(move_uploaded_file($tempName, $target_path . $newfilename)) {

@@ -1,39 +1,25 @@
 <?php
-  $ROOT_DIR="../";
-  include "templates/header.php";
-  $store_count = store()->count();
-  ?>
-  <div class="row">
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header text-center text-white bg-dark">
-          NUMBER OF STORES
-        </div>
-        <div class="card-body text-center">
-        <h1>  <?=$store_count?><h1>
-        </div>
-        <div class="card-footer text-center">
-          <a href="store.php" class="btn btn-info">Show Store</a>
-        </div>
-      </div>
-    </div>
+include "templates/header.php";
 
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header text-center text-white bg-dark">
-          SERVICE PLANS
-        </div>
-      </div>
-    </div>
 
-    <div class="col-4">
-      <div class="card">
-        <div class="card-header text-center text-white bg-dark">
-          PACKAGES
-        </div>
-      </div>
+?>
+
+
+
+<div class="card bg-light-info shadow-none position-relative overflow-hidden">
+<div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+    <div class="col-9">
+        <h4 class="fw-semibold mb-8">Under Construction</h4>
     </div>
-  </div>
+    <div class="col-3">
+        <div class="text-center mb-n5">
+        <img src="../../dist/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+        </div>
+    </div>
+    </div>
+</div>
+</div>
 
 
 <?php include "templates/footer.php"; ?>
