@@ -82,7 +82,7 @@
           </p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <!-- <a href="google-log-in/login.php" class="btn-book-a-table">Create QR Menu</a> -->
-            <a href="" onclick="alert('Contact Administrator')" class="btn-book-a-table">Create QR Menu</a>
+            <a href="#about" class="btn-book-a-table">Get Started</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
