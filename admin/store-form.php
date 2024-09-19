@@ -9,40 +9,61 @@
 }
 </style>
 
+<div class="card bg-light-info shadow-none position-relative overflow-hidden">
+<div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+    <div class="col-9">
+        <h4 class="fw-semibold mb-8">New Store Form</h4>
+    </div>
+    <div class="col-3">
+        <div class="text-center mb-n5">
+        <img src="../../dist/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+
 <div class="row" style="justify-content: center; margin:10px;">
-    <div class="col-lg-4" style="margin-top:50px;padding:10px;">
+    <div class="col-lg-12">
         <div class="card">
-            <div class="card-header text-center">
-                <h4>Create a Store</h4>
-            </div>
             <div class="card-body">
                 <form class="" action="process.php?action=store-save" enctype="multipart/form-data" method="post">
-                    Store Name:
-                    <input type="text" name="name" ng-model="storeName" autocomplete="off"
-                        ng-change="generateStoreCode()" class="form-control" required>
-                    Store Code: <br>
-                    <i ng-bind="storeCodeValidation" ng-style="{'color':storeCodeValidationColor}"></i>
-                    <input type="text" name="storeCode" id="store-code" ng-model="storeCode"
-                        ng-change="checkAvailability()" class="form-control" required>
-                    Owner's Registered Email: <br>
-                    <i ng-bind="ownerValidation" ng-style="{'color':ownerValidationColor}"></i>
-                    <input type="text" name="owner" autocomplete="off" class="form-control" ng-model="owner" id="owner" ng-change="checkOwnerExist()" required>
-                    Phone Number:
-                    <input type="text" name="phone" class="form-control" required>
-                    Contact Email:
-                    <input type="text" name="email" class="form-control" required>
-                    Status:
-                    <select name="status" class="form-select" required>
-                    <option>Draft</option>
-                    <option>Published</option>
-                    </select>
-                    Address:
-                    <input type="text" name="address" class="form-control" required>
-                    <label for="fileInput">
-                        <img id="logo" src="templates/assets/images/default-store-logo.jpg" style="width:100%;">
-                    </label>
-                    <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)" required
-                        style="display:none">
+                    <div class="row">
+                        <div class="col-8">
+                            
+                            Store Name:
+                            <input type="text" name="name" ng-model="storeName" autocomplete="off"
+                                ng-change="generateStoreCode()" class="form-control" required>
+                            Store Code: <br>
+                            <i ng-bind="storeCodeValidation" ng-style="{'color':storeCodeValidationColor}"></i>
+                            <input type="text" name="storeCode" id="store-code" ng-model="storeCode"
+                                ng-change="checkAvailability()" class="form-control" required>
+                            Owner's Registered Email: <br>
+                            <i ng-bind="ownerValidation" ng-style="{'color':ownerValidationColor}"></i>
+                            <input type="text" name="owner" autocomplete="off" class="form-control" ng-model="owner" id="owner" ng-change="checkOwnerExist()" required>
+                            Phone Number:
+                            <input type="text" name="phone" class="form-control" required>
+                            Contact Email:
+                            <input type="text" name="email" class="form-control" required>
+                            Status:
+                            <select name="status" class="form-select" required>
+                            <option>Draft</option>
+                            <option>Published</option>
+                            </select>
+                            Address:
+                            <input type="text" name="address" class="form-control" required>
+                        </div>
+                        
+                    <div class="col-4">
+                        <label for="fileInput">
+                            <img id="logo" src="templates/assets/images/default-store-logo.jpg" style="width:100%;">
+                        </label>
+                        <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)" required
+                            style="display:none">
+                    </div>
+                    </div>
                     <button type="submit" name="form-type" value="add" class="btn btn-primary mt-5">Create</button>
                 </form>
             </div>

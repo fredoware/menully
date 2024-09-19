@@ -84,6 +84,10 @@ function account_save(){
 function store_save(){
 	#Process to save to the database
 
+	$storeCode = $_POST["storeCode"];
+	$owner = $_POST["owner"];
+	$account = account()->get("username='$owner'");
+
 	$model = store();
 	$model->obj["storeCode"] = $_POST["storeCode"];
 	$model->obj["name"] = $_POST["name"];
@@ -102,8 +106,14 @@ function store_save(){
 		}
 		$model->create();
 
-		$getLast = store()->get("Id>0 order by Id desc limit 1");
-		$Id = $getLast->Id;
+		$store = store()->get("storeCode='$storeCode'");
+		$Id = $store->Id;
+
+		$model = storePeople();
+		$model->obj["userId"] = $account->Id;
+		$model->obj["storeId"] = $store->Id;
+		$model->obj["role"] = "Admin";
+		$model->create();
 	}
 
 	if ($_POST["form-type"] == "edit") {
