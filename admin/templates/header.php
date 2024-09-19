@@ -121,21 +121,21 @@ else{
                             <span class="hide-menu">STORES</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="stores.php?status=Active" aria-expanded="false">
+                            <a class="sidebar-link" href="stores.php?status=Published" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu">Active Stores</span>
+                                <span class="hide-menu">Published Stores</span>
                             </a>
                         </li>
 
                         
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="stores.php?status=Inactive" aria-expanded="false">
+                            <a class="sidebar-link" href="stores.php?status=Draft" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu">Inactive Stores</span>
+                                <span class="hide-menu">Draft Stores</span>
                             </a>
                         </li>
 
