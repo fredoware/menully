@@ -60,7 +60,7 @@
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#benefits">Benefits</a></li>
-          <li><a href="#prices">Prices</a></li>
+          <!-- <li><a href="#prices">Prices</a></li> -->
           <li><a href="#services">Services</a></li>
         </ul>
       </nav><!-- .navbar -->
@@ -81,7 +81,8 @@
             Say goodbye to outdated and PDF menus. Upgrade to the world's first QR digital menu. Generate unlimited QR codes. Exhibit the specific price associated with different seating options. Showcase your best-selling product and special offers/combos at the top of the menu.
           </p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="google-log-in/login.php" class="btn-book-a-table">Create QR Menu</a>
+            <!-- <a href="google-log-in/login.php" class="btn-book-a-table">Create QR Menu</a> -->
+            <a href="" onclick="alert('Contact Administrator')" class="btn-book-a-table">Create QR Menu</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
@@ -182,7 +183,7 @@
     </section><!-- End Why Us Section -->
 
 
-    <section id="prices" class="why-us section-bg">
+    <!-- <section id="prices" class="why-us section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
@@ -229,7 +230,7 @@
         </div>
 
 
-      </div>
+      </div> -->
     </section><!-- End Why Us Section -->
 
 
