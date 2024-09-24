@@ -132,7 +132,7 @@ app.controller('myCtrl', function($scope, $http) {
                 document.getElementById("owner").setCustomValidity("");
 
             } else {
-                $scope.ownerValidation = "Account exists";
+                $scope.ownerValidation = "Account not exists";
                 $scope.ownerValidationColor = "red";
                 document.getElementById("owner").setCustomValidity("Account exists");
             }

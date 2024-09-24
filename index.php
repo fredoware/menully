@@ -183,7 +183,7 @@
     </section><!-- End Why Us Section -->
 
 
-    <!-- <section id="prices" class="why-us section-bg">
+    <section id="prices" class="why-us section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
@@ -193,7 +193,7 @@
         <div class="row gy-4">
 
 
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
+              <!-- <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <h4>If Paid Monthly </h4>
                   <h1>₱300</h1>
@@ -215,7 +215,7 @@
                   <h1>200</h1>
                   <p>Charged every 12 months. <br> Total amount is ₱2,400</p>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
@@ -230,7 +230,7 @@
         </div>
 
 
-      </div> -->
+      </div>
     </section><!-- End Why Us Section -->
 
 

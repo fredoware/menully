@@ -57,7 +57,7 @@ else{
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" crossorigin="anonymous"></script>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 </head>
@@ -113,6 +113,15 @@ else{
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="accounts.php?role=Seller" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Sellers</span>
+                            </a>
+                        </li>
+
 
 
 
@@ -129,7 +138,7 @@ else{
                             </a>
                         </li>
 
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="stores.php?status=Draft" aria-expanded="false">
                                 <span>

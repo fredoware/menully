@@ -77,12 +77,14 @@ if (isset($_SESSION['login_id'])) {
       <nav id="navbar" class="navbar">
         <ul>
             <li><a href="store-main.php" style="color:red;">Notification</a></li>
-						<hr>
-            <li><a href="store-orders.php?status=Pending">Pending Orders</a></li>
-            <li><a href="store-orders.php?status=Confirmed">Confirmed Orders</a></li>
-            <li><a href="store-orders.php?status=Delivered">Delivered Orders</a></li>
-            <li><a href="store-orders.php?status=Canceled">Canceled Orders</a></li>
-						<hr>
+            <li class="dropdown"><a href="#"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+            <li><a href="store-orders.php?status=Pending">Pending</a></li>
+            <li><a href="store-orders.php?status=Confirmed">Confirmed</a></li>
+            <li><a href="store-orders.php?status=Delivered">Delivered</a></li>
+            <li><a href="store-orders.php?status=Canceled">Canceled</a></li>
+            </ul>
+          </li>
             <li><a href="store-menu-category.php">Menu Set up</a></li>
             <li><a href="store-vouchers.php">Voucher Set up</a></li>
             <li><a href="store-best-sellers.php" style="color:green;">Best Sellers!</a></li>

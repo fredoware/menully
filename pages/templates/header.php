@@ -91,14 +91,16 @@ else{
             <!-- <li><a href="spin-wheel">Spin Wheel 🎮</a></li> -->
             <li><a href="cart">My Cart</a></li>
             <li><a href="order">My Order</a></li>
-            <li><a href="store-qr">Store QR Code</a></li>
+            <li><a href="qr">Store QR Code</a></li>
+            
 						<?php if ($myStoreList): ?>
-							<hr>
-	            <li class="my-store-label">My Stores</li>
-							<?php foreach ($myStoreList as $row): ?>
-		            <li class="my-store-item"><a href="../pages/process.php?action=store-log-in&store=<?=$row->storeCode?>"><?=$row->name?></a></li>
+              <li class="dropdown"><a href="#"><span>My Stores</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <?php foreach ($myStoreList as $row): ?>
+		            <li><a href="../pages/process.php?action=store-log-in&store=<?=$row->storeCode?>"><?=$row->name?></a></li>
 							<?php endforeach; ?>
-							<hr>
+            </ul>
+          </li>
 						<?php endif; ?>
 						<?php if (isset($_SESSION['login_id'])): ?>
 							<li><a href="">My Account</a></li>

@@ -1,5 +1,5 @@
 <?php
-  include "templates/header-store.php";
+  include "templates/header.php";
   
 ?>
 

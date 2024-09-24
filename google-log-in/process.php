@@ -39,8 +39,14 @@ function sign_in(){
 
 	$checkExist = user()->count("username='$username' and password='$password'");
 	if ($checkExist) {
+		$user = user()->count("username='$username' and password='$password'");
 		$_SESSION['login_id'] = $username;
-		header('Location: ' . $_SESSION['returnLink']);
+		if ($user->status=="Active") {
+			header('Location: ' . $_SESSION['returnLink']);
+		}
+		else{
+			header('Location: change-password.php');
+		}
 	}
 	else{
 		header('Location: login.php?error=User Not Exists');

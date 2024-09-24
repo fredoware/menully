@@ -14,7 +14,8 @@ if (ini_get("session.use_cookies")) {
     );
 }
 // Finally, destroy the session.
-session_destroy();
+// session_destroy();
+unset($_SESSION['login_id']);
 header("Location: ../");
 exit;
 ?>
