@@ -17,9 +17,9 @@ else{
   header("Location: qr-expired.php");
 }
 
-if (isset($_SESSION['login_id'])) {
-	  $userGoogleId = $_SESSION['login_id'];
-	  $user = user()->get("google_id='$userGoogleId'");
+if (isset($_SESSION['user_session'])) {
+	  $username = $_SESSION['user_session']['username'];
+	  $user = user()->get("username='$username'");
 }
 
 ?>
@@ -78,17 +78,21 @@ if (isset($_SESSION['login_id'])) {
         <ul>
             <li><a href="store-main.php" style="color:red;">Notification</a></li>
             <li class="dropdown"><a href="#"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-            <li><a href="store-orders.php?status=Pending">Pending</a></li>
-            <li><a href="store-orders.php?status=Confirmed">Confirmed</a></li>
-            <li><a href="store-orders.php?status=Delivered">Delivered</a></li>
-            <li><a href="store-orders.php?status=Canceled">Canceled</a></li>
+              <ul>
+              <li><a href="store-orders.php?status=Pending">Pending</a></li>
+              <li><a href="store-orders.php?status=Confirmed">Confirmed</a></li>
+              <li><a href="store-orders.php?status=Delivered">Delivered</a></li>
+              <li><a href="store-orders.php?status=Canceled">Canceled</a></li>
             </ul>
           </li>
+          <li class="dropdown"><a href="#"><span>Store Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul>
             <li><a href="store-menu-category.php">Menu Set up</a></li>
             <li><a href="store-vouchers.php">Voucher Set up</a></li>
             <li><a href="store-best-sellers.php" style="color:green;">Best Sellers!</a></li>
             <li><a href="store-not-available.php" style="color:red;">Unavailable items</a></li>
+            </ul>
+          </li>
             <!-- <li><a href="store-customer-menu.php">Customer Order</a></li> -->
 						<hr>
             <li><a href="store-people.php">People</a></li>

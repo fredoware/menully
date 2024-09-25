@@ -18,7 +18,7 @@
 
 ?>
   <section>
-    <div class="container" data-aos="fade-up">
+    <div class="container">
 
       <div class="menu-item-header">
         <div class="row">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="row gy-5">
+      <div class="row gy-5"  data-aos="fade-up">
 
                <?php foreach ($available_items as $item):
 

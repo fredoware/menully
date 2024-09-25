@@ -8,7 +8,7 @@
 <main id="main">
 
   <section id="menu" class="menu">
-    <div class="container" data-aos="fade-up">
+    <div class="container">
 
       <div class="menu-item-header">
         <div class="row">

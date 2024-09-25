@@ -243,6 +243,7 @@ function category_save()
 		}
 
 header('Location: store-menu-category.php' );
+// print_r($_POST);
 }
 
 function store_sign_up(){

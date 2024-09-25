@@ -26,7 +26,7 @@
 <main id="main">
 
   <section id="menu" class="menu">
-    <div class="container" data-aos="fade-up">
+    <div class="container">
 
 
       <div class="section-header">
@@ -35,12 +35,15 @@
       </h2>
 
 
-                    <form  action="store-orders.php" method="get"  class="input-group mt-3 mb-3">
-
-                        <input type="hidden" name="status" value="<?=$status?>">
-                        <input type="date" class="form-control" value="<?=$date?>" name="date"  onchange="this.form.submit()"  required/>
-
-                    </form>
+      
+      <div class="row">
+        <div class="col-lg-4">
+          <form  action="store-orders.php" method="get"  class="input-group mt-3 mb-3">
+              <input type="hidden" name="status" value="<?=$status?>">
+              <input type="date" class="form-control" value="<?=$date?>" name="date"  onchange="this.form.submit()"  required/>
+          </form>
+        </div>
+      </div>
 
       </div>
 

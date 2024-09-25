@@ -18,9 +18,9 @@ if (!isset($_SESSION["cart"])) {
 }
 
 $myStoreList = array();
-if (isset($_SESSION['login_id'])) {
-	  $userGoogleId = $_SESSION['login_id'];
-	  $user = user()->get("google_id='$userGoogleId'");
+if (isset($_SESSION['user_session'])) {
+	  $username = $_SESSION['user_session']['username'];
+	  $user = user()->get("username='$username'");
 		$storePeopleList = storePeople()->list("userId=$user->Id");
 		foreach ($storePeopleList as $row) {
 			$myStore = store()->get("Id=$row->storeId");
@@ -102,11 +102,11 @@ else{
             </ul>
           </li>
 						<?php endif; ?>
-						<?php if (isset($_SESSION['login_id'])): ?>
+						<?php if (isset($_SESSION['user_session'])): ?>
 							<li><a href="">My Account</a></li>
 							<li><a href="../google-log-in/logout.php">Sign Out</a></li>
 						<?php else: ?>
-	            <li><a href="../google-log-in/login.php">Sign in</a></li>
+	            <li><a href="sign-in">Sign in</a></li>
 						<?php endif; ?>
         </ul>
       </nav><!-- .navbar -->

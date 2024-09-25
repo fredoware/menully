@@ -7,7 +7,7 @@
 <main id="main">
 
   <section id="menu" class="menu">
-    <div class="container" data-aos="fade-up">
+    <div class="container">
 
       <div class="section-header">
         <h2>Notification</h2>
