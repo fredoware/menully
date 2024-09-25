@@ -107,7 +107,7 @@ function change_password(){
 			$model->obj["status"] = "Active";
 			$model->update("username='$username'");
 
-			 header('Location: ../admin/');
+			header('Location: index.php');
 		}
 }
 

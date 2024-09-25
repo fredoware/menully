@@ -6,7 +6,7 @@ session_regenerate_id(true);
 if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '127.0.0.1') {
   $db_connection = mysqli_connect("localhost","root","","menully.db");
 } else {
-  $db_connection = mysqli_connect("localhost","u437487943_fredowaresql","feZxmasqw1212!@!@","u437487943_fredowaredb");
+  $db_connection = mysqli_connect("localhost","u437487943_menully","9Jh3sMmO;","u437487943_menullydb");
 }
 
 // CHECK DATABASE CONNECTION
