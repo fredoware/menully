@@ -17,6 +17,10 @@ if (!isset($_SESSION["cart"])) {
 	$_SESSION["voucherDiscount"] = 0;
 }
 
+if (!isset($_SESSION["customer"])) {
+	$_SESSION["customer"] = "";
+}
+
 $myStoreList = array();
 if (isset($_SESSION['user_session'])) {
 	  $username = $_SESSION['user_session']['username'];

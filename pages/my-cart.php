@@ -105,11 +105,7 @@
         </div>
       </div>
       <div class="col-6">
-        <?php if (isset($_SESSION['login_id'])): ?>
-          <div class="btn-place-order"  data-bs-toggle="modal" data-bs-target="#orderModal">
-          <?php else: ?>
-             <div class="btn-place-order"  onclick="location.href='../google-log-in/login.php'">
-        <?php endif; ?>
+      <div class="btn-place-order"  data-bs-toggle="modal" data-bs-target="#orderModal">
           Place Order
         </div>
       </div>
@@ -128,8 +124,7 @@
         <input type="hidden" name="storeCode"  class="form-control" value="<?=$storeCode?>" required>
         <div class="modal-body">
           <b>Customer</b>
-          <input type="hidden" name="customerId" value="<?=$user->Id?>">
-          <input type="text" name="customer"  class="form-control" value="<?=$user->name?>" disabled>
+          <input type="text" name="customer"  class="form-control" value="<?=$_SESSION['customer']?>" required>
           <b>Notes to kitchen</b>
           <textarea name="notes" class="form-control"></textarea>
         </div>

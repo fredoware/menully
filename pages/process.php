@@ -332,10 +332,10 @@ function place_order(){
 	$orderNumber = rand(100000,999999);
 	$store = $_POST["storeCode"];
 	$voucherId = $_SESSION["voucherId"];
-	$customerId = $_POST["customerId"];
+	$customer = $_POST["customer"];
 
 	$model = orderMain();
-	$model->obj["customerId"] = $customerId;
+	$model->obj["customer"] = $customer;
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
