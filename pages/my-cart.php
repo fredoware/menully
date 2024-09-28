@@ -124,7 +124,8 @@
         <input type="hidden" name="storeCode"  class="form-control" value="<?=$storeCode?>" required>
         <div class="modal-body">
           <b>Customer</b>
-          <input type="text" name="customer"  class="form-control" value="<?=$_SESSION['customer']?>" required>
+          <input type="text" name="name"  class="form-control" value="<?=$_SESSION['customer']['name']?>" required>
+          <input type="hidden" name="deviceId"  class="form-control" value="<?=$_SESSION['customer']['deviceId']?>" required>
           <b>Notes to kitchen</b>
           <textarea name="notes" class="form-control"></textarea>
         </div>

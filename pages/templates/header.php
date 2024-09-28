@@ -17,9 +17,21 @@ if (!isset($_SESSION["cart"])) {
 	$_SESSION["voucherDiscount"] = 0;
 }
 
-if (!isset($_SESSION["customer"])) {
-	$_SESSION["customer"] = "";
+// =========================================================
+// Check device Id exists
+$fingerPrint = deviceFingerPrint();
+$checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
+if ($checkDeviceSaved) {
+  $customer = customer()->get("deviceId='$fingerPrint'");
+  $_SESSION['customer'] = array();
+  $_SESSION['customer']["name"] = $customer->name;
+  $_SESSION['customer']["deviceId"] = $customer->deviceId;
 }
+else{
+  header('Location: new-customer');
+}
+
+// =========================================================
 
 $myStoreList = array();
 if (isset($_SESSION['user_session'])) {
@@ -110,7 +122,7 @@ else{
 							<li><a href="">My Account</a></li>
 							<li><a href="../google-log-in/logout.php">Sign Out</a></li>
 						<?php else: ?>
-	            <li><a href="sign-in">Sign in</a></li>
+	            <li><a href="sign-in">Store Sign in</a></li>
 						<?php endif; ?>
         </ul>
       </nav><!-- .navbar -->

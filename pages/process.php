@@ -75,7 +75,28 @@ switch ($action) {
 			change_voucher_status();
 			break;
 
+		case 'new-customer' :
+			new_customer();
+			break;
+
 	default :
+}
+
+function new_customer(){
+	
+$fingerPrint = deviceFingerPrint();
+  $model = customer();
+  $model->obj["deviceId"] = $fingerPrint;
+  $model->obj["name"] = $_POST["name"];
+  $model->obj["dateAdded"] = "NOW()";
+  $model->create();
+  
+  $customer = customer()->get("deviceId='$fingerPrint'");
+  $_SESSION['customer'] = array();
+  $_SESSION['customer']["name"] = $customer->name;
+  $_SESSION['customer']["deviceId"] = $customer->deviceId;
+
+  header('Location: ../'.$_POST['storeCode'].'/');
 }
 
 function delete_people(){
@@ -332,10 +353,12 @@ function place_order(){
 	$orderNumber = rand(100000,999999);
 	$store = $_POST["storeCode"];
 	$voucherId = $_SESSION["voucherId"];
-	$customer = $_POST["customer"];
+	$deviceId = $_POST["deviceId"];
+	$customer = customer()->get("deviceId='$deviceId'");
 
 	$model = orderMain();
-	$model->obj["customer"] = $customer;
+	$model->obj["customer"] = $customer->name;
+	$model->obj["deviceId"] = $customer->deviceId;
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
@@ -362,7 +385,7 @@ function place_order(){
 	$model = userVoucher();
 	$model->obj["status"] = "Used";
 	$model->obj["dateUsed"] = "NOW()";
-	$model->update("voucherId=$voucherId and userId=$customerId");
+	$model->update("voucherId=$voucherId and custId=$customer->Id");
 
 
 	$_SESSION["cart"] = array();

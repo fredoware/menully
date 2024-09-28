@@ -1,7 +1,8 @@
 <?php
   include "templates/header.php";
 
-  $myOrderList = orderMain()->list("customerId=$user->Id");
+  $fingerPrint = deviceFingerPrint();
+  $myOrderList = orderMain()->list("deviceId='$fingerPrint'");
 
   function get_total_amount($orderNumber){
     $result = 0;

@@ -51,8 +51,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
-        <img src="pages/templates/source/img/menully-logo.png" style="margin-right:15px;">
-        <h1>Menully<span>,</span></h1>
+        <img src="pages/templates/source/img/logo.png" style="margin-right:15px;">
       </a>
 
       <nav id="navbar" class="navbar">

@@ -106,3 +106,6 @@ if (isset($_SESSION['user_session'])) {
 
     </div>
   </header><!-- End Header -->
+
+
+  <div class="desktop-only" style="height:20px"> </div>

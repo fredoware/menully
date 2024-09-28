@@ -266,3 +266,17 @@
   width: 100%; /* Fill the container */
   height: auto; /* Maintain aspect ratio */
 }
+
+/* // Small devices (landscape phones, less than 768px) */
+@media (max-width: 991.98px) { 
+  .desktop-only{
+    display:none;
+  }
+ }
+
+/* // Large devices (desktops, less than 1200px) */
+@media (min-width: 991.99px) { 
+  .mobile-only{
+    display:none;
+  }
+ }

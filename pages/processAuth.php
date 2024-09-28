@@ -131,6 +131,7 @@ function change_password(){
 }
 
 function user_logout(){
-	session_destroy();
+	// session_destroy();
+	unset($_SESSION['user_session']);
 	header('Location: login.php?success=You have successfully logged out');
 }

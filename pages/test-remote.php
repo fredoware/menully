@@ -23,7 +23,18 @@
     return $ipaddress;
 }
 
-echo get_client_ip();
+function deviceFingerPrint()
+{
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+
+    $fingerprint = $userAgent . $acceptLanguage . $ipAddress;
+
+    return md5($fingerprint);
+}
+
+echo deviceFingerPrint();
 
 ?>
 
