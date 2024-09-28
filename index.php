@@ -221,7 +221,7 @@
                   <h4>Free QR code menu for a month</h4>
                   <p>You can try our QR code menu service first, and then decide does it suits you or not. It's free and we do not ask for your credit card details.</p>
 
-                    <a href="pages/store-sign-up.php" class="btn btn-primary">Try it for free</a>
+                    <a href="" class="btn btn-primary">Try it for free</a>
                 </div>
               </div>
 
