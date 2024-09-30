@@ -7,6 +7,8 @@
 
   $item_list = menuItem()->list("menuCategoryId=$Id");
 
+  $categoryList = menuCategory()->list("storeId=$store->Id");
+
 ?>
 
   <section>
@@ -38,6 +40,12 @@
               <input type="hidden" name="Id" id="input-Id">
               <input type="hidden" name="menuCategoryId" value="<?=$category->Id?>">
               <input type="hidden" name="storeId" value="<?=$store->Id?>">
+              Category:
+              <select name="menuCategoryId" id="input-menuCategoryId" class="form-select">
+                <?php foreach ($categoryList as $row): ?> 
+                  <option value="<?=$row->Id?>"><?=$row->name;?></option>
+                 <?php endforeach; ?>
+              </select>
               Name:
               <input type="text" name="name" id="input-name" class="form-control" required>
               Description:
@@ -83,6 +91,7 @@
                   data-name="<?=$item->name;?>"
                   data-price="<?=$item->price;?>"
                   data-image="<?=$item->image;?>"
+                  data-menuCategoryId="<?=$item->menuCategoryId;?>"
                   data-description="<?=$item->description;?>"
               >
                 <div class="row">
@@ -170,6 +179,7 @@ $(function () {
       $("#formItemModal #btn-add").show();
       $("#formItemModal #btn-edit").hide();
       $(".form-control").val('');
+      $("#input-menuCategoryId").val('<?=$category->Id?>');
       $("#formItemModal").modal("show");
     });
 
@@ -189,6 +199,7 @@ $(function () {
         getModal.find("#input-id").val($_name.attr("data-id"));
         getModal.find("#input-name").val($_name.attr("data-name"));
         getModal.find("#input-price").val($_name.attr("data-price"));
+        getModal.find("#input-menuCategoryId").val($_name.attr("data-menuCategoryId"));
         getModal.find("#input-description").val($_name.attr("data-description"));
         getModal.find("#input-image").attr("required", false);
 
