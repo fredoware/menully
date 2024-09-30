@@ -70,15 +70,19 @@ $category_list = menuCategory()->list("storeId=$Id order by priority");
       <div class="row mt-3">
       <?php foreach ($category_list as $row): ?>
         <div class="col-lg-4 mt-2">
-          <div class="card clickable">
-            <div class="card-body text-center">
+        <div class="card item-items">
+              <div class="card-body item-data"
+                  data-id="<?=$row->Id;?>"
+                  data-name="<?=$row->name;?>"
+                  data-description="<?=$row->description;?>"
+              >
             <img src="../media/<?=$row->image?>" onerror="this.src='templates/no-image.JPG';" class="crop-box">
               <h5><?=$row->name?></h5>
               <p><i><?=$row->description?></i></p>
             </div>
             <div class="card-footer">
               <a href="store-menu-item.php?Id=<?=$row->Id?>&storeId=<?=$Id?>" class="btn btn-primary">View</a>
-              <a href="#" class="btn btn-warning">Edit</a>
+              <a href="#" class="btn btn-warning edit">Edit</a>
               <a href="#" class="btn btn-danger">Delete</a>
             </div>
           </div>
