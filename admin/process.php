@@ -31,10 +31,34 @@ switch ($action) {
 		item_save();
 		break;
 
+	case 'add-people' :
+		add_people();
+		break;
+		
+	case 'remove-people' :
+		remove_people();
+		break;
+
 
 
 	default :
 }
+
+function add_people(){
+	$model = storePeople();
+	$model->obj["storeId"] = $_POST["storeId"];
+	$model->obj["userId"] = $_POST["userId"];
+	$model->create();
+	header('Location: store-detail.php?Id='.$_POST['storeId'].'&success=Account Successfully Added');
+}
+
+function remove_people(){
+	$Id = $_GET['Id'];
+	$model = storePeople();
+	$model->delete("Id=$Id");
+	header('Location: store-detail.php?Id='.$_GET['storeId'].'&success=Account Successfully Deleted');
+}
+
 
 
 function account_delete(){
@@ -85,8 +109,6 @@ function store_save(){
 	#Process to save to the database
 
 	$storeCode = $_POST["storeCode"];
-	$owner = $_POST["owner"];
-	$account = account()->get("username='$owner'");
 
 	$model = store();
 	$model->obj["storeCode"] = $_POST["storeCode"];
@@ -94,6 +116,8 @@ function store_save(){
 	$model->obj["phone"] = $_POST["phone"];
 	$model->obj["email"] = $_POST["email"];
 	$model->obj["status"] = $_POST["status"];
+	$model->obj["theme"] = $_POST["theme"];
+	$model->obj["address"] = $_POST["address"];
 	$model->obj["dateAdded"] = "NOW()";
 
 
@@ -109,25 +133,21 @@ function store_save(){
 		$store = store()->get("storeCode='$storeCode'");
 		$Id = $store->Id;
 
-		$model = storePeople();
-		$model->obj["userId"] = $account->Id;
-		$model->obj["storeId"] = $store->Id;
-		$model->obj["role"] = "Admin";
-		$model->create();
 	}
 
 	if ($_POST["form-type"] == "edit") {
 		$Id = $_POST["Id"];
 		if ($_FILES['logo']['name'] != "") {
-			$item = category()->get("Id=$Id");
+			$item = store()->get("Id=$Id");
 			unlink('../media/' . $item->image);
-			$image_file_name = uploadFile($_FILES["logo"]);
+			$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
 			$model->obj["logo"] = $image_file_name;
 		}
 		$model->update("Id=$Id");
 	}
 
 	header('Location: store-detail.php?Id=' . $Id);
+
 }
 
 

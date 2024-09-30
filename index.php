@@ -192,30 +192,6 @@
         <div class="row gy-4">
 
 
-              <!-- <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <h4>If Paid Monthly </h4>
-                  <h1>₱300</h1>
-                  <p>Charged every month. <br> Total amount is ₱300</p>
-                </div>
-              </div>
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
-                <div style="background:red;color:white" class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <h4>If Paid Every 6 Months </h4>
-                  <h1>₱250</h1>
-                  <p style="color:white">Charged every 6 months. <br> Total amount is ₱1,500</p>
-                </div>
-              </div>
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <h4>If Paid Annually </h4>
-                  <h1>200</h1>
-                  <p>Charged every 12 months. <br> Total amount is ₱2,400</p>
-                </div>
-              </div> -->
-
               <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <h4>Free QR code menu for a month</h4>

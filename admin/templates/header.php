@@ -26,15 +26,7 @@ else{
     border-radius: 10px
 }
 
-/* .left-sidebar{
-    background: #81c408 !important;
-    color: white !important;
-  }
 
-  .left-sidebar a{
-    color: white !important;
-  }
- */
 </style>
 <html lang="en">
 

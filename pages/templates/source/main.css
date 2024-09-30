@@ -17,12 +17,6 @@
   --font-secondary: "Inter", sans-serif;
 }
 
-/* Colors */
-:root {
-  --color-default: #212529;
-  --color-primary: #f5970a;
-  --color-secondary: #37373f;
-}
 
 /* Smooth scroll behavior */
 :root {
@@ -295,8 +289,7 @@ section {
 
 .header .btn-book-a-table:hover,
 .header .btn-book-a-table:focus:hover {
-  color: #fff;
-  background: rgba(206, 18, 18, 0.8);
+  filter: brightness(85%);
 }
 
 /*--------------------------------------------------------------
@@ -1523,8 +1516,7 @@ section {
 }
 
 .hero .btn-book-a-table:hover {
-  background: rgba(206, 18, 18, 0.8);
-  box-shadow: 0 8px 28px rgba(206, 18, 18, 0.45);
+  filter: brightness(85%);
 }
 
 .hero .btn-watch-video {

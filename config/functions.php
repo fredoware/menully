@@ -82,6 +82,21 @@ function deviceFingerPrint()
 }
 
 
+function general_link($link){
+	$url = "";
+	if ($_SERVER['HTTP_HOST'] == 'localhost') {
+		$url = "http://localhost/menully/";
+      }
+      
+      // Local production
+      if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menully.com' || $_SERVER['HTTP_HOST'] == 'admin.menully.com') {
+		$url = "https://dirtydogorganicfarm.com/";
+      }
+
+
+	return $url . $link;
+}
+
 /* =====================================Functions===================================== */
 function send_message($number,$message){
 		$ch = curl_init();

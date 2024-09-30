@@ -1,6 +1,10 @@
 <?php
   include "templates/header.php";
 
+  $Id = get_query_string("Id","");
+    if ($Id) {
+    $store = store()->get("Id=$Id");
+    }
 
 ?>
 <style media="screen">
@@ -32,39 +36,40 @@
                 <form class="" action="process.php?action=store-save" enctype="multipart/form-data" method="post">
                     <div class="row">
                         <div class="col-8">
-                            
+                            <input type="hidden" name="Id" ng-value="Id">
                             Store Name:
                             <input type="text" name="name" ng-model="storeName" autocomplete="off"
                                 ng-change="generateStoreCode()" class="form-control" required>
                             Store Code: <br>
                             <i ng-bind="storeCodeValidation" ng-style="{'color':storeCodeValidationColor}"></i>
-                            <input type="text" name="storeCode" id="store-code" ng-model="storeCode"
+                            <input type="text" name="storeCode" ng-model="storeCode"
                                 ng-change="checkAvailability()" class="form-control" required>
-                            Owner's Registered Email: <br>
-                            <i ng-bind="ownerValidation" ng-style="{'color':ownerValidationColor}"></i>
-                            <input type="text" name="owner" autocomplete="off" class="form-control" ng-model="owner" id="owner" ng-change="checkOwnerExist()" required>
-                            Phone Number:
-                            <input type="text" name="phone" class="form-control" required>
+                           Phone Number:
+                            <input type="text" name="phone" class="form-control" ng-model="phone" required>
                             Contact Email:
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" class="form-control" ng-model="email" required>
                             Status:
-                            <select name="status" class="form-select" required>
+                            <select name="status" class="form-select" ng-model="status" required>
                             <option>Draft</option>
                             <option>Published</option>
                             </select>
                             Address:
-                            <input type="text" name="address" class="form-control" required>
+                            <input type="text" name="address" ng-model="address" class="form-control" required>
                         </div>
                         
                     <div class="col-4">
                         <label for="fileInput">
-                            <img id="logo" src="templates/assets/images/default-store-logo.jpg" style="width:100%;">
+                            <img ng-src="{{logo}}" id="logo" style="width:100%;">
                         </label>
-                        <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)" required
+                        <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)"
                             style="display:none">
+
+                            <label class="mt-3">Select your theme color:</label> <br>
+                            <input type="color" ng-model="theme" name="theme" value="#ff0000" required>
                     </div>
                     </div>
-                    <button type="submit" name="form-type" value="add" class="btn btn-primary mt-5">Create</button>
+                    <button type="submit" name="form-type" value="add" ng-show="add" class="btn btn-primary mt-5">Create</button>
+                    <button type="submit" name="form-type" value="edit" ng-show="edit"  class="btn btn-primary mt-5">Modify</button>
                 </form>
             </div>
         </div>
@@ -72,6 +77,7 @@
 </div>
 
 <script>
+
 var loadFile = function(event) {
     var output = document.getElementById('logo');
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -80,8 +86,12 @@ var loadFile = function(event) {
     }
 };
 
+
+    
+
 var app = angular.module("myApp", []);
 app.controller('myCtrl', function($scope, $http) {
+    $scope.logo = "templates/assets/images/default-store-logo.jpg";
     $scope.generateStoreCode = function() {
         var strLower = $scope.storeName.toLowerCase();
         $scope.storeCode = strLower.replace(/\s/g, '');
@@ -115,34 +125,34 @@ app.controller('myCtrl', function($scope, $http) {
         });
     };
 
-    $scope.checkOwnerExist = function() {
-        $http({
-            method: "GET",
-            url: "api/check-owner-exist.php",
-            params: {
-                'email': $scope.owner
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function mySuccess(response) {
-            if (response.data.result != "") {
-                $scope.ownerValidation = response.data.result.name;
-                $scope.ownerValidationColor = "green";
-                document.getElementById("owner").setCustomValidity("");
+    
+    // ====================================================================== Modify form 
+    <?php if ($Id): ?>
+    $scope.Id = "<?=$Id?>"
+    $scope.logo = "<?=general_link("media/".$store->logo);?>";
+    $scope.storeName = "<?=$store->name?>"
+    $scope.storeCode = "<?=$store->storeCode?>";
+    $scope.owner = "<?=$store->owner?>";
+    $scope.phone = "<?=$store->phone?>";
+    $scope.email = "<?=$store->email?>";
+    $scope.status = "<?=$store->status?>";
+    $scope.address = "<?=$store->address?>";
+    $scope.theme = "<?=$store->theme?>";
+    $scope.add = false;
+    $scope.edit = true;
+    <?php else: ?>
+    $scope.add = true;
+    $scope.edit = false;
+    $scope.status = "Draft";
+    <?php endif; ?>
 
-            } else {
-                $scope.ownerValidation = "Account not exists";
-                $scope.ownerValidationColor = "red";
-                document.getElementById("owner").setCustomValidity("Account exists");
-            }
-        }, function myError(response) {
-            $scope.storeCodeValidation = response.statusText;
-        });
-    };
+    
+    // ====================================================================== Modify form 
 
 
 });
+
+
 </script>
 
 
