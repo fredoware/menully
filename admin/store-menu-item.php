@@ -94,7 +94,7 @@
                   <?php if ($item->image): ?>
                   <div class="col text-center">
                     <div class="square-container">
-                      <img src="../media/<?=$item->image;?>" class="crop-box">
+                      <img src="<?=general_link("media/".$item->image)?>" class="crop-box">
                     </div>
                   </div>
                 <?php endif; ?>
