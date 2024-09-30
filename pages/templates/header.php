@@ -61,6 +61,9 @@ else{
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title><?=$store->name?>'s QR Menu</title>
+  <meta property="og:title" content="<?=$store->name?>'s QR Menu" />
+  <meta property="og:image" content="https://menully.com/media/<?=$store->logo?>" />
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
