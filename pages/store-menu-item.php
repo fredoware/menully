@@ -53,7 +53,7 @@
               Price:
               <input type="text" name="price" id="input-price" class="form-control" required>
               Image:
-              <input type="file" class="form-control" id="input-image" name="image" required>
+              <input type="file" class="form-control" id="input-image" name="image">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
