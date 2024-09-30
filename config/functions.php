@@ -90,7 +90,7 @@ function general_link($link){
       
       // Local production
       if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menully.com' || $_SERVER['HTTP_HOST'] == 'admin.menully.com') {
-		$url = "https://dirtydogorganicfarm.com/";
+		$url = "https://menully.com/";
       }
 
 
