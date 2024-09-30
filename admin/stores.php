@@ -31,7 +31,7 @@ $storeList = store()->list("status='$status'");
         <div class="col-4">
             <div class="card clickable" onclick="location.href='store-detail.php?Id=<?=$row->Id?>'">
                 <div class="card-body text-center">
-                    <img src="../media/<?=$row->logo?>" class="crop-box">
+                    <img src="<?=general_link("media/".$row->logo)?>" class="crop-box">
                     <h3 class="mt-2"><?=$row->name;?></h3>
                 </div>
             </div>
