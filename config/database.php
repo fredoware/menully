@@ -22,7 +22,7 @@ class Database
     public static function connect()
     {
         // Local environment
-        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '172.20.10.3') {
           $dbName = 'menully.db' ;
           $dbHost = 'localhost' ;
           $dbUsername = 'root';

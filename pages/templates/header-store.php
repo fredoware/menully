@@ -75,7 +75,7 @@ if (isset($_SESSION['user_session'])) {
       </a>
 
       <nav id="navbar" class="navbar">
-        <ul>
+      <ul style="list-style-type: none;">
             <li><a href="store-main.php" style="color:red;">Notification</a></li>
             <li class="dropdown"><a href="#"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
