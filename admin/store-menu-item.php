@@ -7,6 +7,8 @@
 
   $category = menuCategory()->get("Id=$Id");
 
+  $categoryList = menuCategory()->list("storeId=$storeId");
+
   $item_list = menuItem()->list("menuCategoryId=$Id");
 
 ?>
@@ -41,8 +43,13 @@
           <div class="modal-body">
             <form action="process.php?action=item-save" method="post" enctype="multipart/form-data">
               <input type="hidden" name="Id" id="input-Id">
-              <input type="hidden" name="menuCategoryId" value="<?=$category->Id?>">
               <input type="hidden" name="storeId" value="<?=$storeId?>">
+              Category:
+              <select name="menuCategoryId" id="input-menuCategoryId" class="form-select">
+                <?php foreach ($categoryList as $row): ?> 
+                  <option value="<?=$row->Id?>"><?=$row->name;?></option>
+                 <?php endforeach; ?>
+              </select>
               Name:
               <input type="text" name="name" id="input-name" class="form-control" required>
               Description:
@@ -87,6 +94,7 @@
                   data-id="<?=$item->Id;?>"
                   data-name="<?=$item->name;?>"
                   data-price="<?=$item->price;?>"
+                  data-menuCategoryId="<?=$item->menuCategoryId;?>"
                   data-image="<?=$item->image;?>"
                   data-description="<?=$item->description;?>"
               >
@@ -175,6 +183,7 @@ $(function () {
       $("#formItemModal #btn-add").show();
       $("#formItemModal #btn-edit").hide();
       $(".form-control").val('');
+      $("#input-menuCategoryId").val('<?=$category->Id?>');
       $("#formItemModal").modal("show");
     });
 
@@ -194,6 +203,7 @@ $(function () {
         getModal.find("#input-id").val($_name.attr("data-id"));
         getModal.find("#input-name").val($_name.attr("data-name"));
         getModal.find("#input-price").val($_name.attr("data-price"));
+        getModal.find("#input-menuCategoryId").val($_name.attr("data-menuCategoryId"));
         getModal.find("#input-description").val($_name.attr("data-description"));
         getModal.find("#input-image").attr("required", false);
 

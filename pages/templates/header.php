@@ -62,6 +62,7 @@ else{
 
   <title><?=$store->name?>'s QR Menu</title>
   <meta property="og:title" content="<?=$store->name?>'s QR Menu" />
+  <meta property="og:url" content="https://menully.com/<?=$storeCode?>" />
   <meta property="og:image" content="https://menully.com/media/<?=$store->logo?>" />
 
   <meta content="" name="description">
