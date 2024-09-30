@@ -92,8 +92,8 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="process.php?action=add-people" method="post">
-      <input type="text" name="storeId" value="<?=$Id?>">
-      <input type="text" name="userId" ng-model="userId" required>
+      <input type="hidden" name="storeId" value="<?=$Id?>">
+      <input type="hidden" name="userId" ng-value="userId" required>
       <div class="modal-body">
         <b>People Username / Email</b>
         <i ng-bind="ownerValidation" ng-style="{'color':ownerValidationColor}"></i>
@@ -102,8 +102,8 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
         <br>
         <b>Role</b>
         <select name="role" class="form-control">
-        <option>Admin</option>
-        <option>Staff</option>
+            <option>Admin</option>
+            <option>Staff</option>
         </select>
     </div>
       <div class="modal-footer">

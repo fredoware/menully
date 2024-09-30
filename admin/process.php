@@ -48,6 +48,7 @@ function add_people(){
 	$model = storePeople();
 	$model->obj["storeId"] = $_POST["storeId"];
 	$model->obj["userId"] = $_POST["userId"];
+	$model->obj["role"] = $_POST["role"];
 	$model->create();
 	header('Location: store-detail.php?Id='.$_POST['storeId'].'&success=Account Successfully Added');
 }
