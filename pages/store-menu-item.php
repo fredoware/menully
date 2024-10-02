@@ -70,11 +70,13 @@
 
        <?php foreach ($item_list as $item):
        $var = variation()->get("itemId=$item->Id order by price limit 1");
-         if ($item->status=="Available") {
+         if ($item->isAvailable) {
            $availabiltyColor = "green";
+           $availableMark = "Available";
          }
          else{
            $availabiltyColor = "red";
+           $availableMark = "Not Available";
          }
          if ($item->isBestSeller) {
            $bestSellerMark = "Best Seller";
@@ -82,6 +84,7 @@
          else{
            $bestSellerMark = "";
          }
+         
 
 
           ?>
@@ -113,7 +116,7 @@
                     </p>
 
 
-                      <span id="availabilty<?=$item->Id?>" style="font-weight:bold;color:<?=$availabiltyColor;?>"><?=$item->status?></span>
+                      <span id="availabilty<?=$item->Id?>" style="font-weight:bold;color:<?=$availabiltyColor;?>"><?=$availableMark?></span>
                       <br>
                       <span id="bestSellerMark<?=$item->Id?>" style="font-weight:bold;color:orange;"><?=$bestSellerMark?></span>
 
@@ -232,15 +235,17 @@ function change_item_status(itemId){
   if (markAs.innerHTML=="Available") {
     availabilty.innerHTML = "Available";
     availabilty.style.color = "green";
+    isAvailable = 1;
   }
   else{
     availabilty.innerHTML = "Not Available";
     availabilty.style.color = "red";
+    isAvailable = 0;
   }
 
   $.ajax({
       type: "GET",
-      url: "process.php?action=change-item-status&Id=" + itemId + "&status=" + availabilty.innerHTML,
+      url: "process.php?action=change-item-status&Id=" + itemId + "&isAvailable=" + isAvailable,
     });
 }
 

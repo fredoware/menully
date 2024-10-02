@@ -99,11 +99,18 @@
           </select>
 
 
+        
           <label class="form-label">Availability</label>
-          <select name="status" id="form-status" class="form-select mr-sm-2  mb-1">
-          <option value="">--Select--</option>
-            <option>Available</option>
-            <option>Not Available</option>
+        <select name="isAvailable" id="form-isAvailable" class="form-select mr-sm-2  mb-1">
+          <option value="1">Available</option>
+          <option value="0">Not Available</option>
+        </select>
+
+        
+        <label class="form-label">Best Seller</label>
+          <select name="isBestSeller" id="form-isBestSeller" class="form-select mr-sm-2  mb-1">
+            <option value="0">Regular</option>
+            <option value="1">Best Seller</option>
           </select>
 
 
@@ -179,7 +186,8 @@ ClassicEditor
   $('#form-name').val("<?=$item->name?>");
   $('#editor').val("<?=htmlspecialchars_decode($item->description)?>");
   $('#form-category').val("<?=$item->menuCategoryId?>");
-  $('#form-status').val("<?=$item->status?>");
+  $('#form-isAvailable').val("<?=$item->isAvailable?>");
+  $('#form-isBestSeller').val("<?=$item->isBestSeller?>");
   product.src = "../media/<?=$item->image;?>";
 
 

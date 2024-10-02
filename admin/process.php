@@ -200,6 +200,8 @@ function item_save()
   	$model->obj["storeId"] = $_POST["storeId"];
   	$model->obj["menuCategoryId"] = $_POST["menuCategoryId"];
   	$model->obj["name"] = $_POST["name"];
+  	$model->obj["isAvailable"] = $_POST["isAvailable"];
+  	$model->obj["isBestSeller"] = $_POST["isBestSeller"];
   	$model->obj["description"] = $_POST["description"];
 
 	if ($_POST["form-type"] == "add") {
