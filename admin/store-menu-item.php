@@ -28,7 +28,7 @@
 </div>
 </div>
 
-<button class="btn btn-primary" id="btn-add-category">Add New Item +</button>
+<a class="btn btn-primary" href="store-menu-item-form.php?storeId=<?=$storeId?>">Add New Item +</a>
 
   <section>
     <div class="container" data-aos="fade-up">
@@ -73,6 +73,7 @@
       <div class="row mt-3">
 
        <?php foreach ($item_list as $item):
+       $var = variation()->get("itemId=$item->Id order by price limit 1");
          if ($item->status=="Available") {
            $availabiltyColor = "green";
          }
@@ -109,10 +110,10 @@
                   <div class="col">
                     <div class="item-name"><?=$item->name;?></div>
                     <p class="item-description">
-                      <?=$item->description;?>
+                    <?=htmlspecialchars_decode($item->description)?>
                     </p>
                     <p class="item-price">
-                      <?=format_money($item->price);?>
+                      <?=format_money($var->price);?>
                     </p>
 
 
@@ -124,7 +125,7 @@
                 </div>
               </div>
               <div class="card-footer">
-                  <button type="button" class="btn btn-warning edit">Edit</button>
+              <a href="store-menu-item-form.php?Id=<?=$item->Id?>&storeId=<?=$storeId?>" class="btn btn-warning edit">Edit</a>
                   <button type="button" class="btn btn-primary" onclick="open_modal('<?=$item->Id?>')"  data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">Markings</button>
 
               </div>

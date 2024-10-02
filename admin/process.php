@@ -189,34 +189,57 @@ header('Location: store-categories.php?Id='.$storeId );
 function item_save()
 {
 
-		$storeId = $_POST["storeId"];
-		$store = store()->get("Id=$storeId");
+	$unitList = $_POST["unit"];
+	$priceList = $_POST["price"];
+	$variationIdList = $_POST["variationId"];
 
-		$model = menuItem();
+	$storeId = $_POST["storeId"];
+	$store = store()->get("Id=$storeId");
+
+	$model = menuItem();
   	$model->obj["storeId"] = $_POST["storeId"];
   	$model->obj["menuCategoryId"] = $_POST["menuCategoryId"];
   	$model->obj["name"] = $_POST["name"];
-  	$model->obj["price"] = $_POST["price"];
   	$model->obj["description"] = $_POST["description"];
 
-		if ($_POST["form-type"] == "add") {
-			if ($_FILES['image']['name'] != "") {
-				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
-				$model->obj["image"] = $image_file_name;
-			}
-			$model->create();
+	if ($_POST["form-type"] == "add") {
+		if ($_FILES['image']['name'] != "") {
+			$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+			$model->obj["image"] = $image_file_name;
 		}
+		$model->create();
 
-		if ($_POST["form-type"] == "edit") {
-			$Id = $_POST["Id"];
-			if ($_FILES['image']['name'] != "") {
-				$item = menuItem()->get("Id=$Id");
-				unlink('../media/' . $item->image);
-				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
-				$model->obj["image"] = $image_file_name;
-			}
-			$model->update("Id=$Id");
+		$item = menuItem()->get("Id>0 order by Id desc limit 1");
+		$Id = $item->Id;
+	}
+
+	if ($_POST["form-type"] == "edit") {
+		$Id = $_POST["Id"];
+		if ($_FILES['image']['name'] != "") {
+			$item = menuItem()->get("Id=$Id");
+			unlink('../media/' . $item->image);
+			$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+			$model->obj["image"] = $image_file_name;
 		}
+		$model->update("Id=$Id");
+	}
+
+	// create varation 
+
+	variation()->delete("itemId=$Id");
+
+	foreach( $unitList as $key => $unit ) {
+		$price = $priceList[$key];
+		$variationId = $variationIdList[$key];
+		$model = variation();
+		if ($variationId) {
+			$model->obj["Id"] = $variationId;
+		}
+		$model->obj["itemId"] = $Id;
+		$model->obj["unit"] = $unit;
+		$model->obj["price"] = $price;
+		$model->create();
+	  }
 
 
 header('Location: store-menu-item.php?Id=' . $_POST["menuCategoryId"] . '&storeId=' . $storeId);

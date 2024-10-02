@@ -19,16 +19,19 @@ if (!isset($_SESSION["cart"])) {
 
 // =========================================================
 // Check device Id exists
-$fingerPrint = deviceFingerPrint();
-$checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
-if ($checkDeviceSaved) {
-  $customer = customer()->get("deviceId='$fingerPrint'");
-  $_SESSION['customer'] = array();
-  $_SESSION['customer']["name"] = $customer->name;
-  $_SESSION['customer']["deviceId"] = $customer->deviceId;
-}
-else{
-  header('Location: new-customer');
+if ($_SERVER['REQUEST_URI'] != "/menully/" . $_GET["store"] . "/" && $_SERVER['REQUEST_URI'] != "/" . $_GET["store"] . "/") {
+  $fingerPrint = deviceFingerPrint();
+  $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
+  if ($checkDeviceSaved) {
+    $customer = customer()->get("deviceId='$fingerPrint'");
+    $_SESSION['customer'] = array();
+    $_SESSION['customer']["Id"] = $customer->Id;
+    $_SESSION['customer']["name"] = $customer->name;
+    $_SESSION['customer']["deviceId"] = $customer->deviceId;
+  }
+  else{
+    header('Location: new-customer');
+  }
 }
 
 // =========================================================
@@ -111,7 +114,6 @@ else{
         <img src="../media/<?=$store->logo?>">
         <h1><?=$store->name?></h1>
       </a>
-
       <nav id="navbar" class="navbar">
         <ul style="list-style-type: none;">
             <li><a href="../<?=$storeCode?>/">Home</a></li>

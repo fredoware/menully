@@ -69,7 +69,7 @@ function voucher() {
 }
 
 
-function userVoucher() {
+function custVoucher() {
 	$crud = new CRUD;
 	$crud->table = "cust_voucher";
 	return $crud;
@@ -79,6 +79,12 @@ function userVoucher() {
 function customer() {
 	$crud = new CRUD;
 	$crud->table = "customer";
+	return $crud;
+}
+
+function variation() {
+	$crud = new CRUD;
+	$crud->table = "variation";
 	return $crud;
 }
 

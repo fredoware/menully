@@ -4,9 +4,8 @@
   $voucherList = voucher()->list("status='Active' and storeId=$store->Id");
 
   $myVoucherList = array();
-  if (isset($_SESSION['login_id'])) {
-    $userVoucherList = userVoucher()->list("userId=$user->Id and status='Pending'");
-    foreach ($userVoucherList as $row) {
+    $custVoucherList = custVoucher()->list("custId=$customer->Id and status='Pending'");
+    foreach ($custVoucherList as $row) {
       $voucher = voucher()->get("Id=$row->voucherId");
       array_push($myVoucherList, $voucher);
     }
@@ -14,13 +13,11 @@
     $voucherList = array();
     $allVoucherList = voucher()->list("status='Active' and storeId=$store->Id");
     foreach ($allVoucherList as $row) {
-      $voucherExist = userVoucher()->count("userId=$user->Id and voucherId=$row->Id");
+      $voucherExist = custVoucher()->count("custId=$customer->Id and voucherId=$row->Id");
       if (!$voucherExist) {
           array_push($voucherList, $row);
       }
     }
-
-  }
 
 ?>
 
@@ -131,11 +128,8 @@
                   <?php if (days_hours_left($row->validUntil)=="Expired"): ?>
                     <a href="#" class="btn btn-secondary mt-3">Claim</a>
                     <?php else: ?>
-                      <?php if (isset($_SESSION['login_id'])): ?>
-                          <a href="../pages/process.php?action=claim-voucher&voucherId=<?=$row->Id?>&userId=<?=$user->Id?>&store=<?=$store->storeCode?>" class="btn btn-primary mt-3">Claim</a>
-                        <?php else: ?>
-                          <a href="../google-log-in/login.php" class="btn btn-primary mt-3">Claim</a>
-                      <?php endif; ?>
+                          <a href="../pages/process.php?action=claim-voucher&voucherId=<?=$row->Id?>&custId=<?=$customer->Id?>&store=<?=$store->storeCode?>" class="btn btn-primary mt-3">Claim</a>
+                 
                   <?php endif; ?>
                 </div>
               </div>

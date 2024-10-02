@@ -87,16 +87,12 @@ function new_customer(){
 $fingerPrint = deviceFingerPrint();
   $model = customer();
   $model->obj["deviceId"] = $fingerPrint;
-  $model->obj["name"] = $_POST["name"];
+  $model->obj["name"] = $_GET["name"];
   $model->obj["dateAdded"] = "NOW()";
   $model->create();
   
-  $customer = customer()->get("deviceId='$fingerPrint'");
-  $_SESSION['customer'] = array();
-  $_SESSION['customer']["name"] = $customer->name;
-  $_SESSION['customer']["deviceId"] = $customer->deviceId;
 
-  header('Location: ../'.$_POST['storeCode'].'/');
+  header('Location: ../'.$_GET['storeCode'].'/');
 }
 
 function delete_people(){
@@ -132,9 +128,9 @@ function change_voucher_status(){
 
 function claim_voucher(){
 
-	$model = userVoucher();
+	$model = custVoucher();
 	$model->obj["voucherId"] = $_GET["voucherId"];
-	$model->obj["userId"] = $_GET["userId"];
+	$model->obj["custId"] = $_GET["custId"];
 	$model->obj["dateClaimed"] = "NOW()";
 	$model->create();
 
@@ -171,34 +167,59 @@ function use_voucher(){
 function item_save()
 {
 
-		$storeId = $_POST["storeId"];
-		$store = store()->get("Id=$storeId");
+	// print_r($_POST[]);
 
-		$model = menuItem();
+	$unitList = $_POST["unit"];
+	$priceList = $_POST["price"];
+	$variationIdList = $_POST["variationId"];
+
+	$storeId = $_POST["storeId"];
+	$store = store()->get("Id=$storeId");
+
+	$model = menuItem();
   	$model->obj["storeId"] = $_POST["storeId"];
   	$model->obj["menuCategoryId"] = $_POST["menuCategoryId"];
   	$model->obj["name"] = $_POST["name"];
-  	$model->obj["price"] = $_POST["price"];
   	$model->obj["description"] = $_POST["description"];
 
-		if ($_POST["form-type"] == "add") {
-			if ($_FILES['image']['name'] != "") {
-				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
-				$model->obj["image"] = $image_file_name;
-			}
-			$model->create();
+	if ($_POST["form-type"] == "add") {
+		if ($_FILES['image']['name'] != "") {
+			$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+			$model->obj["image"] = $image_file_name;
 		}
+		$model->create();
 
-		if ($_POST["form-type"] == "edit") {
-			$Id = $_POST["Id"];
-			if ($_FILES['image']['name'] != "") {
-				$item = menuItem()->get("Id=$Id");
-				unlink('../media/' . $item->image);
-				$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
-				$model->obj["image"] = $image_file_name;
-			}
-			$model->update("Id=$Id");
+		$item = menuItem()->get("Id>0 order by Id desc limit 1");
+		$Id = $item->Id;
+	}
+
+	if ($_POST["form-type"] == "edit") {
+		$Id = $_POST["Id"];
+		if ($_FILES['image']['name'] != "") {
+			$item = menuItem()->get("Id=$Id");
+			unlink('../media/' . $item->image);
+			$image_file_name = uploadFile($_FILES["image"], $store->storeCode);
+			$model->obj["image"] = $image_file_name;
 		}
+		$model->update("Id=$Id");
+	}
+
+	// create varation 
+
+	variation()->delete("itemId=$Id");
+
+	foreach( $unitList as $key => $unit ) {
+		$price = $priceList[$key];
+		$variationId = $variationIdList[$key];
+		$model = variation();
+		if ($variationId) {
+			$model->obj["Id"] = $variationId;
+		}
+		$model->obj["itemId"] = $Id;
+		$model->obj["unit"] = $unit;
+		$model->obj["price"] = $price;
+		$model->create();
+	  }
 
 
 header('Location: store-menu-item.php?Id=' . $_POST["menuCategoryId"]);
@@ -353,12 +374,11 @@ function place_order(){
 	$orderNumber = rand(100000,999999);
 	$store = $_POST["storeCode"];
 	$voucherId = $_SESSION["voucherId"];
-	$deviceId = $_POST["deviceId"];
-	$customer = customer()->get("deviceId='$deviceId'");
+	$customerId = $_POST["customerId"];
 
 	$model = orderMain();
-	$model->obj["customer"] = $customer->name;
-	$model->obj["deviceId"] = $customer->deviceId;
+	$model->obj["customer"] = $_POST["name"];
+	$model->obj["customerId"] = $customerId;
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
@@ -368,24 +388,28 @@ function place_order(){
 
 
 	foreach ($cart as $key => $value) {
+		
+		$var = variation()->get("Id=$key");
+		$item = menuItem()->get("Id=$var->itemId");
+
 		$model = orderItem();
 		$model->obj["orderNumber"] = $orderNumber;
-		$model->obj["itemId"] = $key;
+		$model->obj["itemId"] = $item->Id;
+		$model->obj["varId"] = $key;
 		$model->obj["quantity"] = $value;
 		$model->obj["dateAdded"] = "NOW()";
 		$model->create();
 
-		$item = menuItem()->get("Id=$key");
 		$model = menuItem();
 		$model->obj["totalOrder"] = $item->totalOrder + 1;
 		$model->update("Id=$item->Id");
 
 	}
 
-	$model = userVoucher();
+	$model = custVoucher();
 	$model->obj["status"] = "Used";
 	$model->obj["dateUsed"] = "NOW()";
-	$model->update("voucherId=$voucherId and custId=$customer->Id");
+	$model->update("voucherId=$voucherId and custId=$customerId");
 
 
 	$_SESSION["cart"] = array();
@@ -396,21 +420,22 @@ function place_order(){
 
 function add_to_cart()
 {
-	if (isset($_SESSION["cart"][$_GET['itemId']])) {
-		$_SESSION["cart"][$_GET['itemId']] += $_GET['value'];
+
+	if (isset($_SESSION["cart"][$_GET['varId']])) {
+		$_SESSION["cart"][$_GET['varId']] += $_GET['value'];
 	}
 	else{
-		$_SESSION["cart"][$_GET['itemId']] = $_GET['value'];
+		$_SESSION["cart"][$_GET['varId']] = $_GET['value'];
 	}
 }
 
 function update_cart()
 {
-	$_SESSION["cart"][$_GET['itemId']] = $_GET['value'];
+	$_SESSION["cart"][$_GET['varId']] = $_GET['value'];
 }
 
 function remove_from_cart()
 {
-	unset($_SESSION["cart"][$_GET['itemId']]);
+	unset($_SESSION["cart"][$_GET['varId']]);
 
 }

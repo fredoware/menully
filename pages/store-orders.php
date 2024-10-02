@@ -13,8 +13,8 @@
     $result = 0;
 
     foreach (orderItem()->list("orderNumber='$orderNumber'") as $row) {
-      $item = menuItem()->get("Id=$row->itemId");
-      $result += $item->price*$row->quantity;
+      $var = variation()->get("Id=$row->varId");
+      $result += $var->price*$row->quantity;
     }
 
 
@@ -53,7 +53,6 @@
 
 <?php foreach ($order_list as $item):
   $totalAmount = get_total_amount($item->orderNumber);
-  $customer = user()->get("Id=$item->customerId");
    ?>
 
    <div class="col-lg-4 menu-item mb-3" id="itemCard<?=$item->Id?>">
@@ -82,7 +81,7 @@
              Customer:
            </div>
            <div class="col order-value">
-             <?=$customer->name?>
+             <?=$item->customer?>
            </div>
          </div>
 
@@ -158,12 +157,13 @@
 
              <?php foreach (orderItem()->list("orderNumber='$item->orderNumber'") as $orderItem):
                  $menuItem = menuItem()->get("Id=$orderItem->itemId");
-                 $itemTotal = $menuItem->price*$orderItem->quantity;
+                 $var = variation()->get("Id=$orderItem->varId");
+                 $itemTotal = $var->price*$orderItem->quantity;
                 ?>
 
              <div class="row">
                <div class="col">
-                 <?=$menuItem->name?> x <?=$orderItem->quantity?>
+                 <?=$menuItem->name?> (<?=$var->unit;?>) x <?=$orderItem->quantity?>
                </div>
                <div class="col-4 text-end">
                  <?=format_money($itemTotal)?>

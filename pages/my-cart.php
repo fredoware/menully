@@ -11,8 +11,8 @@
   $totalAmount = 0;
 
   foreach ($cart as $key => $qty){
-    $item = menuItem()->get("Id=$key");
-    $totalAmount += $item->price*$qty;
+    $var = variation()->get("Id=$key");
+    $totalAmount += $var->price*$qty;
   }
 
 ?>
@@ -30,11 +30,12 @@
 
         <?php
          foreach ($cart as $key => $qty):
-          $item = menuItem()->get("Id=$key");
-          $total = $item->price*$qty;
+          $var = variation()->get("Id=$key");
+          $item = menuItem()->get("Id=$var->itemId");
+          $total = $var->price*$qty;
 
            ?>
-      <div class="col-lg-4 menu-item mb-3" id="cartItem<?=$item->Id;?>">
+      <div class="col-lg-4 menu-item mb-3" id="cartItem<?=$var->Id;?>">
         <div class="card">
           <div class="card-body">
             <div class="row">
@@ -46,18 +47,18 @@
               <div class="col">
                 <b><?=$item->name;?></b>
                 <p class="ingredients">
-                  <?=$item->description;?>
+                <?=htmlspecialchars_decode($item->description)?>
                 </p>
                 <p class="price">
-                  <?=format_money($item->price);?>
+                  <?=format_money($var->price);?>
                 </p>
 
-                <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', '<?=$item->price?>', -1)">-</button>
-                <button type="button" class="btn btn-warning" id="quantity<?=$item->Id?>"><?=$qty?></button>
-                <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$item->Id?>', '<?=$item->price?>', 1)">+</button>
+                <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$var->Id?>', '<?=$var->price?>', -1)">-</button>
+                <button type="button" class="btn btn-warning" id="quantity<?=$var->Id?>"><?=$qty?></button>
+                <button type="button" class="btn btn-warning" onclick="update_quantity('<?=$var->Id?>', '<?=$var->price?>', 1)">+</button>
 
 
-                <div id="totalPrice<?=$item->Id?>" class="mt-3" style="font-size:20px;font-weight:bold;color:red">
+                <div id="totalPrice<?=$var->Id?>" class="mt-3" style="font-size:20px;font-weight:bold;color:red">
                   <?=format_money($total);?>
                 </div>
               </div>
@@ -125,7 +126,7 @@
         <div class="modal-body">
           <b>Customer</b>
           <input type="text" name="name"  class="form-control" value="<?=$_SESSION['customer']['name']?>" required>
-          <input type="hidden" name="deviceId"  class="form-control" value="<?=$_SESSION['customer']['deviceId']?>" required>
+          <input type="hidden" name="customerId"  class="form-control" value="<?=$_SESSION['customer']['Id']?>" required>
           <b>Notes to kitchen</b>
           <textarea name="notes" class="form-control"></textarea>
         </div>
@@ -146,10 +147,10 @@ var cartTotalAmount = <?=$totalAmount?>;
 
 totalAmount.innerHTML = format_money(cartTotalAmount);
 
-function update_quantity(itemId, price, addedValue){
-  var quantity = document.getElementById("quantity"+itemId);
-  var totalPrice = document.getElementById("totalPrice"+itemId);
-  var cartItem = document.getElementById("cartItem"+itemId);
+function update_quantity(varId, price, addedValue){
+  var quantity = document.getElementById("quantity"+varId);
+  var totalPrice = document.getElementById("totalPrice"+varId);
+  var cartItem = document.getElementById("cartItem"+varId);
 
   var newQuantity = parseInt(quantity.innerHTML) + parseInt(addedValue);
 
@@ -169,14 +170,14 @@ function update_quantity(itemId, price, addedValue){
     totalPrice.innerHTML = format_money(newQuantity*parseFloat(price));
     $.ajax({
         type: "GET",
-        url: "../pages/process.php?action=update-cart&itemId=" + itemId + "&value=" + newQuantity,
+        url: "../pages/process.php?action=update-cart&varId=" + varId + "&value=" + newQuantity,
       });
   }
   else{
     cartItem.style.display = "none";
     $.ajax({
         type: "GET",
-        url: "../pages/process.php?action=remove-from-cart&itemId=" + itemId,
+        url: "../pages/process.php?action=remove-from-cart&varId=" + varId,
       });
   }
 }
