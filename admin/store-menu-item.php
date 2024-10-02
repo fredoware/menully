@@ -125,7 +125,7 @@
                 </div>
               </div>
               <div class="card-footer">
-              <a href="store-menu-item-form.php?Id=<?=$item->Id?>&storeId=<?=$storeId?>" class="btn btn-warning edit">Edit</a>
+              <a href="store-menu-item-form.php?Id=<?=$item->Id?>&storeId=<?=$storeId?>" class="btn btn-warning">Edit</a>
                   <button type="button" class="btn btn-primary" onclick="open_modal('<?=$item->Id?>')"  data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">Markings</button>
 
               </div>
