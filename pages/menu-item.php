@@ -102,8 +102,8 @@
                                     <p class="price" id="priceDisplay<?=$item->Id?>">
                                         <?=format_money($price);?>
                                     </p>
-                                    <input type="text" id="price<?=$item->Id?>" value="<?=$price?>">
-                                    <input type="text" id="varId<?=$item->Id?>" value="<?=$varId?>">
+                                    <input type="hidden" id="price<?=$item->Id?>" value="<?=$price?>">
+                                    <input type="hidden" id="varId<?=$item->Id?>" value="<?=$varId?>">
                                 </div>
                             </div>
                             
