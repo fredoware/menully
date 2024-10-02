@@ -194,7 +194,7 @@ objTo.appendChild(divtest)
 <?php else: ?>
 
 var divtest = document.createElement("div");
-  divtest.innerHTML = '<div class="row mt-2"><div class="col"><input type="hidden" name="variationId[]" value="Item" /><input class="form-control" id="form-unit" name="unit[]" placeholder="Unit" required /></div><div class="col"><input class="form-control" id="form-price" name="price[]" placeholder="Item Price" required step=".01" type="number" /></div><div class="col-2 pt-4"></div></div>';
+  divtest.innerHTML = '<div class="row mt-2"><div class="col"><input type="hidden" name="variationId[]"/><input class="form-control" id="form-unit"  value="Item"  name="unit[]" placeholder="Unit" required /></div><div class="col"><input class="form-control" id="form-price" name="price[]" placeholder="Item Price" required step=".01" type="number" /></div><div class="col-2 pt-4"></div></div>';
 objTo.appendChild(divtest)
 
 // Add product ===============================================================
