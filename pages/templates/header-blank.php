@@ -43,6 +43,14 @@ else{
   <link href="../pages/templates/source/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+  <style>
+    /* Dynamic colors based on the theme */
+    :root {
+      --color-default: #212529;
+      --color-primary: <?=$store->themePrimary;?> !important;
+      --color-secondary: <?=$store->themeSecondary;?> !important;
+    }
+  </style>
   <link href="../pages/templates/source/main.css" rel="stylesheet">
   <link href="../pages/templates/custom.css" rel="stylesheet">
 
