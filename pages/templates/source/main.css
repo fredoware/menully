@@ -241,7 +241,7 @@ section {
 # Header
 --------------------------------------------------------------*/
 .header {
-  background: #fff;
+  background: var(--color-primary);
   transition: all 0.5s;
   z-index: 997;
   height: 90px;
@@ -267,7 +267,7 @@ section {
 .header .logo h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #000;
+  color: #ffffff;
   margin: 0;
   font-family: var(--font-secondary);
 }
@@ -280,7 +280,7 @@ section {
 .header .btn-book-a-table:focus {
   font-size: 14px;
   color: #fff;
-  background: var(--color-primary);
+  background: var(--color-secondary);
   padding: 8px 20px;
   margin-left: 30px;
   border-radius: 50px;
@@ -326,7 +326,7 @@ section {
     font-family: var(--font-secondary);
     font-size: 16px;
     font-weight: 600;
-    color: #7f7f90;
+    color: #fff;
     white-space: nowrap;
     transition: 0.3s;
     position: relative;
@@ -376,7 +376,7 @@ section {
     z-index: 99;
     opacity: 0;
     visibility: hidden;
-    background: #fff;
+    background: var(--color-primary);
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
     transition: 0.3s;
     border-radius: 4px;
@@ -1511,7 +1511,7 @@ section {
   border-radius: 50px;
   transition: 0.5s;
   color: #fff;
-  background: var(--color-primary);
+  background: var(--color-secondary);
   box-shadow: 0 8px 28px rgba(206, 18, 18, 0.2);
 }
 

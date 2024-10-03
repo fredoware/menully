@@ -19,8 +19,6 @@
 
 </html>
 
-
-
 <script type="text/javascript">
 <?php if ($success): ?>
 	Swal.fire({

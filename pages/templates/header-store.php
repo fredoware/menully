@@ -51,6 +51,14 @@ if (isset($_SESSION['user_session'])) {
   <link href="templates/source/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+  <style>
+    /* Dynamic colors based on the theme */
+    :root {
+      --color-default: #212529;
+      --color-primary: <?=$store->themePrimary;?> !important;
+      --color-secondary: <?=$store->themeSecondary;?> !important;
+    }
+  </style>
   <link href="templates/source/main.css" rel="stylesheet">
   <link href="templates/custom.css" rel="stylesheet">
 
@@ -80,7 +88,7 @@ if (isset($_SESSION['user_session'])) {
 
       <nav id="navbar" class="navbar">
       <ul style="list-style-type: none;">
-            <li><a href="store-main.php" style="color:red;">Notification</a></li>
+            <li><a href="store-main.php">Notification</a></li>
             <li class="dropdown"><a href="#"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
               <li><a href="store-orders.php?status=Pending">Pending</a></li>

@@ -57,7 +57,7 @@
   width: 100%;
 }
 .bottom-sheet-dialog .card{
-  background: var(--color-primary);
+  background: var(--color-secondary);
   color: white;
   margin: 10px;
 }
@@ -78,7 +78,7 @@
 }
 
 .btn-place-order{
-  background: var(--color-primary);
+  background: var(--color-secondary);
   color: white;
   padding: 15px;
 }
@@ -205,8 +205,8 @@
 .btn-primary,
 .btn-primary:focus {
   color: #fff !important;
-  background: var(--color-primary) !important;
-  border: var(--color-primary) !important;
+  background: var(--color-secondary) !important;
+  border: var(--color-secondary) !important;
 }
 
 .btn-primary:hover,

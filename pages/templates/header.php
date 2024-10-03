@@ -93,8 +93,8 @@ else{
     /* Dynamic colors based on the theme */
     :root {
       --color-default: #212529;
-      --color-primary: <?=$store->theme;?> !important;
-      --color-secondary: #37373f;
+      --color-primary: <?=$store->themePrimary;?> !important;
+      --color-secondary: <?=$store->themeSecondary;?> !important;
     }
   </style>
   <link href="../pages/templates/source/main.css" rel="stylesheet">
@@ -114,7 +114,7 @@ else{
         <img src="../media/<?=$store->logo?>">
         <h1><?=$store->name?></h1>
       </a>
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar" >
         <ul style="list-style-type: none;">
             <li><a href="../<?=$storeCode?>/">Home</a></li>
             <li><a href="" data-bs-toggle="modal" data-bs-target="#menuCategory">Menu</a></li>
@@ -142,8 +142,8 @@ else{
         </ul>
       </nav><!-- .navbar -->
 
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list" ></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x" ></i>
 
     </div>
   </header><!-- End Header -->

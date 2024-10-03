@@ -63,9 +63,11 @@
                         </label>
                         <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)"
                             style="display:none">
-
-                            <label class="mt-3">Select your theme color:</label> <br>
-                            <input type="color" ng-model="theme" name="theme" value="#ff0000" required>
+                            <label class="mt-3">Primary theme color:</label> <br>
+                            <input type="color" ng-model="themePrimary" name="themePrimary" value="#017017" required> <br>
+                            
+                            <label class="mt-3">Secondary theme color:</label> <br>
+                            <input type="color" ng-model="themeSecondary" name="themeSecondary" value="#f08c13" required>
                     </div>
                     </div>
                     <button type="submit" name="form-type" value="add" ng-show="add" class="btn btn-primary mt-5">Create</button>
@@ -137,7 +139,8 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.email = "<?=$store->email?>";
     $scope.status = "<?=$store->status?>";
     $scope.address = "<?=$store->address?>";
-    $scope.theme = "<?=$store->theme?>";
+    $scope.themePrimary = "<?=$store->themePrimary?>";
+    $scope.themeSecondary = "<?=$store->themeSecondary?>";
     $scope.add = false;
     $scope.edit = true;
     <?php else: ?>

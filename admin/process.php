@@ -117,7 +117,8 @@ function store_save(){
 	$model->obj["phone"] = $_POST["phone"];
 	$model->obj["email"] = $_POST["email"];
 	$model->obj["status"] = $_POST["status"];
-	$model->obj["theme"] = $_POST["theme"];
+	$model->obj["themePrimary"] = $_POST["themePrimary"];
+	$model->obj["themeSecondary"] = $_POST["themeSecondary"];
 	$model->obj["address"] = $_POST["address"];
 	$model->obj["dateAdded"] = "NOW()";
 

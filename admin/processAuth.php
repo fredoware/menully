@@ -34,14 +34,14 @@ function user_login(){
 		$username = $_POST["username"];
 		$password = $_POST["password"];
 
-		$countUser = account()->count("username='$username' and password='$password'");
+		$countUser = account()->count("username='$username' and password='$password' and (role='Admin' or role='Staff')");
 		if ($countUser==0):
 			header('Location: login.php?error=User does not exist');
 		else:
 			$user = account()->get("username='$username'");
 			$_SESSION["admin_session"] = array();
 			$_SESSION["admin_session"]["Id"] = $user->Id;
-			$_SESSION["admin_session"]["username"] = $user->username;
+			$_SESSION["admin_session"]["username"] = $user->username;	
 			$_SESSION["admin_session"]["firstName"] = $user->firstName;
 			$_SESSION["admin_session"]["lastName"] = $user->lastName;
 			$_SESSION["admin_session"]["role"] = $user->role;

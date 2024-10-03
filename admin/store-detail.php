@@ -57,7 +57,10 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
 
                     <li class="list-group-item d-flex justify-content-between p-3">
                         <b>Theme:</b>
-                        <span><?=$store->theme;?></span>
+                        <div>
+                            <span class="btn" style="background:<?=$store->themePrimary;?>;color:white">Primary: <?=$store->themePrimary;?></span>
+                            <span class="btn" style="background:<?=$store->themeSecondary;?>;color:white">Secondary: <?=$store->themeSecondary;?></span>
+                        </div>
                     </li>
 
 
