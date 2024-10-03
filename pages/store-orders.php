@@ -202,14 +202,15 @@
                  </div>
                </div>
 
-               <div class="row">
-                 <div class="col order-label">
-                   Total:
-                 </div>
-                 <div class="col order-value">
-                   <?=format_money($finalAmount)?>
-                 </div>
-               </div>
+              <div class="row">
+                <div class="col order-label">
+                  Total:
+                </div>
+                <div class="col order-value">
+                  <?=format_money($finalAmount)?>
+                </div>
+              </div>
+
 
                <?php else: ?>
 
@@ -223,10 +224,26 @@
                </div>
 
              <?php endif; ?>
+             <div class="row">
+                <div class="col order-label">
+                  Payment Status:
+                </div>
+                <div class="col order-value" id="payment-status<?=$item->Id?>">
+                  <?php if ($item->isPaid): ?>
+                    Paid
+                  <?php else: ?>
+                    Unpaid
+                  <?php endif; ?>
+                </div>
+              </div>
            </div>
            <div class="modal-footer">
 
-             <?php if ($item->status=="Pending"): ?>
+           <?php if (!$item->isPaid): ?>
+            <button class="btn btn-info" id="btn-isPaid<?=$item->Id?>" onclick="mark_as_paid('<?=$item->Id?>', 1)">Mark as "Paid"</button>
+           
+                  <?php endif; ?>
+            <?php if ($item->status=="Pending"): ?>
                <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="change_order_status('<?=$item->Id?>','Confirmed')">Confirm</button>
                <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"  onclick="change_order_status('<?=$item->Id?>','Canceled')">Cancel Order</button>
              <?php endif; ?>
@@ -258,7 +275,23 @@ function change_order_status(itemId, status){
       type: "GET",
       url: "process.php?action=change-order-status&Id=" + itemId + "&status=" + status,
     });
+}
 
+function mark_as_paid(itemId, isPaid){
+  var btnIsPaid = document.getElementById("btn-isPaid"+itemId);
+  var paymentStatus = document.getElementById("payment-status"+itemId);
+  btnIsPaid.style.display = "none";
+  if (isPaid) {
+    paymentStatus.innerHTML = "Paid";
+  }
+  else{
+    paymentStatus.innerHTML = "Unpaid";
+  }
+
+  $.ajax({
+      type: "GET",
+      url: "process.php?action=mark-order-as-paid&Id=" + itemId + "&isPaid=" + isPaid,
+    });
 }
 
 </script>

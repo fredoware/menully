@@ -51,6 +51,10 @@ switch ($action) {
 			change_order_status();
 			break;
 
+		case 'mark-order-as-paid' :
+			mark_order_as_paid();
+			break;
+
 		case 'change-item-status' :
 			change_item_status();
 			break;
@@ -349,6 +353,15 @@ function change_order_status(){
 
 	$model = orderMain();
 	$model->obj["status"] = $_GET["status"];
+	$model->update("Id=$Id");
+
+}
+
+function mark_order_as_paid(){
+	$Id = $_GET["Id"];
+
+	$model = orderMain();
+	$model->obj["isPaid"] = $_GET["isPaid"];
 	$model->update("Id=$Id");
 
 }
