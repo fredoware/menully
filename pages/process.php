@@ -430,7 +430,7 @@ function place_order(){
 	$_SESSION["cart"] = array();
 	$_SESSION["voucherId"] = 0;
 
-	header('Location: ../'.$store.'/order');
+	header('Location: ../'.$store.'/order?success=PLEASE PAY AT THE COUNTER');
 }
 
 function add_to_cart()
