@@ -61,11 +61,13 @@
 
                 <div class="card" style="<?=$checkAvailability?>">
                     <div class="card-header">
-                        <?php if ($item->image): ?>
                         <div class="square-container">
-                            <img src="../media/<?=$item->image;?>">
+                            <?php if ($item->image): ?>
+                                        <img src="../media/<?=$item->image;?>">
+                                    <?php else: ?>
+                                        <img src="../media/<?=$store->logo?>">
+                                    <?php endif; ?>
                         </div>
-                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -92,11 +94,13 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col">
-                                    <?php if ($item->image): ?>
                                     <div class="square-container">
+                                    <?php if ($item->image): ?>
                                         <img src="../media/<?=$item->image;?>">
-                                    </div>
+                                    <?php else: ?>
+                                        <img src="../media/<?=$store->logo?>">
                                     <?php endif; ?>
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <h1 class="modal-title fs-5"><?=$item->name;?></h1>
