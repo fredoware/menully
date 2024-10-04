@@ -40,6 +40,13 @@ switch ($action) {
 		break;
 
 
+	case 'change-item-status' :
+		change_item_status();
+		break;
+
+	case 'best-seller-option' :
+		best_seller_option();
+		break;
 
 	default :
 }
@@ -102,6 +109,24 @@ function account_save(){
 	}
 
 	header('Location: accounts.php?role=' . $_POST["role"]);
+}
+
+function best_seller_option(){
+	$Id = $_GET["Id"];
+
+	$model = menuItem();
+	$model->obj["isBestSeller"] = $_GET["value"];
+	$model->update("Id=$Id");
+
+}
+
+function change_item_status(){
+	$Id = $_GET["Id"];
+
+	$model = menuItem();
+	$model->obj["isAvailable"] = $_GET["isAvailable"];
+	$model->update("Id=$Id");
+
 }
 
 

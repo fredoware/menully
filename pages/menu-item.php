@@ -63,10 +63,10 @@
                     <div class="card-header">
                         <div class="square-container">
                             <?php if ($item->image): ?>
-                                        <img src="../media/<?=$item->image;?>">
-                                    <?php else: ?>
-                                        <img src="../media/<?=$store->logo?>">
-                                    <?php endif; ?>
+                                <img src="../media/<?=$item->image;?>">
+                            <?php else: ?>
+                                <img src="../media/<?=$store->logo?>">
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="card-body">
