@@ -16,19 +16,21 @@
   <section>
     <div class="container">
 
-      <div class="menu-item-header">
-        <div class="row">
-          <div class="col-2 mih-left" onclick="history.back()">
-            <i class="bi bi-arrow-left"></i>
-          </div>
-          <div class="col mih-center">
-            <h6>Item Form</h6>
-          </div>
-          <div class="col-2 mih-right" data-bs-toggle="modal" data-bs-target="#menuCategory">
-          </div>
-        </div>
-      </div>
+      <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+<div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+      
+    <div class="col-2 mih-left" >
 
+            <button class="btn btn-warning" onclick="history.back()"><i class="bi bi-arrow-left"></i></button>
+          </div>
+    <div class="col-9">
+    <h4 class="fw-semibold mb-8">Item Form</h4>
+          </div>
+    </div>
+    </div>
+</div>
+</div>
 
 
       <form action="process.php?action=item-save" method="post" enctype="multipart/form-data">
