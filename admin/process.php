@@ -47,6 +47,11 @@ switch ($action) {
 	case 'best-seller-option' :
 		best_seller_option();
 		break;
+	
+
+	case 'item-delete' :
+		item_delete();
+		break;
 
 	default :
 }
@@ -78,6 +83,17 @@ function account_delete(){
 
 	header('Location: ' . $_GET["url"] . '&success=Account Successfully Deleted');
 }
+
+function item_delete(){
+
+	$Id = $_GET["Id"];
+	$model = menuItem();
+	$model->obj["isDeleted"] = 1;
+	$model->update("Id=$Id");
+
+	header('Location: store-menu-item.php?Id='.$_GET['categoryId'].'&storeId='.$_GET['storeId']);
+}
+
 
 function category_delete(){
 	$Id = $_GET["Id"];

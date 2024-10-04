@@ -7,9 +7,9 @@
 
   $category = menuCategory()->get("Id=$Id");
 
-  $categoryList = menuCategory()->list("storeId=$storeId");
+  $categoryList = menuCategory()->list("storeId=$storeId and isDeleted=0");
 
-  $item_list = menuItem()->list("menuCategoryId=$Id");
+  $item_list = menuItem()->list("menuCategoryId=$Id and isDeleted=0");
 
 ?>
 
@@ -130,7 +130,7 @@
               <div class="card-footer">
               <a href="store-menu-item-form.php?Id=<?=$item->Id?>&storeId=<?=$storeId?>" class="btn btn-warning">Edit</a>
                   <button type="button" class="btn btn-primary" onclick="open_modal('<?=$item->Id?>')"  data-bs-toggle="modal" data-bs-target="#itemModal<?=$item->Id?>">Markings</button>
-
+                  <button class="btn btn-danger" onclick="deleteNotification('process.php?action=item-delete&Id=<?=$item->Id?>&categoryId=<?=$category->Id?>&storeId=<?=$storeId?>')">Delete</button>
               </div>
             </div>
           </div>
