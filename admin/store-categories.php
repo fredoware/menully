@@ -3,7 +3,7 @@ include "templates/header.php";
 
 $Id = $_GET['Id'];
 
-$category_list = menuCategory()->list("storeId=$Id order by priority");
+$category_list = menuCategory()->list("storeId=$Id and isDeleted=0 order by priority");
 
 
 ?>
@@ -83,7 +83,7 @@ $category_list = menuCategory()->list("storeId=$Id order by priority");
             <div class="card-footer">
               <a href="store-menu-item.php?Id=<?=$row->Id?>&storeId=<?=$Id?>" class="btn btn-primary">View</a>
               <a href="#" class="btn btn-warning edit">Edit</a>
-              <a href="#" class="btn btn-danger">Delete</a>
+              <button class="btn btn-danger" onclick="deleteNotification('process.php?action=category-delete&categoryId=<?=$row->Id?>&storeId=<?=$Id?>')">Delete</button>
             </div>
           </div>
         </div>

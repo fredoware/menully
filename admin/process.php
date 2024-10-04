@@ -49,8 +49,13 @@ switch ($action) {
 		break;
 	
 
-	case 'item-delete' :
-		item_delete();
+		case 'item-delete' :
+			item_delete();
+			break;
+
+			
+	case 'category-delete' :
+		category_delete();
 		break;
 
 	default :
@@ -94,14 +99,16 @@ function item_delete(){
 	header('Location: store-menu-item.php?Id='.$_GET['categoryId'].'&storeId='.$_GET['storeId']);
 }
 
-
 function category_delete(){
-	$Id = $_GET["Id"];
-	category()->delete("Id=$Id");
-	item()->delete("categoryId=$Id");
 
-	header('Location: categories.php?published='. $_GET['isPublished'] .'&success=You have deleted this category');
+	$categoryId = $_GET["categoryId"];
+	$model = menuCategory();
+	$model->obj["isDeleted"] = 1;
+	$model->update("Id=$categoryId");
+
+	header('Location: store-categories.php?Id='.$_GET['storeId']);
 }
+
 
 
 function account_save(){
