@@ -89,7 +89,7 @@
         Voucher:
       </div>
       <div class="col-6" onclick="location.href='vouchers'">
-        <?php if ($_SESSION["voucherId"]):
+        <?php if (isset($_SESSION["voucherId"])):
           $voucherId = $_SESSION["voucherId"];
           $voucher = voucher()->get("Id=$voucherId");
            ?>
