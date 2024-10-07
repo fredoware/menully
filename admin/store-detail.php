@@ -29,9 +29,28 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-3 text-center"><img src="<?=general_link("media/".$store->logo)?>" class="crop-box"></div>
-            <div class="col-3 text-center p-3">
-                <div id="qrcode-2" class="text-center"></div>
+            
+
+
+            <div class="col-6 d-flex">
+                <div class="row">
+                    <div class="col-6"><img src="<?=general_link("media/".$store->logo)?>" class="crop-box"></div>
+                    <div class="col-6">
+                        <div id="qrcode-2" class="text-center"></div>
+                    </div>
+                    <div class="col-12">
+                        
+        <a href="store-form.php?Id=<?=$Id?>" class="btn btn-warning mt-2">Modify</a>
+
+<a href="store-categories.php?Id=<?=$store->Id?>" class="btn btn-primary mt-2">Manage Products</a>
+
+<button class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add People</button>
+
+<a href="store-tables.php?Id=<?=$store->Id?>" class="btn btn-success mt-2">QR Tables</a>
+                    </div>
+                </div>
+            
+                
             </div>
             <div class="col-6">
                 <ul class="list-group">
@@ -76,12 +95,6 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
 
                     </li>
                 </ul>
-
-                <a href="store-form.php?Id=<?=$Id?>" class="btn btn-warning mt-2">Modify</a>
-
-                <a href="store-categories.php?Id=<?=$store->Id?>" class="btn btn-primary mt-2">Manage Products</a>
-
-                <button class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add People</button>
             </div>
         </div>
     </div>

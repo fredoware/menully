@@ -89,7 +89,7 @@
         Voucher:
       </div>
       <div class="col-6" onclick="location.href='vouchers'">
-        <?php if (isset($_SESSION["voucherId"])):
+        <?php if ($_SESSION["voucherId"]):
           $voucherId = $_SESSION["voucherId"];
           $voucher = voucher()->get("Id=$voucherId");
            ?>
@@ -124,6 +124,14 @@
       <form action="../pages/process.php?action=place-order" method="post">
         <input type="hidden" name="storeCode"  class="form-control" value="<?=$storeCode?>" required>
         <div class="modal-body">
+
+          <?php if (isset($_SESSION["table"])): ?>
+          <b>Table:</b>
+          <input type="text" name="name"  class="form-control" value="<?=$_SESSION['table']['name']?>" disabled>
+          <input type="hidden" name="tableId"  class="form-control" value="<?=$_SESSION['table']['Id']?>" required>
+          <?php else: ?>
+          <input type="hidden" name="tableId"  class="form-control" value="" required>
+          <?php endif; ?>
           <b>Customer</b>
           <input type="text" name="name"  class="form-control" value="<?=$_SESSION['customer']['name']?>" required>
           <input type="hidden" name="customerId"  class="form-control" value="<?=$_SESSION['customer']['Id']?>" required>

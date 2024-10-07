@@ -11,21 +11,29 @@ switch ($action) {
 		account_save();
 		break;
 
-	case 'category-save' :
-		category_save();
-		break;
+		case 'category-save' :
+			category_save();
+			break;
+	
+		case 'category-delete' :
+			category_delete();
+			break;
 
-	case 'category-delete' :
-		category_delete();
-		break;
+			case 'table-save' :
+				table_save();
+				break;
+		
+			case 'table-delete' :
+				table_delete();
+				break;
 
 	case 'store-save' :
 		store_save();
 		break;
 
-	case 'store-delete' :
-		category_delete();
-		break;
+	// case 'store-delete' :
+	// 	category_delete();
+	// 	break;
 
 	case 'item-save' :
 		item_save();
@@ -53,10 +61,6 @@ switch ($action) {
 			item_delete();
 			break;
 
-			
-	case 'category-delete' :
-		category_delete();
-		break;
 
 	default :
 }
@@ -107,6 +111,16 @@ function category_delete(){
 	$model->update("Id=$categoryId");
 
 	header('Location: store-categories.php?Id='.$_GET['storeId']);
+}
+
+function table_delete(){
+
+	$tableId = $_GET["tableId"];
+	$model = storeTable();
+	$model->obj["isDeleted"] = 1;
+	$model->update("Id=$tableId");
+
+	header('Location: store-tables.php?Id='.$_GET['storeId']);
 }
 
 
@@ -234,6 +248,27 @@ function category_save()
 header('Location: store-categories.php?Id='.$storeId );
 }
 
+
+function table_save()
+{
+		$storeId = $_POST["storeId"];
+		$store = store()->get("Id=$storeId");
+
+		$model = storeTable();
+  	$model->obj["storeId"] = $_POST["storeId"];
+  	$model->obj["name"] = $_POST["name"];
+
+		if ($_POST["form-type"] == "add") {
+			$model->create();
+		}
+
+		if ($_POST["form-type"] == "edit") {
+			$Id = $_POST["Id"];
+			$model->update("Id=$Id");
+		}
+
+header('Location: store-tables.php?Id='.$storeId );
+}
 
 function item_save()
 {

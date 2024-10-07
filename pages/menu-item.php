@@ -72,7 +72,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="item-name"><?=$item->name;?></div>
+                                <div class="item-name"><?=$item->name;?> </div>
                                 <p class="item-price">
                                 <?=format_money($price);?>
                                 </p>

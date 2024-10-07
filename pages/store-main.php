@@ -2,6 +2,9 @@
   include "templates/header-store.php";
 
   $category_list = menuCategory()->list("storeId=$store->Id");
+
+  
+  $totalConfirmed = orderMain()->count("status='Confirmed' and storeCode='$store->storeCode'");
 ?>
 
 <main id="main">
@@ -20,9 +23,18 @@
           <span id="totalPending">0</span> new pending orders!
        </div>
 
+       <hr>
+
+        <?php if ($totalConfirmed): ?>
+        <div class="alert alert-primary" role="alert" id="alertBarConfirmed" style="display:none;"  onclick="location.href='store-orders.php?status=Confirmed'">
+          <span id="totalPending"><?=$totalConfirmed;?></span> new confirmed orders!
+       </div>
+        <?php endif; ?>
      </div>
    </section>
  </main>
+
+ <!-- <iframe src="templates/audio/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe> -->
 
  <script type="text/javascript">
  var currentPending = 0;
@@ -31,6 +43,7 @@
 
      document.getElementById("activateButton").style.display = "none";
      document.getElementById("receiver").style.display = "";
+     document.getElementById("alertBarConfirmed").style.display = "";
 
      var intervalId = window.setInterval(function(){
        $.ajax({
@@ -47,9 +60,9 @@
              }
            }
          });
-     }, 5000);
+     }, 2000);
  }
-
+ 
 
 
  function notificationSound(){

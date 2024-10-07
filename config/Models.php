@@ -88,4 +88,10 @@ function variation() {
 	return $crud;
 }
 
+function storeTable() {
+	$crud = new CRUD;
+	$crud->table = "store_table";
+	return $crud;
+}
+
 ?>

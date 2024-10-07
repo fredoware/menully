@@ -9,7 +9,7 @@
   }
 
   
-  $categoryList = menuCategory()->list("storeId=$store->Id");
+  $categoryList = menuCategory()->list("storeId=$store->Id and isDeleted=0");
 
 ?>
 

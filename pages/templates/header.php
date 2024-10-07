@@ -17,6 +17,14 @@ if (!isset($_SESSION["cart"])) {
 	$_SESSION["voucherDiscount"] = 0;
 }
 
+if (isset($_GET["tblno"])) {
+  $tblNo = $_GET["tblno"];
+  $tbl = storeTable()->get("Id=$tblNo");
+	$_SESSION["table"] = array();
+  $_SESSION["table"]["Id"] = $tbl->Id;
+  $_SESSION["table"]["name"] = $tbl->name;
+}
+
 // =========================================================
 // Check device Id exists
 if ($_SERVER['REQUEST_URI'] != "/menully/" . $_GET["store"] . "/" && $_SERVER['REQUEST_URI'] != "/" . $_GET["store"] . "/") {
@@ -50,7 +58,7 @@ if (isset($_SESSION['user_session'])) {
 if (isset($_GET["store"])) {
   $storeCode = $_GET["store"];
   $store = store()->get("storeCode='$storeCode'");
-  $category_list = menuCategory()->list("storeId=$store->Id order by priority");
+  $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
 }
 else{
   header("Location: qr-expired.php");

@@ -393,6 +393,7 @@ function place_order(){
 
 	$model = orderMain();
 	$model->obj["customer"] = $_POST["name"];
+	$model->obj["tableId"] = $_POST["tableId"];
 	$model->obj["customerId"] = $customerId;
 	$model->obj["notes"] = $_POST["notes"];
 	$model->obj["orderNumber"] = $orderNumber;

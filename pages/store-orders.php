@@ -53,6 +53,9 @@
 
 <?php foreach ($order_list as $item):
   $totalAmount = get_total_amount($item->orderNumber);
+  if ($item->tableId) {
+    $table = storeTable()->get("Id=$item->tableId");
+  }
    ?>
 
    <div class="col-lg-4 menu-item mb-3" id="itemCard<?=$item->Id?>">
@@ -82,6 +85,9 @@
            </div>
            <div class="col order-value">
              <?=$item->customer?>
+             <?php if ($item->tableId): ?>
+              (<?=$table->name;?>)
+             <?php endif; ?>
            </div>
          </div>
 
