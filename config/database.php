@@ -22,13 +22,13 @@ class Database
     public static function connect()
     {
         // Local environment
-        if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '172.20.10.3') {
-          $dbName = 'menully.db' ;
-          $dbHost = 'localhost' ;
-          $dbUsername = 'root';
-          $dbUserPassword = '';
-          $port = '';
-        }
+        // if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '172.20.10.3' || $_SERVER['HTTP_HOST'] == '172.20.10.3') {
+        //   $dbName = 'menully.db' ;
+        //   $dbHost = 'localhost' ;
+        //   $dbUsername = 'root';
+        //   $dbUserPassword = '';
+        //   $port = '';
+        // }
         
         // Local production
         if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menully.com' || $_SERVER['HTTP_HOST'] == 'admin.menully.com') {
@@ -36,6 +36,13 @@ class Database
           $dbHost = 'localhost' ;
           $dbUsername = 'u437487943_menully';
           $dbUserPassword = '9Jh3sMmO;';
+          $port = '';
+        }
+        else{
+          $dbName = 'menully.db' ;
+          $dbHost = 'localhost' ;
+          $dbUsername = 'root';
+          $dbUserPassword = '';
           $port = '';
         }
 
