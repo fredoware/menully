@@ -92,7 +92,7 @@
 
 
 <div class="container-fluid bg-white cover-size">
-    <button class="btn-fab" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
+    <button class="btn-fab clickable" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
 
 
     <div class="row justify-content-center cart-main">
@@ -105,7 +105,7 @@
 
             <div class="row">
                 <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay">
-                    <div class="card" ng-click="showItem(item)" style="height:100px;">
+                    <div class="card  clickable" ng-click="showItem(item)" style="height:100px;">
                         <div class="card-body">
                             {{item.name}}
 
