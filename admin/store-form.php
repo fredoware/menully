@@ -58,11 +58,23 @@
                         </div>
                         
                     <div class="col-4">
-                        <label for="fileInput">
+                    <label class="mt-3">Cover Photo:</label> <br>
+                        <label for="coverInput">
+                            <img ng-src="{{cover}}" id="cover" style="width:100%;">
+                        </label>
+                        <input id="coverInput" type="file" name="cover" accept="image/*" onchange="coverLoadFile(event)"
+                            style="display:none">
+
+                            <br>
+
+                            <label class="mt-3">Logo:</label> <br>
+                        <label for="logoInput">
                             <img ng-src="{{logo}}" id="logo" style="width:100%;">
                         </label>
-                        <input id="fileInput" type="file" name="logo" accept="image/*" onchange="loadFile(event)"
+                        <input id="logoInput" type="file" name="logo" accept="image/*" onchange="logoLoadFile(event)"
                             style="display:none">
+                            
+                            <br>
                             <label class="mt-3">Primary theme color:</label> <br>
                             <input type="color" ng-model="themePrimary" name="themePrimary" value="#017017" required> <br>
                             
@@ -80,8 +92,16 @@
 
 <script>
 
-var loadFile = function(event) {
+var logoLoadFile = function(event) {
     var output = document.getElementById('logo');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+};
+
+var coverLoadFile = function(event) {
+    var output = document.getElementById('cover');
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function() {
         URL.revokeObjectURL(output.src) // free memory
@@ -94,6 +114,7 @@ var loadFile = function(event) {
 var app = angular.module("myApp", []);
 app.controller('myCtrl', function($scope, $http) {
     $scope.logo = "templates/assets/images/default-store-logo.jpg";
+    $scope.cover = "templates/assets/images/default-store-logo.jpg";
     $scope.generateStoreCode = function() {
         var strLower = $scope.storeName.toLowerCase();
         $scope.storeCode = strLower.replace(/\s/g, '');

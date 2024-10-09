@@ -189,8 +189,12 @@ function store_save(){
 		$newDri = "../media/" . $_POST["storeCode"];
 		mkdir($newDri);
 		if ($_FILES['logo']['name'] != "") {
-			$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
-			$model->obj["logo"] = $image_file_name;
+			$logo_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
+			$model->obj["logo"] = $logo_file_name;
+		}
+		if ($_FILES['cover']['name'] != "") {
+			$cover_file_name = uploadFile($_FILES["cover"], $_POST["storeCode"]);
+			$model->obj["cover"] = $cover_file_name;
 		}
 		$model->create();
 
@@ -203,9 +207,15 @@ function store_save(){
 		$Id = $_POST["Id"];
 		if ($_FILES['logo']['name'] != "") {
 			$item = store()->get("Id=$Id");
-			unlink('../media/' . $item->image);
-			$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
-			$model->obj["logo"] = $image_file_name;
+			unlink('../media/' . $item->logo);
+			$logo_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
+			$model->obj["logo"] = $logo_file_name;
+		}
+		if ($_FILES['cover']['name'] != "") {
+			$item = store()->get("Id=$Id");
+			unlink('../media/' . $item->cover);
+			$cover_file_name = uploadFile($_FILES["cover"], $_POST["storeCode"]);
+			$model->obj["cover"] = $cover_file_name;
 		}
 		$model->update("Id=$Id");
 	}
