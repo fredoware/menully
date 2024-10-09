@@ -104,7 +104,7 @@
         <div class="card-body">
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay">
+                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"  data-aos="fade-up">
                     <div class="card  clickable" ng-click="showItem(item)" style="height:100px;">
                         <div class="card-body">
                             {{item.name}}
@@ -115,8 +115,8 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
-                    <div class="card">
+                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay" >
+                    <div class="card"  data-aos="fade-up">
 
                         <div class="card-header">
                             <div class="square-container">
