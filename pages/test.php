@@ -87,6 +87,7 @@
     left: 0px;
     margin: 0px;
 }
+
 </style>
 
 
@@ -101,7 +102,9 @@
     <img src="../media/<?=$store->logo?>" class="logo">
     <img src="../media/<?=$store->logo?>" class="cover-photo">
     <div class="card menu-content">
-        <div class="card-body">
+        <div class="card-body text-center">
+
+    <div class="spinner-border" ng-show="spinner"></div>
 
             <div class="row">
                 <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"  data-aos="fade-up">
@@ -148,6 +151,7 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.categoryList = [];
     $scope.itemList = [];
     $scope.btnBack = false;
+    $scope.spinner = false;
 
     $scope.getCategories = function() {
         $http({
@@ -171,6 +175,7 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.getCategories();
 
     $scope.showItem = function(item) {
+        $scope.spinner = true;
         $http({
             method: "GET",
             url: "../pages/api.php?action=item-list",
@@ -181,12 +186,14 @@ app.controller('myCtrl', function($scope, $http) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function mySuccess(response) {
+            $scope.spinner = false;
             $scope.totalRecords = response.data.total;
             $scope.itemList = response.data.list;
             $scope.itemDisplay = true;
             console.log("Validation", response.data)
             $scope.categoryDisplay = false;
             $scope.btnBack = true;
+            
         }, function myError(response) {
             console.log("Validation", response.statusText)
         });
@@ -202,4 +209,5 @@ app.controller('myCtrl', function($scope, $http) {
 
 
 });
+
 </script>
