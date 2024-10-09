@@ -96,9 +96,11 @@
 
 <div class="container-fluid bg-white cover-size">
 
-    <a class="btn-fab clickable" href="test" ng-show="btnBack"><i
-            class="bi bi-arrow-left"></i></a>
 
+<?php if (isset($_GET["catId"])): ?>
+    <a class="btn-fab clickable" href="test"><i
+            class="bi bi-arrow-left"></i></a>
+<?php endif; ?>
 
     <div class="row justify-content-center cart-main">
         <div class="col-lg-6 col-md-10 col-sm-12 cart">thi si your card</div>
@@ -108,7 +110,7 @@
     <div class="card menu-content">
         <div class="card-body text-center">
 
-
+        <?php if (!isset($_GET["catId"])): ?>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"
                     data-aos="fade-up">
@@ -119,6 +121,9 @@
                     </a>
                 </div>
             </div>
+
+            
+        <?php else: ?>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
@@ -136,6 +141,9 @@
                 </div>
             </div>
         </div>
+
+        
+        <?php endif; ?>
 
     </div>
 </div>
@@ -196,7 +204,6 @@ app.controller('myCtrl', function($scope, $http) {
             $scope.itemDisplay = true;
             console.log("Validation", response.data)
             $scope.categoryDisplay = false;
-            $scope.btnBack = true;
 
         }, function myError(response) {
             console.log("Validation", response.statusText)
@@ -206,14 +213,6 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.showItem();
 
     <?php endif; ?>
-
-
-
-    $scope.backButton = function() {
-        $scope.categoryDisplay = true;
-        $scope.btnBack = false;
-        $scope.itemDisplay = false;
-    };
 
 
 });
