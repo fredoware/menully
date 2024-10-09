@@ -61,8 +61,8 @@
 
 .btn-add {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 5px;
+    right: 5px;
     z-index: 1000;
     background: var(--color-secondary);
     color: white;
@@ -88,30 +88,29 @@
     margin: 0px;
 }
 
-.spinner-wrapper{
-position: fixed;
-  width: 100%;
-  height:100%;
-  top: 0px;
-  z-index:1000;
-  background:rgba(248, 248, 251, 0.7);
-  text-align: center;
-  padding-top:200px;
+.spinner-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(248, 248, 251, 0.7);
+    text-align: center;
+    padding-top: 200px;
 }
-
-
 </style>
 
 
 
 <div class="container-fluid bg-white cover-size">
 
-<div class="spinner-wrapper" ng-show="spinner">
+    <div class="spinner-wrapper" ng-show="spinner">
         <div class="spinner-border"></div>
     </div>
 
 
-    <button class="btn-fab clickable" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
+    <button class="btn-fab clickable" ng-click="backButton()" ng-show="btnBack"><i
+            class="bi bi-arrow-left"></i></button>
 
 
     <div class="row justify-content-center cart-main">
@@ -122,11 +121,12 @@ position: fixed;
     <div class="card menu-content">
         <div class="card-body text-center">
 
-        
+
 
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"  data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"
+                    data-aos="fade-up">
                     <div class="card  clickable" ng-click="showItem(item)" style="height:100px;">
                         <div class="card-body">
                             {{item.name}}
@@ -137,27 +137,24 @@ position: fixed;
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay" >
-                    <div class="card"  data-aos="fade-up">
-
-                        <div class="card-header">
+                <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
+                    <div data-aos="fade-up">
+                        <div class="card">
+                            <button class="btn-add"><i class="bi bi-plus"></i></button>
                             <div class="square-container">
-                                
-    <button class="btn-add"><i class="bi bi-plus"></i></button>
                                 <img src="../media/{{item.image}}" width="100%">
                             </div>
                         </div>
-
                         <div class="card-body">
                             {{item.name}}
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
     </div>
+</div>
 </div>
 
 
@@ -212,7 +209,7 @@ app.controller('myCtrl', function($scope, $http) {
             console.log("Validation", response.data)
             $scope.categoryDisplay = false;
             $scope.btnBack = true;
-            
+
         }, function myError(response) {
             console.log("Validation", response.statusText)
         });
@@ -228,5 +225,4 @@ app.controller('myCtrl', function($scope, $http) {
 
 
 });
-
 </script>
