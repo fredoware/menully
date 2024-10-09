@@ -136,6 +136,7 @@
             </div>
 
             <?php else: ?>
+
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
                     <div data-aos="fade-up">
@@ -173,8 +174,6 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.itemList = [];
     $scope.pageSpinner = false;
 
-    
-<?php if (isset($_GET["catId"])): ?>
     $scope.getCategories = function() {
         $http({
             method: "GET",
@@ -196,8 +195,8 @@ app.controller('myCtrl', function($scope, $http) {
 
     $scope.getCategories();
 
-    <?php else: ?>
-        
+
+    <?php if (isset($_GET["catId"])): ?>
     $scope.showItem = function() {
         $scope.spinner = true;
         $http({
