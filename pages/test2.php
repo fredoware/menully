@@ -133,8 +133,6 @@
 
                         </div>
                     </div>
-
-                    <a href="test2" class="btn btn-primary">Test 2</a>
                 </div>
             </div>
 
