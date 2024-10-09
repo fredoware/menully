@@ -48,9 +48,24 @@
 .btn-fab {
     position: fixed;
     top: 20px;
-    left: 30px;
+    left: 20px;
     z-index: 1000;
     background: white;
+    border-radius: 30px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-add {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--color-secondary);
+    color: white;
     border-radius: 30px;
     padding: 15px;
     font-size: 20px;
@@ -76,53 +91,51 @@
 
 
 
-<div class="row" style="background:#f0eeeb">
-    <div class="col bg-white cover-size">
-
-        <button class="btn-fab" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
+<div class="container-fluid bg-white cover-size">
+    <button class="btn-fab" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
 
 
-        <div class="row justify-content-center cart-main">
-            <div class="col-lg-6 col-md-10 col-sm-12 cart">thi si your card</div>
-        </div>
-        <img src="../media/<?=$store->logo?>" class="logo">
-        <img src="../media/<?=$store->logo?>" class="cover-photo">
-        <div class="card menu-content">
-            <div class="card-body">
+    <div class="row justify-content-center cart-main">
+        <div class="col-lg-6 col-md-10 col-sm-12 cart">thi si your card</div>
+    </div>
+    <img src="../media/<?=$store->logo?>" class="logo">
+    <img src="../media/<?=$store->logo?>" class="cover-photo">
+    <div class="card menu-content">
+        <div class="card-body">
 
-                <div class="row" ng-repeat="item in categoryList" ng-show="categoryDisplay">
-                    <div class="col-12 mt-2">
-                        <div class="card" ng-click="showItem(item)" style="height:100px;">
-                            <div class="card-body">
-                                {{item.name}}
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay">
+                    <div class="card" ng-click="showItem(item)" style="height:100px;">
+                        <div class="card-body">
+                            {{item.name}}
 
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
-                        <div class="card">
-
-                            <div class="card-header">
-                                <div class="square-container">
-                                    <img src="../media/{{item.image}}" width="100%">
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                {{item.name}}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <div class="square-container">
+                                
+    <button class="btn-add"><i class="bi bi-plus"></i></button>
+                                <img src="../media/{{item.image}}" width="100%">
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            {{item.name}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
 </div>
 
 
