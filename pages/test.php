@@ -111,8 +111,6 @@
         <div class="spinner-border"></div>
     </div>
 
-
-
     <?php if (isset($_GET["catId"])): ?>
     <a class="btn-fab clickable" href="test"><i class="bi bi-arrow-left"></i></a>
     <?php endif; ?>
@@ -137,9 +135,7 @@
                 </a>
             </div>
 
-
             <?php else: ?>
-
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
                     <div data-aos="fade-up">
@@ -177,6 +173,8 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.itemList = [];
     $scope.pageSpinner = false;
 
+    
+<?php if (isset($_GET["catId"])): ?>
     $scope.getCategories = function() {
         $http({
             method: "GET",
@@ -198,8 +196,8 @@ app.controller('myCtrl', function($scope, $http) {
 
     $scope.getCategories();
 
-
-    <?php if (isset($_GET["catId"])): ?>
+    <?php else: ?>
+        
     $scope.showItem = function() {
         $scope.spinner = true;
         $http({
