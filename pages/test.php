@@ -92,15 +92,30 @@
     left: 0px;
     margin: 0px;
 }
+
+.spinner-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(248, 248, 251, 0.7);
+    text-align: center;
+    padding-top: 200px;
+}
 </style>
 
 <div class="container-fluid bg-white cover-size">
 
+    <div class="spinner-wrapper" ng-show="pageSpinner">
+        <div class="spinner-border"></div>
+    </div>
 
-<?php if (isset($_GET["catId"])): ?>
-    <a class="btn-fab clickable" href="test"><i
-            class="bi bi-arrow-left"></i></a>
-<?php endif; ?>
+
+
+    <?php if (isset($_GET["catId"])): ?>
+    <a class="btn-fab clickable" href="test"><i class="bi bi-arrow-left"></i></a>
+    <?php endif; ?>
 
     <div class="row justify-content-center cart-main">
         <div class="col-lg-6 col-md-10 col-sm-12 cart">thi si your card</div>
@@ -110,11 +125,11 @@
     <div class="card menu-content">
         <div class="card-body text-center">
 
-        <?php if (!isset($_GET["catId"])): ?>
+            <?php if (!isset($_GET["catId"])): ?>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"
                     data-aos="fade-up">
-                    <a class="card  clickable" style="height:100px;" href="?catId={{item.Id}}">
+                    <a class="card  clickable" style="height:100px;" href="?catId={{item.Id}}" ng-click="spinner()">
                         <div class="card-body">
                             {{item.name}}
                         </div>
@@ -122,8 +137,8 @@
                 </div>
             </div>
 
-            
-        <?php else: ?>
+
+            <?php else: ?>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList" ng-show="itemDisplay">
@@ -142,7 +157,7 @@
             </div>
         </div>
 
-        
+
         <?php endif; ?>
 
     </div>
@@ -160,8 +175,7 @@ var app = angular.module("myApp", []);
 app.controller('myCtrl', function($scope, $http) {
     $scope.categoryList = [];
     $scope.itemList = [];
-    $scope.btnBack = false;
-    $scope.spinner = false;
+    $scope.pageSpinner = false;
 
     $scope.getCategories = function() {
         $http({
@@ -186,7 +200,7 @@ app.controller('myCtrl', function($scope, $http) {
 
 
     <?php if (isset($_GET["catId"])): ?>
-        $scope.showItem = function() {
+    $scope.showItem = function() {
         $scope.spinner = true;
         $http({
             method: "GET",
@@ -209,10 +223,15 @@ app.controller('myCtrl', function($scope, $http) {
             console.log("Validation", response.statusText)
         });
     };
-    
+
     $scope.showItem();
 
     <?php endif; ?>
+
+
+    $scope.spinner = function() {
+        $scope.pageSpinner = true;
+    };
 
 
 });
