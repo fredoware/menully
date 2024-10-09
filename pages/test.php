@@ -127,14 +127,14 @@
 
             <?php if (!isset($_GET["catId"])): ?>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"
-                    data-aos="fade-up">
-                    <a class="card  clickable" style="height:100px;" href="?catId={{item.Id}}" ng-click="spinner()">
+                <a class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"
+                    data-aos="fade-up" href="?catId={{item.Id}}" ng-click="spinner()">
+                    <div class="card clickable" style="height:100px;">
                         <div class="card-body">
                             {{item.name}}
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
 
 
