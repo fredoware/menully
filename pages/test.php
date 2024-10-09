@@ -121,7 +121,7 @@
         <div class="col-lg-6 col-md-10 col-sm-12 cart">thi si your card</div>
     </div>
     <img src="../media/<?=$store->logo?>" class="logo">
-    <img src="../media/<?=$store->logo?>" class="cover-photo">
+    <img src="../media/<?=$store->cover?>" class="cover-photo">
     <div class="card menu-content">
         <div class="card-body text-center">
 
