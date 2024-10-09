@@ -88,11 +88,29 @@
     margin: 0px;
 }
 
+.spinner-wrapper{
+position: fixed;
+  width: 100%;
+  height:100%;
+  top: 0px;
+  z-index:1000;
+  background:rgba(248, 248, 251, 0.7);
+  text-align: center;
+  padding-top:200px;
+}
+
+
 </style>
 
 
 
 <div class="container-fluid bg-white cover-size">
+
+<div class="spinner-wrapper" ng-show="spinner">
+        <div class="spinner-border"></div>
+    </div>
+
+
     <button class="btn-fab clickable" ng-click="backButton()" ng-show="btnBack"><i class="bi bi-arrow-left"></i></button>
 
 
@@ -104,7 +122,8 @@
     <div class="card menu-content">
         <div class="card-body text-center">
 
-    <div class="spinner-border" ng-show="spinner"></div>
+        
+
 
             <div class="row">
                 <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" ng-show="categoryDisplay"  data-aos="fade-up">
