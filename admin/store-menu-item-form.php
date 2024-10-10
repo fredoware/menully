@@ -52,7 +52,7 @@
         </div>
         <div>
           <label class="form-label">Description</label>
-          <textarea name="description" id="editor" required>
+          <textarea name="description"  id="form-description" style="height:300px;" class="form-control" required>
           </textarea>
         </div>
     </div>
@@ -164,21 +164,6 @@ function upload_product(){
 }
 
 
-  
-// Text area text editor =======================================================
-ClassicEditor
-  .create(document.querySelector('#editor'), {
-
-    toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote']
-  })
-  .then(editor => {
-    theEditor = editor;
-
-  })
-  .catch(error => {
-    console.error(error);
-  });
-
   // Add varation =============================================================
 
 
@@ -187,7 +172,7 @@ ClassicEditor
   $('#submit-edit').show();
 
   $('#form-name').val("<?=$item->name?>");
-  $('#editor').val("<?=htmlspecialchars_decode($item->description)?>");
+  $('#form-description').val("<?=$item->description?>");
   $('#form-category').val("<?=$item->menuCategoryId?>");
   $('#form-isAvailable').val("<?=$item->isAvailable?>");
   $('#form-isBestSeller').val("<?=$item->isBestSeller?>");

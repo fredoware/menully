@@ -17,14 +17,39 @@ switch ($action) {
 		category_list();
 		break;
 	
+	case 'best-sellers' :
+		best_sellers();
+		break;
+	
 	case 'item-list' :
 		item_list();
 		break;
-	
+
+	case 'cart-list' :
+		cart_list();
+		break;
+
+	case 'add-to-cart' :
+		add_to_cart();
+		break;
+
+	case 'test-cart' :
+		test_cart();
+		break;
+		
+
+	case 'update-cart' :
+		update_cart();
+		break;
+		
 
 	default :
 }
 
+function test_cart(){
+
+	print_r($_SESSION["cart"]);
+}
 
 function category_list(){
 	$storeId = $_GET["storeId"];
@@ -57,9 +82,11 @@ function item_list(){
 		$items["variation"] = variation()->list("itemId=$row->Id order by price");
 		if(count($items["variation"])>0){
 			$items["lowestPrice"] = $items["variation"][0]->price;
+			$items["varId"] = $items["variation"][0]->Id;
 		}
 		else{
 			$items["lowestPrice"] = 0;
+			$items["varId"] = 0;
 		}
 		array_push($itemListArray, $items);
 
@@ -70,4 +97,88 @@ function item_list(){
  	$jsonList = json_encode($json, JSON_FORCE_OBJECT);
 
 	echo $jsonList;
+}
+
+
+function cart_list(){
+
+	$cart = $_SESSION["cart"];
+
+	$itemListArray = array();
+	foreach ($cart as $key => $value) {
+		
+		$var = variation()->get("Id=$key");
+		$item = menuItem()->get("Id=$var->itemId");
+		$items = array();
+		$items["product"] = $item;
+		$items["variation"] = $var;
+		$items["quantity"] = $value;
+		$items["total"] = $value*$var->price;
+
+		array_push($itemListArray, $items);
+	}
+
+
+	$json["list"] = $itemListArray;
+
+ 	$jsonList = json_encode($json, JSON_FORCE_OBJECT);
+
+	echo $jsonList;
+}
+
+
+function update_cart()
+{
+
+	if ($_GET['value']==0) {
+		unset($_SESSION["cart"][$_GET['varId']]);
+	}
+	else{
+		$_SESSION["cart"][$_GET['varId']] = $_GET['value'];
+	}
+}
+
+
+function best_sellers(){
+	$storeId = $_GET["storeId"];
+
+	$itemList = menuItem()->list("storeId=$storeId and isBestSeller=1 and isDeleted=0");
+	$json = array();
+	$json["total"] = count($itemList);
+	
+
+	$itemListArray = array();
+	foreach ($itemList as $row) {
+		$items = array();
+		$items["product"] = $row;
+		$items["variation"] = variation()->list("itemId=$row->Id order by price");
+		if(count($items["variation"])>0){
+			$items["lowestPrice"] = $items["variation"][0]->price;
+			$items["varId"] = $items["variation"][0]->Id;
+		}
+		else{
+			$items["lowestPrice"] = 0;
+			$items["varId"] = 0;
+		}
+		array_push($itemListArray, $items);
+
+	}
+
+	$json["list"] = $itemListArray;
+
+ 	$jsonList = json_encode($json, JSON_FORCE_OBJECT);
+
+	echo $jsonList;
+}
+
+
+function add_to_cart()
+{
+
+	if (isset($_SESSION["cart"][$_GET['varId']])) {
+		$_SESSION["cart"][$_GET['varId']] += $_GET['value'];
+	}
+	else{
+		$_SESSION["cart"][$_GET['varId']] = $_GET['value'];
+	}
 }
