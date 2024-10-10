@@ -153,6 +153,7 @@ app.controller('myCtrl', function($scope, $http) {
     <?php if ($Id): ?>
     $scope.Id = "<?=$Id?>"
     $scope.logo = "<?=general_link("media/".$store->logo);?>";
+    $scope.cover = "<?=general_link("media/".$store->cover);?>";
     $scope.storeName = "<?=$store->name?>"
     $scope.storeCode = "<?=$store->storeCode?>";
     $scope.owner = "<?=$store->owner?>";
