@@ -24,17 +24,15 @@
        </div>
 
        <hr>
-
-        <?php if ($totalConfirmed): ?>
-        <div class="alert alert-primary" role="alert" id="alertBarConfirmed" style="display:none;"  onclick="location.href='store-orders.php?status=Confirmed'">
+       <?php if ($totalConfirmed): ?>
+        <div class="alert alert-primary" role="alert"  onclick="location.href='store-orders.php?status=Confirmed'">
           <span id="totalPending"><?=$totalConfirmed;?></span> new confirmed orders!
        </div>
         <?php endif; ?>
+
      </div>
    </section>
  </main>
-
- <!-- <iframe src="templates/audio/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe> -->
 
  <script type="text/javascript">
  var currentPending = 0;
@@ -43,7 +41,6 @@
 
      document.getElementById("activateButton").style.display = "none";
      document.getElementById("receiver").style.display = "";
-     document.getElementById("alertBarConfirmed").style.display = "";
 
      var intervalId = window.setInterval(function(){
        $.ajax({
@@ -60,9 +57,9 @@
              }
            }
          });
-     }, 2000);
+     }, 5000);
  }
- 
+
 
 
  function notificationSound(){
