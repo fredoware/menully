@@ -129,7 +129,7 @@
                     <a href="#" class="btn btn-secondary mt-3">Claim</a>
                     <?php else: ?>
                           <a href="../pages/process.php?action=claim-voucher&voucherId=<?=$row->Id?>&custId=<?=$customer->Id?>&store=<?=$store->storeCode?>" class="btn btn-primary mt-3">Claim</a>
-                 
+    
                   <?php endif; ?>
                 </div>
               </div>

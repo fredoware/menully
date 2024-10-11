@@ -70,6 +70,17 @@ function rand_string($length)
 }
 
 
+function total_order_amount($orderNumber){
+    $result = 0;
+
+    foreach (orderItem()->list("orderNumber='$orderNumber'") as $row) {
+      $var = variation()->get("Id=$row->varId");
+      $result += $var->price*$row->quantity;
+    }
+
+    return $result;
+  }
+
 function deviceFingerPrint()
 {
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
