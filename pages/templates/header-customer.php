@@ -27,7 +27,7 @@ if (isset($_GET["tblno"])) {
 
 // =========================================================
 // Check device Id exists
-if ($_SERVER['REQUEST_URI'] != "/menully/" . $_GET["store"] . "/" && $_SERVER['REQUEST_URI'] != "/" . $_GET["store"] . "/") {
+if (!isset($_SESSION['customer'])) {
   $fingerPrint = deviceFingerPrint();
   $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
   if ($checkDeviceSaved) {
