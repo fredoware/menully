@@ -838,7 +838,7 @@ $page = "main";
 
 <script type="text/javascript">
  var hasNotification = 0;
- var StatusLevel = 0;
+ var statusLevel = 0;
  document.getElementById("notificationBadge").style.display = "none";
 
  function activateNotif(){
