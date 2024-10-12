@@ -851,12 +851,6 @@ $page = "main";
 
             //  alert(obj.status);
 
-            if (obj.status=="Pending" && hasNotification==0) {
-                   document.getElementById("alertBar").style.display = "";
-                    document.getElementById("notificationMessage").innerHTML = "<?=$store->pendingMessage?>";
-                    notificationSound();
-                    hasNotification = 1;
-            }
             if (obj.status=="Confirmed" && hasNotification==0) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->confirmedMessage?>";
