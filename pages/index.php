@@ -838,6 +838,7 @@ $page = "main";
 
 <script type="text/javascript">
  var hasNotification = 0;
+ var StatusLevel = 0;
  document.getElementById("notificationBadge").style.display = "none";
 
  function activateNotif(){
@@ -849,25 +850,26 @@ $page = "main";
            success: function(data){
              const obj = JSON.parse(data);
 
-            //  alert(obj.status);
-
-            if (obj.status=="Confirmed" && hasNotification==0) {
+            if (obj.status=="Confirmed" && hasNotification==0 && statusLevel==0) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->confirmedMessage?>";
                     notificationSound();
                     hasNotification = 1;
+                    statusLevel = 1;
             }
-            if (obj.status=="Delivered" && hasNotification==0) {
+            if (obj.status=="Delivered" && hasNotification==0 && statusLevel==1) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->deliveredMessage?>";
                     notificationSound();
                     hasNotification = 1;
+                    statusLevel = 2;
             }
-            if (obj.status=="Canceled" && hasNotification==0) {
+            if (obj.status=="Canceled" && hasNotification==0 && statusLevel==2) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->canceledMessage?>";
                     notificationSound();
                     hasNotification = 1;
+                    statusLevel = 3;
             }
              
             if (hasNotification) {
