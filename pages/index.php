@@ -857,14 +857,14 @@ $page = "main";
                     hasNotification = 1;
                     statusLevel = 1;
             }
-            if (obj.status=="Delivered" && hasNotification==0 && statusLevel==1) {
+            if (obj.status=="Delivered" && hasNotification==1 && statusLevel==1) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->deliveredMessage?>";
                     notificationSound();
                     hasNotification = 1;
                     statusLevel = 2;
             }
-            if (obj.status=="Canceled" && hasNotification==0 && statusLevel==2) {
+            if (obj.status=="Canceled" && hasNotification==1 && statusLevel==2) {
                    document.getElementById("alertBar").style.display = "";
                     document.getElementById("notificationMessage").innerHTML = "<?=$store->canceledMessage?>";
                     notificationSound();
