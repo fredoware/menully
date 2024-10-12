@@ -55,6 +55,19 @@
                             </select>
                             Address:
                             <input type="text" name="address" ng-model="address" class="form-control" required>
+
+                            <hr>
+
+                            <h3>Notification Message</h3>
+                           Pending Message:
+                            <input type="text" name="pendingMessage" class="form-control" ng-model="pendingMessage" required>
+                           Confirmed Message:
+                            <input type="text" name="confirmedMessage" class="form-control" ng-model="confirmedMessage" required>
+                           Delivered Message:
+                            <input type="text" name="deliveredMessage" class="form-control" ng-model="deliveredMessage" required>
+                           Canceled Message:
+                            <input type="text" name="canceledMessage" class="form-control" ng-model="canceledMessage" required>
+                            
                         </div>
                         
                     <div class="col-4">
@@ -109,8 +122,6 @@ var coverLoadFile = function(event) {
 };
 
 
-    
-
 var app = angular.module("myApp", []);
 app.controller('myCtrl', function($scope, $http) {
     $scope.logo = "templates/assets/images/default-store-logo.jpg";
@@ -163,6 +174,10 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.address = "<?=$store->address?>";
     $scope.themePrimary = "<?=$store->themePrimary?>";
     $scope.themeSecondary = "<?=$store->themeSecondary?>";
+    $scope.pendingMessage = "<?=$store->pendingMessage?>";
+    $scope.confirmedMessage = "<?=$store->confirmedMessage?>";
+    $scope.deliveredMessage = "<?=$store->deliveredMessage?>";
+    $scope.canceledMessage = "<?=$store->canceledMessage?>";
     $scope.add = false;
     $scope.edit = true;
     <?php else: ?>

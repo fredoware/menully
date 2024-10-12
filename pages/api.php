@@ -3,11 +3,11 @@ session_start();
 require_once '../config/database.php';
 require_once '../config/Models.php';
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// header("Access-Control-Allow-Origin: *");
+// header("Content-Type: application/json; charset=UTF-8");
+// header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
+// header("Access-Control-Max-Age: 3600");
+// header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $action = $_GET['action'];
 
@@ -64,9 +64,28 @@ switch ($action) {
 	case 'place-order' :
 		place_order();
 		break;
+
+
+	case 'customer-notification' :
+		customer_notification();
+		break;
 		
 
 	default :
+}
+
+function customer_notification(){
+	$storeCode = $_GET['storeCode'];
+	$customerId = $_SESSION['customer']["Id"];
+
+	$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' order by Id desc limit 1");
+
+	$json = array();
+	$json["status"] = $order->status;
+
+	echo json_encode($json);
+
+
 }
 
 function test_cart(){

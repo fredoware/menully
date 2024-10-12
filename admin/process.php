@@ -182,6 +182,10 @@ function store_save(){
 	$model->obj["themePrimary"] = $_POST["themePrimary"];
 	$model->obj["themeSecondary"] = $_POST["themeSecondary"];
 	$model->obj["address"] = $_POST["address"];
+	$model->obj["pendingMessage"] = $_POST["pendingMessage"];
+	$model->obj["confirmedMessage"] = $_POST["confirmedMessage"];
+	$model->obj["deliveredMessage"] = $_POST["deliveredMessage"];
+	$model->obj["canceledMessage"] = $_POST["canceledMessage"];
 	$model->obj["dateAdded"] = "NOW()";
 
 

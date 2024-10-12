@@ -103,6 +103,20 @@ $page = "main";
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
+.notification-badge {
+    position: fixed;
+    top: 15px;
+    right: 75px;
+    z-index: 2000;
+    background: #eb1526;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
 .btn-fab-settings {
     position: fixed;
     top: 20px;
@@ -238,12 +252,13 @@ $page = "main";
     <a class="btn-fab-back clickable" href="./" ng-click="spinner()"><i class="bi bi-arrow-left"></i></a>
     <?php else: ?>
 
-    <a class="btn-fab-history clickable" href="?history=1" ng-click="spinner()"><i class="bi bi-clock-history"></i></a>
+    <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i class="bi bi-arrow-left"></i></button>
+    
+    <div class="notification-badge" id="notificationBadge" style="display:none"></div>
+    <button class="btn-fab-history clickable" ng-click="notificationPage()"><i class="bi bi-bell-fill"></i></button>
+
     <a class="btn-fab-settings clickable" href="?settings=1" ng-click="spinner()"><i class="bi bi-gear-fill"></i></a>
     <?php endif; ?>
-
-
-
 
     <a class="row justify-content-center cart-main" href="?cart=1" ng-click="spinner()" ng-show="cartSection">
         <div class="col-lg-6 col-md-10 col-sm-12 cart">
@@ -308,7 +323,9 @@ $page = "main";
 
             <!-- MAIN PAGE ========================================================================== -->
             <?php if ($page=="main"): ?>
-            <div class="row">
+
+
+            <div class="row" ng-show="categoryDisplay">
                 <a class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" href="?isBestSeller=1" ng-click="spinner()">
                     <div class="card clickable">
                         <div class="card-body">
@@ -326,8 +343,42 @@ $page = "main";
                 </a>
             </div>
 
-            <?php endif; ?>
 
+            <div class="row" ng-show="notificationDisplay">
+
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                
+
+            <div class="alert alert-danger" role="alert" id="alertBar" style="display:none;">
+          <span id="notificationMessage">0</span>
+       </div>
+       
+
+            </div>
+
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                <div class="card clickable">
+                    <div class="card-body">
+                        <div class="home-item">Call a waiter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                <div class="card clickable">
+                    <div class="card-body">
+                        <div class="home-item">Request for bill</div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+
+
+
+
+            <?php endif; ?>
 
             <!-- MAIN PAGE ========================================================================== -->
             <?php if ($page=="history"): ?>
@@ -443,6 +494,15 @@ $page = "main";
                 <div class="card clickable" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
                     <div class="card-body">
                         View QR Code
+                    </div>
+                </div>
+            </a>
+
+
+            <a class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" href="?history=1">
+                <div class="card clickable">
+                    <div class="card-body">
+                        Order History
                     </div>
                 </div>
             </a>
@@ -722,10 +782,10 @@ $page = "main";
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
-            <center>
-                <div id="storeQrCode"></div>
-            </center>
+
+                <center>
+                    <div id="storeQrCode"></div>
+                </center>
 
             </div>
         </div>
@@ -775,16 +835,77 @@ $page = "main";
 <?php include "templates/footer.php"; ?>
 
 
+
 <script type="text/javascript">
-  var qrcode = new QRCode(document.getElementById("storeQrCode"), {
-  	text: "https://menully.com/<?=$store->storeCode;?>/",
-  	width: 300,
-  	height: 300,
-  	colorDark : "#000",
-  	colorLight : "#ffffff",
-  	correctLevel : QRCode.CorrectLevel.H
-  });
-  </script>
+ var hasNotification = 0;
+ document.getElementById("notificationBadge").style.display = "none";
+
+ function activateNotif(){
+
+     var intervalId = window.setInterval(function(){
+       $.ajax({
+           type: "GET",
+           url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
+           success: function(data){
+             const obj = JSON.parse(data);
+
+            //  alert(obj.status);
+
+            if (obj.status=="Pending" && hasNotification==0) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->pendingMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+            }
+            if (obj.status=="Confirmed" && hasNotification==0) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->confirmedMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+            }
+            if (obj.status=="Delivered" && hasNotification==0) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->deliveredMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+            }
+            if (obj.status=="Canceled" && hasNotification==0) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->canceledMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+            }
+             
+            if (hasNotification) {
+                document.getElementById("notificationBadge").style.display = "";
+            }
+
+           }
+         });
+     }, 2000);
+ }
+
+
+
+ function notificationSound(){
+   const audio = new Audio("../pages/templates/audio/notification.wav");
+   audio.play();
+ }
+
+ </script>
+
+
+<script type="text/javascript">
+
+var qrcode = new QRCode(document.getElementById("storeQrCode"), {
+    text: "https://menully.com/<?=$store->storeCode;?>/",
+    width: 300,
+    height: 300,
+    colorDark: "#000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+});
+</script>
 
 <script>
 var app = angular.module("myApp", ['ngSanitize']);
@@ -797,6 +918,9 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.totalCartQuantity = <?=$totalQuantity?>;
     $scope.cartSection = false;
     $scope.checkoutSection = false;
+    $scope.categoryDisplay = false;
+    $scope.notificationDisplay = false;
+    $scope.buttonToCategory = false;
     $scope.notes = "";
 
     if ($scope.totalCartQuantity) {
@@ -804,6 +928,8 @@ app.controller('myCtrl', function($scope, $http) {
     }
 
     <?php if ($page=="main"): ?>
+    $scope.categoryDisplay = true;
+    $scope.notificationDisplay = false;
     $scope.getCategories = function() {
         $http({
             method: "GET",
@@ -823,6 +949,26 @@ app.controller('myCtrl', function($scope, $http) {
     };
 
     $scope.getCategories();
+
+
+
+    $scope.notificationPage = function() {
+
+        $scope.categoryDisplay = false;
+        $scope.notificationDisplay = true;
+        $scope.buttonToCategory = true;
+
+        activateNotif();
+    }
+
+    $scope.categoryPage = function() {
+
+        $scope.categoryDisplay = true;
+        $scope.notificationDisplay = false;
+        $scope.buttonToCategory = false;
+    }
+
+
     <?php endif; ?>
 
 
@@ -1053,7 +1199,7 @@ app.controller('myCtrl', function($scope, $http) {
         }).then(function mySuccess(response) {
             Swal.fire({
                 title: "Success",
-                text: "Your order has been sent",
+                text: "<?=$store->pendingMessage?>",
                 icon: "success"
             }).then((result) => {
                 window.location.href = "./";

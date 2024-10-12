@@ -63,7 +63,7 @@
 
 
  function notificationSound(){
-   const audio = new Audio("templates/audio/notification.mp3");
+   const audio = new Audio("templates/audio/notification.wav");
    audio.play();
  }
 

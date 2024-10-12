@@ -83,7 +83,16 @@ switch ($action) {
 			new_customer();
 			break;
 
+		case 'test-destroy-session' :
+			test_destroy_session();
+			break;
+
 	default :
+}
+
+function test_destroy_session(){
+	session_destroy();
+	echo "done";
 }
 
 function new_customer(){

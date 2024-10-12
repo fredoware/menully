@@ -166,16 +166,15 @@ function upload_product(){
 
   // Add varation =============================================================
 
-
   <?php if ($Id): ?>
   $('#submit-add').hide();
   $('#submit-edit').show();
 
-  $('#form-name').val("<?=$item->name?>");
-  $('#form-description').val("<?=$item->description?>");
-  $('#form-category').val("<?=$item->menuCategoryId?>");
-  $('#form-isAvailable').val("<?=$item->isAvailable?>");
-  $('#form-isBestSeller').val("<?=$item->isBestSeller?>");
+  $('#form-name').val(`<?=$item->name?>`);
+  $('#form-description').val(`<?=$item->description?>`);
+  $('#form-category').val(`<?=$item->menuCategoryId?>`);
+  $('#form-isAvailable').val(`<?=$item->isAvailable?>`);
+  $('#form-isBestSeller').val(`<?=$item->isBestSeller?>`);
   product.src = "<?=general_link('media/'.$item->image)?>";
 
 
