@@ -66,13 +66,13 @@ switch ($action) {
 		break;
 
 
-		case 'customer-notification' :
-			customer_notification();
-			break;
+	case 'customer-notification' :
+		customer_notification();
+		break;
 
-			case 'update-order-notification' :
-				update_order_notification();
-				break;
+	case 'update-order-notification' :
+		update_order_notification();
+		break;
 		
 
 	default :

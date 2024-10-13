@@ -62,21 +62,13 @@ if (isset($_SESSION['user_session'])) {
   <link href="templates/source/main.css" rel="stylesheet">
   <link href="templates/custom.css" rel="stylesheet">
 
-  <!-- This is for wysiwyg  -->
-   
-  <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.4/angular-sanitize.js" type="text/javascript"></script>
 
-  <!-- =======================================================
-  * Template Name: Yummy
-  * Updated: Jan 30 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
-<body>
-
+<body ng-app="myApp" ng-controller="myCtrl">
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">

@@ -102,6 +102,20 @@
 
 
 /* =================================================== */
+.unpaid-order-card{
+  background: rgb(243, 131, 131);
+  color:white;
+  cursor: pointer;
+}
+
+.paid-order-card{
+  background: rgb(11, 178, 194);
+  color:white;
+  cursor: pointer;
+}
+
+
+/* =================================================== */
 
 .order-label{
   font-weight: bold;
