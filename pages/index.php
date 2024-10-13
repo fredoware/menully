@@ -252,8 +252,9 @@ $page = "main";
     <a class="btn-fab-back clickable" href="./" ng-click="spinner()"><i class="bi bi-arrow-left"></i></a>
     <?php else: ?>
 
-    <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i class="bi bi-arrow-left"></i></button>
-    
+    <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i
+            class="bi bi-arrow-left"></i></button>
+
     <div class="notification-badge" id="notificationBadge" style="display:none"></div>
     <button class="btn-fab-history clickable" ng-click="notificationPage()"><i class="bi bi-bell-fill"></i></button>
 
@@ -320,6 +321,18 @@ $page = "main";
     <div class="card menu-content">
         <div class="card-body text-center">
 
+            <div class="row" id="alertBar" style="display:none;">
+
+                <a class="col-lg-4 col-md-6 mt-2" href="?history=1">
+
+                    <div class="alert alert-danger" role="alert">
+                        <span id="notificationMessage">0</span>
+                    </div>
+
+
+                </a>
+            </div>
+
 
             <!-- MAIN PAGE ========================================================================== -->
             <?php if ($page=="main"): ?>
@@ -346,31 +359,22 @@ $page = "main";
 
             <div class="row" ng-show="notificationDisplay">
 
-            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
-                
 
-            <div class="alert alert-danger" role="alert" id="alertBar" style="display:none;">
-          <span id="notificationMessage">0</span>
-       </div>
-       
-
-            </div>
-
-            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
-                <div class="card clickable">
-                    <div class="card-body">
-                        <div class="home-item">Call a waiter</div>
+                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                    <div class="card clickable">
+                        <div class="card-body">
+                            <div class="home-item">Call a waiter</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
-                <div class="card clickable">
-                    <div class="card-body">
-                        <div class="home-item">Request for bill</div>
+                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                    <div class="card clickable">
+                        <div class="card-body">
+                            <div class="home-item">Request for bill</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             </div>
 
@@ -837,62 +841,123 @@ $page = "main";
 
 
 <script type="text/javascript">
- var hasNotification = 0;
- var statusLevel = 0;
- document.getElementById("notificationBadge").style.display = "none";
+var hasNotification = 0;
+var statusLevel = 0;
+var orderStatus = "<?=$orderNotification?>";
 
- function activateNotif(){
 
-     var intervalId = window.setInterval(function(){
-       $.ajax({
-           type: "GET",
-           url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
-           success: function(data){
-             const obj = JSON.parse(data);
 
-            if (obj.status=="Confirmed" && hasNotification==0 && statusLevel==0) {
-                   document.getElementById("alertBar").style.display = "";
-                    document.getElementById("notificationMessage").innerHTML = "<?=$store->confirmedMessage?>";
-                    notificationSound();
-                    hasNotification = 1;
-                    statusLevel = 1;
+if (orderStatus !== "" && orderStatus != "Delivered") {
+    document.getElementById("alertBar").style.display = "";
+
+    document.getElementById("notificationMessage").innerHTML =
+        getNotificationMessage(orderStatus);
+}
+
+document.getElementById("notificationBadge").style.display = "none";
+
+function activateNotif() {
+
+    var intervalId = window.setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
+            success: function(data) {
+                const obj = JSON.parse(data);
+
+                if (obj.status != orderStatus) {
+
+                    if (obj.status != "Delivered") {
+
+                        document.getElementById("alertBar").style.display = "";
+
+                        document.getElementById("notificationMessage").innerHTML =
+                            getNotificationMessage(obj.status);
+
+                        notificationSound();
+                        orderStatus = obj.status;
+                    }
+                    else{
+                        document.getElementById("alertBar").style.display = "none";
+                    }
+                }
+
+                updateOrderNotification(obj.status);
+
             }
-            if (obj.status=="Delivered" && hasNotification==1 && statusLevel==1) {
-                   document.getElementById("alertBar").style.display = "";
-                    document.getElementById("notificationMessage").innerHTML = "<?=$store->deliveredMessage?>";
-                    notificationSound();
-                    hasNotification = 1;
-                    statusLevel = 2;
-            }
-            if (obj.status=="Canceled" && hasNotification==1 && statusLevel==2) {
-                   document.getElementById("alertBar").style.display = "";
-                    document.getElementById("notificationMessage").innerHTML = "<?=$store->canceledMessage?>";
-                    notificationSound();
-                    hasNotification = 1;
-                    statusLevel = 3;
-            }
-             
-            if (hasNotification) {
-                document.getElementById("notificationBadge").style.display = "";
-            }
+        });
+    }, 2000);
+}
 
-           }
-         });
-     }, 2000);
- }
+activateNotif();
+
+function updateOrderNotification(newStatus) {
+    $.ajax({
+        type: "GET",
+        url: "../pages/api.php?action=update-order-notification&status=" + newStatus,
+        success: function(data) {
+            const obj = JSON.parse(data);
+        }
+    });
+}
 
 
+function getNotificationMessage(status) {
+    $msg = "";
+    if (status == "Pending") {
+        $msg = "<?=$store->pendingMessage?>";
+    }
+    if (status == "Confirmed") {
+        $msg = "<?=$store->confirmedMessage?>";
+    }
+    if (status == "Ready") {
+        $msg = "<?=$store->readyMessage?>";
+    }
+    if (status == "Canceled") {
+        $msg = "<?=$store->canceledMessage?>";
+    }
 
- function notificationSound(){
-   const audio = new Audio("../pages/templates/audio/notification.wav");
-   audio.play();
- }
+    return $msg;
+}
 
- </script>
+// var intervalId = window.setInterval(function() {
+//         $.ajax({
+//             type: "GET",
+//             url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
+//             success: function(data) {
+//                 const obj = JSON.parse(data);
+
+//                 if (obj.status != orderStatus) {
+
+//                     if (obj.status != "Delivered") {
+
+//                         document.getElementById("alertBar").style.display = "";
+
+//                         document.getElementById("notificationMessage").innerHTML =
+//                             getNotificationMessage(obj.status);
+
+//                         notificationSound();
+//                         orderStatus = obj.status;
+//                         updateOrderNotification(obj.status);
+//                     }
+//                     else{
+//                         document.getElementById("alertBar").style.display = "none";
+//                     }
+//                 }
+
+//             }
+//         });
+//     }, 2000);
+
+
+function notificationSound() {
+    const audio = new Audio("../pages/templates/audio/notification.wav");
+    audio.play();
+}
+</script>
 
 
 <script type="text/javascript">
-
 var qrcode = new QRCode(document.getElementById("storeQrCode"), {
     text: "https://menully.com/<?=$store->storeCode;?>/",
     width: 300,

@@ -3,8 +3,8 @@
 
   $category_list = menuCategory()->list("storeId=$store->Id");
 
-  
-  $totalConfirmed = orderMain()->count("status='Confirmed' and storeCode='$store->storeCode'");
+  $date = get_query_string("date", date("Y-m-d"));
+  $totalConfirmed = orderMain()->count("status='Confirmed' and storeCode='$store->storeCode' and date='$date'");
 ?>
 
 <main id="main">

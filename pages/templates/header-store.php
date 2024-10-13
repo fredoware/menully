@@ -93,6 +93,7 @@ if (isset($_SESSION['user_session'])) {
               <ul>
               <li><a href="store-orders.php?status=Pending">Pending</a></li>
               <li><a href="store-orders.php?status=Confirmed">Confirmed</a></li>
+              <li><a href="store-orders.php?status=Ready">Ready</a></li>
               <li><a href="store-orders.php?status=Delivered">Delivered</a></li>
               <li><a href="store-orders.php?status=Canceled">Canceled</a></li>
             </ul>

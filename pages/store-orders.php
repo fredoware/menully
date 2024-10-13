@@ -254,10 +254,15 @@
                <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"  onclick="change_order_status('<?=$item->Id?>','Canceled')">Cancel Order</button>
              <?php endif; ?>
 
-            <?php if ($item->status=="Confirmed"): ?>
-               <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="change_order_status('<?=$item->Id?>','Delivered')">Delivered</button>
-               <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"  onclick="change_order_status('<?=$item->Id?>','Canceled')">Cancel Order</button>
-             <?php endif; ?>
+<?php if ($item->status=="Confirmed"): ?>
+   <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="change_order_status('<?=$item->Id?>','Ready')">Ready</button>
+   <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"  onclick="change_order_status('<?=$item->Id?>','Canceled')">Cancel Order</button>
+ <?php endif; ?>
+
+<?php if ($item->status=="Ready"): ?>
+   <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="change_order_status('<?=$item->Id?>','Delivered')">Delivered</button>
+   <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"  onclick="change_order_status('<?=$item->Id?>','Canceled')">Cancel Order</button>
+ <?php endif; ?>
 
            </div>
        </div>

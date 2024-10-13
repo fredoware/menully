@@ -17,6 +17,8 @@ if (!isset($_SESSION["cart"])) {
 	$_SESSION["voucherDiscount"] = 0;
 }
 
+
+
 if (isset($_GET["tblno"])) {
   $tblNo = $_GET["tblno"];
   $tbl = storeTable()->get("Id=$tblNo");

@@ -66,12 +66,20 @@ switch ($action) {
 		break;
 
 
-	case 'customer-notification' :
-		customer_notification();
-		break;
+		case 'customer-notification' :
+			customer_notification();
+			break;
+
+			case 'update-order-notification' :
+				update_order_notification();
+				break;
 		
 
 	default :
+}
+
+function update_order_notification(){
+	$_SESSION["orderNotification"] = $_GET["status"];
 }
 
 function customer_notification(){
@@ -98,7 +106,7 @@ function history_list(){
 	$customerId = $_SESSION['customer']["Id"];
 
 	$historyList = array();
-    $orderMainList = orderMain()->list("customerId=$customerId and storeCode='$storeCode'");
+    $orderMainList = orderMain()->list("customerId=$customerId and storeCode='$storeCode' order by Id desc");
 	foreach ($orderMainList as $row) {
 		$item = array();
 		$item["main"] = $row;
