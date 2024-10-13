@@ -185,6 +185,7 @@ function store_save(){
 	$model->obj["pendingMessage"] = $_POST["pendingMessage"];
 	$model->obj["confirmedMessage"] = $_POST["confirmedMessage"];
 	$model->obj["deliveredMessage"] = $_POST["deliveredMessage"];
+	$model->obj["readyMessage"] = $_POST["readyMessage"];
 	$model->obj["canceledMessage"] = $_POST["canceledMessage"];
 	$model->obj["dateAdded"] = "NOW()";
 
