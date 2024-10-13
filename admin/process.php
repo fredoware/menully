@@ -239,6 +239,7 @@ function category_save()
 		$model = menuCategory();
   	$model->obj["storeId"] = $_POST["storeId"];
   	$model->obj["name"] = $_POST["name"];
+  	$model->obj["isPublished"] = $_POST["isPublished"];
   	$model->obj["description"] = $_POST["description"];
 
 		if ($_POST["form-type"] == "add") {

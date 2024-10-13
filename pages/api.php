@@ -86,10 +86,13 @@ function customer_notification(){
 	$storeCode = $_GET['storeCode'];
 	$customerId = $_SESSION['customer']["Id"];
 
-	$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' order by Id desc limit 1");
-
 	$json = array();
-	$json["status"] = $order->status;
+	$json["status"] = "";
+	$orderExist = orderMain()->count("customerId=$customerId and storeCode='$storeCode'");
+	if ($orderExist) {
+		$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' order by Id desc limit 1");
+		$json["status"] = $order->status;
+	}
 
 	echo json_encode($json);
 
@@ -173,7 +176,7 @@ function voucher_list(){
 function category_list(){
 	$storeId = $_GET["storeId"];
 
-	$categoryList = menuCategory()->list("storeId=$storeId and isDeleted=0");
+	$categoryList = menuCategory()->list("storeId=$storeId and isPublished=1 and isDeleted=0");
 	$json = array();
 	$json["total"] = count($categoryList);
 	$json["list"] = $categoryList;

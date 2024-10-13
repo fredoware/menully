@@ -846,8 +846,7 @@ var statusLevel = 0;
 var orderStatus = "<?=$orderNotification?>";
 
 
-
-if (orderStatus !== "" && orderStatus != "Delivered") {
+if (orderStatus != "" && orderStatus != "Delivered") {
     document.getElementById("alertBar").style.display = "";
 
     document.getElementById("notificationMessage").innerHTML =
@@ -855,6 +854,7 @@ if (orderStatus !== "" && orderStatus != "Delivered") {
 }
 
 document.getElementById("notificationBadge").style.display = "none";
+
 
 function activateNotif() {
 
@@ -876,14 +876,11 @@ function activateNotif() {
 
                         notificationSound();
                         orderStatus = obj.status;
-                    }
-                    else{
+                    } else {
                         document.getElementById("alertBar").style.display = "none";
                     }
                 }
-
                 updateOrderNotification(obj.status);
-
             }
         });
     }, 2000);
@@ -900,7 +897,6 @@ function updateOrderNotification(newStatus) {
         }
     });
 }
-
 
 function getNotificationMessage(status) {
     $msg = "";
@@ -919,35 +915,6 @@ function getNotificationMessage(status) {
 
     return $msg;
 }
-
-// var intervalId = window.setInterval(function() {
-//         $.ajax({
-//             type: "GET",
-//             url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
-//             success: function(data) {
-//                 const obj = JSON.parse(data);
-
-//                 if (obj.status != orderStatus) {
-
-//                     if (obj.status != "Delivered") {
-
-//                         document.getElementById("alertBar").style.display = "";
-
-//                         document.getElementById("notificationMessage").innerHTML =
-//                             getNotificationMessage(obj.status);
-
-//                         notificationSound();
-//                         orderStatus = obj.status;
-//                         updateOrderNotification(obj.status);
-//                     }
-//                     else{
-//                         document.getElementById("alertBar").style.display = "none";
-//                     }
-//                 }
-
-//             }
-//         });
-//     }, 2000);
 
 
 function notificationSound() {

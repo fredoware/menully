@@ -65,8 +65,6 @@
                             <input type="text" name="confirmedMessage" class="form-control" ng-model="confirmedMessage" required>
                            Ready Message:
                             <input type="text" name="readyMessage" class="form-control" ng-model="readyMessage" required>
-                           Delivered Message:
-                            <input type="text" name="deliveredMessage" class="form-control" ng-model="deliveredMessage" required>
                            Canceled Message:
                             <input type="text" name="canceledMessage" class="form-control" ng-model="canceledMessage" required>
                             
@@ -164,10 +162,10 @@ app.controller('myCtrl', function($scope, $http) {
     
     // ====================================================================== Modify form 
     <?php if ($Id): ?>
-    $scope.Id = "<?=$Id?>"
+    $scope.Id = "<?=$Id?>";
     $scope.logo = "<?=general_link("media/".$store->logo);?>";
     $scope.cover = "<?=general_link("media/".$store->cover);?>";
-    $scope.storeName = "<?=$store->name?>"
+    $scope.storeName = "<?=$store->name?>";
     $scope.storeCode = "<?=$store->storeCode?>";
     $scope.owner = "<?=$store->owner?>";
     $scope.phone = "<?=$store->phone?>";
@@ -178,7 +176,6 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.themeSecondary = "<?=$store->themeSecondary?>";
     $scope.pendingMessage = "<?=$store->pendingMessage?>";
     $scope.confirmedMessage = "<?=$store->confirmedMessage?>";
-    $scope.deliveredMessage = "<?=$store->deliveredMessage?>";
     $scope.canceledMessage = "<?=$store->canceledMessage?>";
     $scope.readyMessage = "<?=$store->readyMessage?>";
     $scope.add = false;

@@ -55,6 +55,12 @@ $category_list = menuCategory()->list("storeId=$Id and isDeleted=0 order by prio
               Image:
               <input type="file" class="form-control" id="input-image" name="image">
 
+              Visibility:
+              <select name="isPublished" id="input-isPublished" class="form-select">
+                <option value="1">Published</option>
+                <option value="0">Draft</option>
+              </select>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -73,12 +79,18 @@ $category_list = menuCategory()->list("storeId=$Id and isDeleted=0 order by prio
         <div class="card item-items">
               <div class="card-body item-data"
                   data-id="<?=$row->Id;?>"
+                  data-isPublished="<?=$row->isPublished;?>"
                   data-name="<?=$row->name;?>"
                   data-description="<?=$row->description;?>"
               >
             <img src="../media/<?=$row->image?>" onerror="this.src='templates/no-image.JPG';" class="crop-box">
               <h5><?=$row->name?></h5>
               <p><i><?=$row->description?></i></p>
+              <?php if ($row->isPublished): ?>
+                <div style="color:green">Published</div>
+              <?php else: ?>
+                <div style="color:red">Draft</div>
+              <?php endif; ?>
             </div>
             <div class="card-footer">
               <a href="store-menu-item.php?Id=<?=$row->Id?>&storeId=<?=$Id?>" class="btn btn-primary">View</a>
@@ -128,6 +140,7 @@ $(function () {
         // Set Modal Field's Value
         getModal.find("#input-id").val($_name.attr("data-id"));
         getModal.find("#input-name").val($_name.attr("data-name"));
+        getModal.find("#input-isPublished").val($_name.attr("data-isPublished"));
         getModal.find("#input-description").val($_name.attr("data-description"));
         getModal.find("#input-image").attr("required", false);
 
