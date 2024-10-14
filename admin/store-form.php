@@ -65,6 +65,8 @@
                             <input type="text" name="confirmedMessage" class="form-control" ng-model="confirmedMessage" required>
                            Ready Message:
                             <input type="text" name="readyMessage" class="form-control" ng-model="readyMessage" required>
+                           Delivered Message:
+                            <input type="text" name="deliveredMessage" class="form-control" ng-model="deliveredMessage" required>
                            Canceled Message:
                             <input type="text" name="canceledMessage" class="form-control" ng-model="canceledMessage" required>
                             
@@ -177,6 +179,7 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.pendingMessage = "<?=$store->pendingMessage?>";
     $scope.confirmedMessage = "<?=$store->confirmedMessage?>";
     $scope.canceledMessage = "<?=$store->canceledMessage?>";
+    $scope.deliveredMessage = "<?=$store->deliveredMessage?>";
     $scope.readyMessage = "<?=$store->readyMessage?>";
     $scope.add = false;
     $scope.edit = true;

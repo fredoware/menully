@@ -255,7 +255,6 @@ $page = "main";
     <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i
             class="bi bi-arrow-left"></i></button>
 
-    <div class="notification-badge" id="notificationBadge" style="display:none"></div>
     <button class="btn-fab-history clickable" ng-click="notificationPage()"><i class="bi bi-bell-fill"></i></button>
 
     <a class="btn-fab-settings clickable" href="?settings=1" ng-click="spinner()"><i class="bi bi-gear-fill"></i></a>
@@ -321,16 +320,13 @@ $page = "main";
     <div class="card menu-content">
         <div class="card-body text-center">
 
-            <div class="row" id="alertBar" style="display:none;">
+            <div class="row" ng-show="alertBar">
 
-                <a class="col-lg-4 col-md-6 mt-2" href="?history=1">
-
+                <div class="col-lg-4 col-md-6 mt-2" ng-click="viewNotification()">
                     <div class="alert alert-danger" role="alert">
-                        <span id="notificationMessage">0</span>
+                        <span>{{notificationMessage}}</span>
                     </div>
-
-
-                </a>
+                </div>
             </div>
 
 
@@ -714,6 +710,7 @@ $page = "main";
                         {{productUnit}}
                     </div>
                 </div>
+                {{priceVariation.length}} sdsd
                 <ul class="list-group mt-2">
                     <li class="list-group-item clickable product-variation" ng-click="selectVariation(vari)"
                         ng-repeat="vari in priceVariation">
@@ -840,101 +837,6 @@ $page = "main";
 
 
 
-<script type="text/javascript">
-var hasNotification = 0;
-var statusLevel = 0;
-var orderStatus = "<?=$orderNotification?>";
-
-
-if (orderStatus != "" && orderStatus != "Delivered") {
-    document.getElementById("alertBar").style.display = "";
-
-    document.getElementById("notificationMessage").innerHTML =
-        getNotificationMessage(orderStatus);
-}
-
-document.getElementById("notificationBadge").style.display = "none";
-
-
-function activateNotif() {
-
-    var intervalId = window.setInterval(function() {
-        $.ajax({
-            type: "GET",
-            url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
-            success: function(data) {
-                const obj = JSON.parse(data);
-
-                if (obj.status != orderStatus) {
-
-                    if (obj.status != "Delivered") {
-
-                        document.getElementById("alertBar").style.display = "";
-
-                        document.getElementById("notificationMessage").innerHTML =
-                            getNotificationMessage(obj.status);
-
-                        notificationSound();
-                        orderStatus = obj.status;
-                    } else {
-                        document.getElementById("alertBar").style.display = "none";
-                    }
-                }
-                updateOrderNotification(obj.status);
-            }
-        });
-    }, 2000);
-}
-
-activateNotif();
-
-function updateOrderNotification(newStatus) {
-    $.ajax({
-        type: "GET",
-        url: "../pages/api.php?action=update-order-notification&status=" + newStatus,
-        success: function(data) {
-            const obj = JSON.parse(data);
-        }
-    });
-}
-
-function getNotificationMessage(status) {
-    $msg = "";
-    if (status == "Pending") {
-        $msg = "<?=$store->pendingMessage?>";
-    }
-    if (status == "Confirmed") {
-        $msg = "<?=$store->confirmedMessage?>";
-    }
-    if (status == "Ready") {
-        $msg = "<?=$store->readyMessage?>";
-    }
-    if (status == "Canceled") {
-        $msg = "<?=$store->canceledMessage?>";
-    }
-
-    return $msg;
-}
-
-
-function notificationSound() {
-    const audio = new Audio("../pages/templates/audio/notification.wav");
-    audio.play();
-}
-</script>
-
-
-<script type="text/javascript">
-var qrcode = new QRCode(document.getElementById("storeQrCode"), {
-    text: "https://menully.com/<?=$store->storeCode;?>/",
-    width: 300,
-    height: 300,
-    colorDark: "#000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
-});
-</script>
-
 <script>
 var app = angular.module("myApp", ['ngSanitize']);
 
@@ -986,7 +888,7 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.notificationDisplay = true;
         $scope.buttonToCategory = true;
 
-        activateNotif();
+        $scope.activateNotif();
     }
 
     $scope.categoryPage = function() {
@@ -1318,6 +1220,140 @@ app.controller('myCtrl', function($scope, $http) {
         });
     };
 
+
+    var qrcode = new QRCode(document.getElementById("storeQrCode"), {
+        text: "https://menully.com/<?=$store->storeCode;?>/",
+        width: 300,
+        height: 300,
+        colorDark: "#000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
+
+    $scope.hasNotification = 0;
+    $scope.statusLevel = 0;
+    $scope.orderStatus = "<?=$orderNotification?>";
+    $scope.alertBar = false;
+    $scope.notificationMessage = "";
+
+
+    $scope.getNotificationMessage = function(status) {
+        var msg = "";
+        if (status == "Pending") {
+            msg = "<?=$store->pendingMessage?>";
+        }
+        if (status == "Confirmed") {
+            msg = "<?=$store->confirmedMessage?>";
+        }
+        if (status == "Ready") {
+            msg = "<?=$store->readyMessage?>";
+        }
+        if (status == "Delivered") {
+            msg = "<?=$store->deliveredMessage?>";
+        }
+        if (status == "Canceled") {
+            msg = "<?=$store->canceledMessage?>";
+        }
+
+        return msg;
+    }
+
+
+    $scope.notificationSound = function() {
+        const audio = new Audio("../pages/templates/audio/notification.wav");
+        audio.play();
+    }
+
+
+    if ($scope.orderStatus != "") {
+        $scope.alertBar = true;
+        $scope.notificationMessage = $scope.getNotificationMessage($scope.orderStatus);
+    }
+
+    $scope.updateOrderNotification = function(newStatus) {
+        $http({
+            method: "GET",
+            url: "../pages/api.php?action=update-order-notification",
+            params: {
+                'status': newStatus,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySuccess(response) {
+                // do nothing
+            },
+            function myError(response) {
+                console.log("Validation", response.statusText)
+            });
+
+    }
+
+    $scope.activateNotif = function() {
+        setInterval(function() {
+
+            console.log("Interval...", "Interval is running")
+            $http({
+                method: "GET",
+                url: "../pages/api.php?action=customer-notification",
+                params: {
+                    'storeCode': "<?=$store->storeCode?>",
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function mySuccess(response) {
+                    if (response.data.status != $scope.orderStatus) {
+
+                        if (response.data.status != "") {
+
+                            $scope.alertBar = true;
+
+                            $scope.notificationMessage = $scope.getNotificationMessage(response
+                                .data
+                                .status);
+
+                            $scope.notificationSound();
+                            $scope.orderStatus = response.data.status;
+                        }
+                        else{
+                            $scope.alertBar = false;
+                        }
+
+                    }
+                    $scope.updateOrderNotification(response.data.status);
+                },
+                function myError(response) {
+                    console.log("Validation", response.statusText)
+                });
+
+        }, 2000);
+
+
+    }
+
+    $scope.activateNotif();
+
+
+
+    $scope.viewNotification = function() {
+        $http({
+            method: "GET",
+            url: "../pages/api.php?action=view-notification",
+            params: {
+                'storeCode': "<?=$store->storeCode?>",
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySuccess(response) {
+                window.location.href = "./?history=1";
+            },
+            function myError(response) {
+                console.log("Validation", response.statusText)
+            });
+    }
 
 });
 </script>

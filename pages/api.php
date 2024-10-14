@@ -73,6 +73,10 @@ switch ($action) {
 	case 'update-order-notification' :
 		update_order_notification();
 		break;
+
+	case 'view-notification' :
+		view_notification();
+		break;
 		
 
 	default :
@@ -88,15 +92,25 @@ function customer_notification(){
 
 	$json = array();
 	$json["status"] = "";
-	$orderExist = orderMain()->count("customerId=$customerId and storeCode='$storeCode'");
+	$orderExist = orderMain()->count("customerId=$customerId and storeCode='$storeCode' and isNotificationRead=0");
 	if ($orderExist) {
-		$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' order by Id desc limit 1");
+		$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' and isNotificationRead=0 order by Id desc limit 1");
 		$json["status"] = $order->status;
 	}
 
 	echo json_encode($json);
+}
 
+function view_notification(){
+	$storeCode = $_GET['storeCode'];
+	$customerId = $_SESSION['customer']["Id"];
 
+	$order = orderMain()->get("customerId=$customerId and storeCode='$storeCode' and isNotificationRead=0 order by Id desc limit 1");
+
+	$model = orderMain();
+	$model->obj["isNotificationRead"] = 1;
+	$model->update("Id=$order->Id");
+	
 }
 
 function test_cart(){
@@ -364,6 +378,7 @@ function place_order(){
 	$model->obj["notes"] = $_GET["notes"];
 	$model->obj["orderNumber"] = $orderNumber;
 	$model->obj["date"] = "NOW()";
+	$model->obj["time"] = "NOW()";
 	$model->obj["storeCode"] = $store;
 	$model->obj["voucherId"] = $voucherId;
 	$model->create();

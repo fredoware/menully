@@ -44,6 +44,7 @@ function get_total_amount($orderNumber){
 
 	$model = orderMain();
 	$model->obj["status"] = $_GET["status"];
+	$model->obj["isNotificationRead"] = 0;
 	$model->update("Id=$itemId");
 
 }
