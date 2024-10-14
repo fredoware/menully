@@ -163,6 +163,15 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col order-label" style="">
+                                    Customer:
+                                </div>
+                                <div class="col order-value">
+                                    {{item.main.customer}}
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
