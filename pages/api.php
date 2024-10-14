@@ -357,8 +357,8 @@ function place_order(){
 
 	$model = orderMain();
 	$model->obj["customer"] = $_SESSION['customer']["name"];
-	if (isset($_GET["tblno"])) {
-		$model->obj["tableId"] = $_GET["tblno"];
+	if (isset($_SESSION["table"]["Id"])) {
+		$model->obj["tableId"] = $_SESSION["table"]["Id"];
 	  }
 	$model->obj["customerId"] = $customerId;
 	$model->obj["notes"] = $_GET["notes"];
