@@ -13,4 +13,5 @@ RewriteRule ^([^/]+)/change-password?$ pages/change-password.php?store=$1 [L,QSA
 RewriteRule ^admin/$ admin/ [L,QSA]
 RewriteRule ^([^/]+)/$ pages/?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/test?$ pages/index-old-layout.php?store=$1 [L,QSA]
+RewriteRule ^([^/]+)/print?$ pages/test-print.php?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/log-out?$ pages/processAuth.php?action=user-logout&store=$1 [L,QSA]
