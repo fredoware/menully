@@ -108,6 +108,11 @@ function general_link($link){
 	return $url . $link;
 }
 
+
+function get_ratings($star){
+	include "widgets/ratings.widget.php";
+  }
+
 /* =====================================Functions===================================== */
 function send_message($number,$message){
 		$ch = curl_init();

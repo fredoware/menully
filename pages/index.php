@@ -710,8 +710,7 @@ $page = "main";
                         {{productUnit}}
                     </div>
                 </div>
-                {{priceVariation.length}} sdsd
-                <ul class="list-group mt-2">
+                <ul class="list-group mt-2" ng-if="totalVariations>1">
                     <li class="list-group-item clickable product-variation" ng-click="selectVariation(vari)"
                         ng-repeat="vari in priceVariation">
                         {{vari.unit}} - {{vari.price}}
@@ -756,7 +755,7 @@ $page = "main";
     <div class="modal-dialog product-modal">
         <div class="modal-content" style="min-height:500px">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="historyModalLabel"><span ng-bind-html="productName"></span></h1>
+                <h1 class="modal-title fs-5" id="historyModalLabel"><span ng-bind-html="orderMain.orderNumber"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -766,10 +765,38 @@ $page = "main";
                         <div class=""> ₱{{item.variation.price*item.orderItem.quantity}} </div>
                     </li>
                 </ul>
+
+                <button class="btn btn-warning mt-5" data-bs-toggle="modal" data-bs-target="#feedbackModal"
+                    data-bs-dismiss="modal" aria-label="Close">Add Feed back</button>
             </div>
             <div class="modal-footer">
                 <div>Total: </div>
                 <b>₱{{orderMainTotal}}</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog product-modal">
+        <div class="modal-content" style="min-height:500px">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="feedbackModalLabel">{{orderMain.orderNumber}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div id='rating'>
+                        <span ng-click="get_rating_value(1)"></span>
+                        <span ng-click="get_rating_value(2)"></span>
+                        <span ng-click="get_rating_value(3)"></span>
+                        <span ng-click="get_rating_value(4)"></span>
+                        <span ng-click="get_rating_value(5)"></span>
+                    </div>
+
+                    <textarea name="feedback" ng-model="feedback" class="form-control" style="height:200px;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="submitFeedback()"  data-bs-dismiss="modal" aria-label="Close">Submit Feedback</button>
             </div>
         </div>
     </div>
@@ -838,6 +865,17 @@ $page = "main";
 
 
 <script>
+
+document.querySelector('#rating').addEventListener('click', function(e) {
+    let action = 'add';
+    for (const span of this.children) {
+        span.classList[action]('active');
+        if (span === e.target) action = 'remove';
+    }
+});
+
+
+
 var app = angular.module("myApp", ['ngSanitize']);
 
 app.controller('myCtrl', function($scope, $http) {
@@ -852,10 +890,39 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.notificationDisplay = false;
     $scope.buttonToCategory = false;
     $scope.notes = "";
+    $scope.inputRatings = 0;
+
+    $scope.get_rating_value = function(rate) {
+        $scope.inputRatings = rate;
+    }
 
     if ($scope.totalCartQuantity) {
         $scope.cartSection = true;
     }
+
+    $scope.submitFeedback = function() {
+        $http({
+            method: "GET",
+            url: "../pages/api.php?action=submit-feedback",
+            params: {
+                'storeId': <?=$store->Id?>,
+                'orderId': $scope.orderMain.Id,
+                'stars': $scope.inputRatings,
+                'feedback': $scope.feedback,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySuccess(response) {
+            Swal.fire({
+                title: "Success",
+                text: "Thank you for sharing your feedback!",
+                icon: "success"
+            })
+        }, function myError(response) {
+            console.log("Validation", response.statusText)
+        });
+    };
 
     <?php if ($page=="main"): ?>
     $scope.categoryDisplay = true;
@@ -1038,6 +1105,8 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.pageSpinner = true;
     };
 
+    $scope.totalVariations = 0;
+
     $scope.itemModalContent = function(item) {
         $scope.productName = item.product.name;
         $scope.productImage = item.product.image;
@@ -1048,9 +1117,12 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.productUnit = "";
         $scope.productVarId = item.varId;
         $scope.priceVariation = item.variation;
+        console.log("itemVariation", item.variation)
+        $scope.totalVariations = Object.keys(item.variation).length;
     };
 
     $scope.orderModalContent = function(item) {
+        $scope.orderMain = item.main;
         $scope.orderItemList = item.items;
         $scope.orderMainTotal = item.total;
         if (item.main.voucherId) {
@@ -1316,8 +1388,7 @@ app.controller('myCtrl', function($scope, $http) {
 
                             $scope.notificationSound();
                             $scope.orderStatus = response.data.status;
-                        }
-                        else{
+                        } else {
                             $scope.alertBar = false;
                         }
 

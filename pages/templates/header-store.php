@@ -37,6 +37,7 @@ if (isset($_SESSION['user_session'])) {
   <!-- Favicons -->
   <link href="templates/source/img/favicon.png" rel="icon">
   <link href="templates/source/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,6 +101,7 @@ if (isset($_SESSION['user_session'])) {
           </li>
             <!-- <li><a href="store-customer-menu.php">Customer Order</a></li> -->
 						<hr>
+            <li><a href="store-feedback.php">Customer's Feedback</a></li>
             <li><a href="store-people.php">People</a></li>
             <li><a href="store-qr.php">Store QR Code</a></li>
             <li><a href="../<?=$store->storeCode?>/">Customer's View</a></li>

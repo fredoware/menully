@@ -456,3 +456,28 @@
   opacity: 1;
   transform: scale(1);
 }
+
+
+
+/* This is for ratings */
+
+#rating {
+  font-size: 0;
+}
+
+#rating span {
+  font-size: 40px;
+}
+
+#rating span::before {
+  content: "☆";
+}
+
+#rating span.active::before {
+  content: "★";
+  color: #fcd303
+}
+
+#rating span:hover {
+  cursor: pointer;
+}

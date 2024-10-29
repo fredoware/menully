@@ -74,12 +74,29 @@ switch ($action) {
 		update_order_notification();
 		break;
 
-	case 'view-notification' :
-		view_notification();
-		break;
+		case 'view-notification' :
+			view_notification();
+			break;
+
+			case 'submit-feedback' :
+				submit_feedback();
+				break;
 		
 
 	default :
+}
+
+function submit_feedback(){
+
+	$model = ratings();
+	$model->obj["storeId"] = $_GET["storeId"];
+	$model->obj["orderId"] = $_GET["orderId"];
+	$model->obj["stars"] = $_GET["stars"];
+	$model->obj["feedback"] = $_GET["feedback"];
+	$model->obj["customerId"] = $_SESSION['customer']["Id"];
+	$model->obj["dateAdded"] = "NOW()";
+	$model->create();
+	
 }
 
 function update_order_notification(){

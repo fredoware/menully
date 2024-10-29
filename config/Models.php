@@ -94,4 +94,11 @@ function storeTable() {
 	return $crud;
 }
 
+
+function ratings() {
+	$crud = new CRUD;
+	$crud->table = "ratings";
+	return $crud;
+}
+
 ?>
