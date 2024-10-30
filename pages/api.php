@@ -82,8 +82,60 @@ switch ($action) {
 				submit_feedback();
 				break;
 		
+				
+
+			case 'store-sign-up' :
+				store_sign_up();
+				break;
+		
 
 	default :
+}
+
+function store_sign_up(){
+
+$storeCode = $_POST["storeCode"];
+$model = store();
+$model->obj["storeCode"] = $_POST["storeCode"];
+$model->obj["name"] = $_POST["storeName"];
+$model->obj["phone"] = $_POST["phone"];
+$model->obj["address"] = $_POST["address"];
+
+	// Create directory
+$newDri = "../media/" . $_POST["storeCode"];
+mkdir($newDri);
+if ($_FILES['logo']['name'] != "") {
+	$image_file_name = uploadFile($_FILES["logo"], $_POST["storeCode"]);
+	$model->obj["logo"] = $image_file_name;
+}
+if ($_FILES['cover']['name'] != "") {
+	$image_file_name = uploadFile($_FILES["cover"], $_POST["storeCode"]);
+	$model->obj["cover"] = $image_file_name;
+}
+$model->create();
+
+$store = store()->get("storeCode='$storeCode'");
+
+// Create user
+$model = user();
+$model->obj["google_id"] = $_POST["username"];
+$model->obj["name"] = $_POST["ownerName"];
+$model->obj["username"] = $_POST["username"];
+$model->obj["email"] = $_POST["email"];
+$model->obj["password"] = $_POST["password"];
+$model->obj["role"] = "Seller";
+$model->create();
+
+$getNewUser = user()->get("Id>1 order by Id desc limit 1");
+
+$model = storePeople();
+$model->obj["userId"] = $getNewUser->Id;
+$model->obj["storeId"] = $store->Id;
+$model->obj["role"] = "Admin";
+$model->create();
+
+
+
 }
 
 function submit_feedback(){

@@ -212,7 +212,7 @@
                             <h4>Free QR code menu for 14 days</h4>
                             <p>Experience our QR code menu service risk-free! Try it out with no commitment—no credit card required. You decide if it’s the right fit for your business.</p>
 
-                            <a href="" class="btn-book-a-table">Try it for free</a>
+                            <a href="pages/store-register.php" class="btn-book-a-table">Try it for free</a>
                         </div>
                     </div>
 

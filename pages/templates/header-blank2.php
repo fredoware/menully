@@ -1,9 +1,3 @@
-<script type="text/javascript">
-	function format_money(n){
-		n = parseFloat(n).toFixed(2)
-		return "₱" + Number(n).toLocaleString('en');
-	}
-</script>
 <?php
 session_start();
 include_once("../config/database.php");
@@ -11,64 +5,6 @@ include_once("../config/Models.php");
 
 $_SESSION['returnLink'] = $actual_link;
 
-if (!isset($_SESSION["cart"])) {
-	$_SESSION["cart"] = array();
-	$_SESSION["voucherId"] = 0;
-	$_SESSION["voucherDiscount"] = 0;
-}
-
-if (!isset($_SESSION["orderNotification"])) {
-	$_SESSION["orderNotification"] = "";
-}
-$orderNotification = $_SESSION["orderNotification"];
-
-
-if (isset($_GET["tblno"])) {
-  $tblNo = $_GET["tblno"];
-  $tbl = storeTable()->get("Id=$tblNo");
-	$_SESSION["table"] = array();
-  $_SESSION["table"]["Id"] = $tbl->Id;
-  $_SESSION["table"]["name"] = $tbl->name;
-}
-
-// =========================================================
-// Check device Id exists
-if (!isset($_SESSION['customer'])) {
-  $fingerPrint = deviceFingerPrint();
-  $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
-  if ($checkDeviceSaved) {
-    $customer = customer()->get("deviceId='$fingerPrint'");
-    $_SESSION['customer'] = array();
-    $_SESSION['customer']["Id"] = $customer->Id;
-    $_SESSION['customer']["name"] = $customer->name;
-    $_SESSION['customer']["deviceId"] = $customer->deviceId;
-  }
-  else{
-    header('Location: new-customer');
-  }
-}
-
-// =========================================================
-
-$myStoreList = array();
-if (isset($_SESSION['user_session'])) {
-	  $username = $_SESSION['user_session']['username'];
-	  $user = user()->get("username='$username'");
-		$storePeopleList = storePeople()->list("userId=$user->Id");
-		foreach ($storePeopleList as $row) {
-			$myStore = store()->get("Id=$row->storeId");
-			array_push($myStoreList, $myStore);
-		}
-}
-
-if (isset($_GET["store"])) {
-  $storeCode = $_GET["store"];
-  $store = store()->get("storeCode='$storeCode'");
-  $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
-}
-else{
-  header("Location: qr-expired.php");
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,10 +13,10 @@ else{
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title><?=$store->name?>'s QR Menu</title>
-  <meta property="og:title" content="<?=$store->name?>'s QR Menu" />
-  <meta property="og:url" content="https://menully.com/<?=$storeCode?>" />
-  <meta property="og:image" content="https://menully.com/media/<?=$store->logo?>" />
+  <title>Menully - Digital QR Menu</title>
+  <meta property="og:title" content="Menully QR Menu" />
+  <meta property="og:url" content="https://menully.com" />
+  <meta property="og:image" content="https://menully.com/website/source/img/open-graph.jpg" />
   
 
   <meta content="" name="description">
@@ -103,15 +39,15 @@ else{
   <link href="../pages/templates/source/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-
   <style>
     /* Dynamic colors based on the theme */
     :root {
       --color-default: #212529;
-      --color-primary: <?=$store->themePrimary;?> !important;
-      --color-secondary: <?=$store->themeSecondary;?> !important;
+      --color-primary: #f64c10 !important;
+      --color-secondary: #f64c10 !important;
     }
   </style>
+
   <link href="../pages/templates/source/main.css" rel="stylesheet">
   <link href="../pages/templates/custom.css" rel="stylesheet">
   <link href="../pages/templates/custom2.css" rel="stylesheet">
