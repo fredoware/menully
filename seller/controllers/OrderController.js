@@ -70,20 +70,20 @@ angular.module('myApp')
 
 
         $scope.markAsPaid = function (itemId) {
-            $scope.pageSpinner = true;
+            $scope.spinner(true);
             $scope.closeBottomSheet();
             ApiService.markOrderAsPaid(itemId, 1).then(function (data) {
                 $scope.orderInfo.isPaid = 1;
-                $scope.pageSpinner = false;
+                $scope.spinner(false);
             });
         }
 
         $scope.changeOrderStatus = function (itemId) {
             $scope.closeBottomSheet();
-            $scope.pageSpinner = true;
+            $scope.spinner(true);
             ApiService.changeOrderStatus(itemId, $scope.nextStatus).then(function (data) {
                 $scope.fetchData(storeCode, status);
-                $scope.pageSpinner = false;
+                $scope.spinner(false);
             });
         }
 

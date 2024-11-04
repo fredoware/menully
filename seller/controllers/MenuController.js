@@ -19,10 +19,10 @@ angular.module('myApp')
         };
 
         $scope.fetchData = function (storeCode) {
-            $scope.pageSpinner = true;
+            $scope.spinner(true);
             ApiService.getCategories(storeCode).then(function (data) {
                 $scope.categoryList = data.list;
-                $scope.pageSpinner = false;
+                $scope.spinner(false);
             });
         };
 
