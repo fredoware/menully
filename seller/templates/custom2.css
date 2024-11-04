@@ -1,0 +1,443 @@
+.logo {
+    width: 100px;
+    z-index: 10;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    border-radius: 50px;
+}
+
+.cover-photo {
+    width: 100%;
+    filter: blur(4px);
+}
+
+.cover-size {
+    padding: 0px;
+    position: relative;
+}
+
+.menu-content {
+    position: absolute;
+    top: 180px;
+    z-index: 20;
+    min-height: 500px;
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+    bottom: 0px;
+    box-shadow: none !important;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.btn-fab-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-fab-history {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    z-index: 1000;
+    background: white;
+    border-radius: 30px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.notification-badge {
+    position: fixed;
+    top: 15px;
+    right: 75px;
+    z-index: 2000;
+    background: #eb1526;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-fab-settings {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: white;
+    border-radius: 30px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-buttons {
+    float: right;
+}
+
+.fab {
+    z-index: 1000;
+    background: white;
+    border-radius: 30px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.fab-2 {
+    z-index: 1000;
+    background: white;
+    border-radius: 30px;
+    padding: 8px 12px;
+    font-size: 15px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.fixed-tr {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.absolute-br {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.absolute-br-2 {
+    position: absolute;
+    bottom: 5px;
+    right: 50px;
+}
+
+.fixed-tl {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.btn-add {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1000;
+    background: var(--color-secondary);
+    color: white;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.price-tag {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.cart {
+    padding: 20px;
+}
+
+.cart .card {
+    background: var(--color-primary);
+    color: white;
+}
+
+.cart-main {
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0px;
+    left: 0px;
+    margin: 0px;
+}
+
+.spinner-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(248, 248, 251, 0.7);
+    text-align: center;
+    padding-top: 200px;
+}
+
+.category-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #626363;
+}
+
+.home-item {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #626363;
+    /* text-shadow: 2px 2px #000; */
+}
+
+.product-modal {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.product-modal .modal-footer {
+    min-height: 100px;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 10px;
+}
+
+.btn-cart {
+    padding: 10px 20px 10px 20px;
+    color: black !important;
+}
+
+.not-available {
+    opacity: 0.2;
+}
+
+.not-available-badge {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    text-align: center;
+    color: yellow;
+    font-weight: 900;
+    font-size: 30px;
+    transform: rotate(-42deg);
+    background: red;
+    width: 200px;
+    opacity: 0.5;
+    border-radius: 100px;
+}
+
+
+/* ======================================= Side Nav  */
+
+
+/* The side navigation menu */
+
+.sidenav {
+    height: 100%;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #ffffff;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    transition: 0.2s;
+    /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+/* The navigation menu links */
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+
+/* When you mouse over the navigation links, change their color */
+
+.sidenav a:hover {
+    color: #000000;
+}
+
+
+/* Position and style the close button (top right corner) */
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+#main {
+    transition: margin-left 0.5s;
+    padding: 20px;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+
+/* side nav scroll  */
+
+
+/* Apply to a specific div with the class 'custom-scroll' */
+
+.sidenav::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidenav::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidenav::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.sidenav::-webkit-scrollbar-thumb:hover {
+    background: #b1b1b1;
+}
+
+.add-category {
+    background: var(--color-secondary);
+    width: 100%;
+    color: white;
+    border: 0;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+
+/* Bottom sheet ======================================================  */
+
+.bottom-sheet {
+    position: fixed;
+    bottom: -100%;
+    /* Start hidden below the viewport */
+    left: 0;
+    width: 100%;
+    min-height: 50%;
+    /* Adjust height as needed */
+    background-color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    transition: bottom 0.3s ease;
+    /* Slide-up animation */
+    z-index: 1000;
+}
+
+
+/* Styles for mobile devices (up to 575px) */
+
+@media (max-width: 575.98px) {
+    .bottom-sheet {
+        width: 100%;
+    }
+}
+
+
+/* Styles for tablet devices (576px to 991px) */
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .bottom-sheet {
+        width: 50%;
+    }
+}
+
+
+/* Styles for laptop devices (992px and up) */
+
+@media (min-width: 992px) {
+    .bottom-sheet {
+        width: 30%;
+    }
+}
+
+.sheet-body {
+    padding: 20px;
+}
+
+.sheet-footer {
+    padding: 10px 20px 20px 0px;
+    text-align: right;
+}
+
+.sheet-header {
+    margin: 20px 0px 0px 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.form-control {
+    background: rgb(228, 230, 228) !important;
+}
