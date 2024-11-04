@@ -11,8 +11,14 @@ RewriteRule ^([^/]+)/sign-in?$ pages/login.php?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/new-customer?$ pages/new-customer.php?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/change-password?$ pages/change-password.php?store=$1 [L,QSA]
 RewriteRule ^admin/$ admin/ [L,QSA]
+RewriteRule ^seller/$ seller/ [L,QSA]
+RewriteRule ^([^/]+)/store-main$ seller/main?store=$1 [L,QSA]
+
 RewriteRule ^([^/]+)/$ pages/?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/test?$ pages/index-old-layout.php?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/print?$ pages/test-print.php?store=$1 [L,QSA]
 RewriteRule ^([^/]+)/log-out?$ pages/processAuth.php?action=user-logout&store=$1 [L,QSA]
 RewriteRule ^([^/]+)/signup?$ pages/store-sign-up.php?store=$1 [L,QSA]
+
+
+RewriteRule ^([^/]+)/store2?$ pages/store2.php?store=$1 [L,QSA]

@@ -1,8 +1,23 @@
-<IfModule mod_rewrite.c>
+
+<If "%{REMOTE_ADDR} == '127.0.0.1' || %{REMOTE_ADDR} == '::1'">
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /myApp/
+        RewriteRule ^index\.php$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /menully/seller/index.php [L]
+    </IfModule>
+</If>
+
+<Else>
+    # Rules for production
+    <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /myApp/
     RewriteRule ^index\.php$ - [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . /menully/seller/index.php [L]
+    RewriteRule . /seller/index.php [L]
 </IfModule>
+</Else>

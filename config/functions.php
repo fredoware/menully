@@ -125,6 +125,20 @@ function send_message($number,$message){
 		curl_close ($ch);
 }
 
+function uploadImage($uploadedImage, $dir){
+	$maxDim = 300;
+	$tempName = $uploadedImage['tmp_name'];
+	$target_path = "../../media/" . $dir . "/";
+
+	$newfilename = round(microtime(true)) . ".png";
+	if(move_uploaded_file($tempName, $target_path . $newfilename)) {
+			return $dir ."/". $newfilename;
+		}
+		else{
+			return 0;
+		}
+}
+
 function uploadFile($uploadedImage, $dir){
 	$maxDim = 300;
 	$tempName = $uploadedImage['tmp_name'];

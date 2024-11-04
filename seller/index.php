@@ -12,12 +12,23 @@ if (isset($_GET["storeCode"])) {
 $storeCode = $_SESSION["storeCode"];
 $store = store()->get("storeCode='$storeCode'");
 $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
+
+$isLocal = true;
+if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menully.com' || $_SERVER['HTTP_HOST'] == 'admin.menully.com') {
+    $isLocal = false;
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 
 <head>
+    
+<?php if ($isLocal): ?>
     <base href="/menully/seller/">
+<?php else: ?>
+    <base href="/seller/">
+<?php endif; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My AngularJS App</title>
@@ -124,4 +135,10 @@ $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order 
 
 <script>
 sessionStorage.setItem('storeCode', '<?=$storeCode?>');
+
+<?php if ($isLocal): ?>
+    sessionStorage.setItem('baseUrl', '/menully');
+<?php else: ?>
+    sessionStorage.setItem('baseUrl', '');
+<?php endif; ?>
 </script>

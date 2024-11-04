@@ -1,5 +1,5 @@
 <?php
-  include "../pages/templates/header-blank2.php";
+  include "../pages/templates/header-signup.php";
 
 
 ?>

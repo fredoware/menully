@@ -62,10 +62,9 @@ function mark_order_as_paid(){
 function order_list(){
 	$status = $_GET['status'];
 	$storeCode = $_GET['storeCode'];
-	$date = $_GET['date'];
 
 	$historyList = array();
-    $orderMainList = orderMain()->list("status='$status' and storeCode='$storeCode' and date='$date'");
+    $orderMainList = orderMain()->list("status='$status' and storeCode='$storeCode'");
 	foreach ($orderMainList as $row) {
 		$item = array();
 		$item["main"] = $row;

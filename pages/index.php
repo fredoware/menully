@@ -67,12 +67,14 @@ $page = "main";
 }
 
 .menu-content {
-    position: absolute;
-    top: 180px;
-    z-index: 10;
-    min-height: 500px;
-    width: 100%;
-    border-radius: 25px;
+  position: absolute;
+  top: 180px;
+  z-index: 10;
+  min-height: 500px;
+  width: 100%;
+  border-radius: 25px 25px 0 0; 
+  bottom: 0px;
+  box-shadow: none !important;
 }
 
 .btn-fab-back {
@@ -373,9 +375,6 @@ $page = "main";
                 </div>
 
             </div>
-
-
-
 
 
             <?php endif; ?>
