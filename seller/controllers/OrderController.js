@@ -1,9 +1,9 @@
 angular.module('myApp')
-    .controller('OrderController', ['$scope', '$location', 'ApiService', function($scope, $location, ApiService) {
+    .controller('OrderController', ['$scope', '$location', 'ApiService', function ($scope, $location, ApiService) {
         var storeCode = sessionStorage.getItem('storeCode');
 
         // Retrieve query parameter by name
-        $scope.getQueryParam = function(param) {
+        $scope.getQueryParam = function (param) {
             return $location.search()[param];
         };
 
@@ -15,8 +15,8 @@ angular.module('myApp')
         $scope.message = status + " Orders";
 
         // Fetch data from the API
-        $scope.fetchData = function(storeCode, status) {
-            ApiService.getOrderData(storeCode, status).then(function(data) {
+        $scope.fetchData = function (storeCode, status) {
+            ApiService.getOrderData(storeCode, status).then(function (data) {
                 $scope.orderList = data;
             });
         };
@@ -24,7 +24,7 @@ angular.module('myApp')
         // Initial data fetch
         $scope.fetchData(storeCode, status);
 
-        $scope.orderModalContent = function(item) {
+        $scope.orderModalContent = function (item) {
             $scope.openBottomSheet();
             $scope.orderItemList = item.items;
             $scope.orderInfo = item.main;
@@ -51,7 +51,7 @@ angular.module('myApp')
             }
         };
 
-        $scope.cardColor = function(isPaid) {
+        $scope.cardColor = function (isPaid) {
             $result = "card unpaid-order-card";
             if (isPaid) {
                 $result = "card paid-order-card";
@@ -60,7 +60,7 @@ angular.module('myApp')
         }
 
 
-        $scope.paymentStatus = function(isPaid) {
+        $scope.paymentStatus = function (isPaid) {
             $result = "Unpaid";
             if (isPaid) {
                 $result = "Paid";
@@ -69,17 +69,21 @@ angular.module('myApp')
         };
 
 
-        $scope.markAsPaid = function(itemId) {
+        $scope.markAsPaid = function (itemId) {
+            $scope.pageSpinner = true;
             $scope.closeBottomSheet();
-            ApiService.markOrderAsPaid(itemId, 1).then(function(data) {
+            ApiService.markOrderAsPaid(itemId, 1).then(function (data) {
                 $scope.orderInfo.isPaid = 1;
+                $scope.pageSpinner = false;
             });
         }
 
-        $scope.changeOrderStatus = function(itemId) {
+        $scope.changeOrderStatus = function (itemId) {
             $scope.closeBottomSheet();
-            ApiService.changeOrderStatus(itemId, $scope.nextStatus).then(function(data) {
+            $scope.pageSpinner = true;
+            ApiService.changeOrderStatus(itemId, $scope.nextStatus).then(function (data) {
                 $scope.fetchData(storeCode, status);
+                $scope.pageSpinner = false;
             });
         }
 

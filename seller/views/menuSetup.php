@@ -13,6 +13,9 @@
                 <div class="card-body">
                     <div class="home-item" ng-bind-html="item.name"></div>
                     <div class="card-buttons">
+                        <button class="fab-2" ng-click="goToItem(item.Id)">
+                            <i class="fa fa-eye"></i>
+                        </button>
                         <button class="fab-2" ng-click="updateCategory(item)">
                             <i class="fa fa-pencil"></i>
                         </button>

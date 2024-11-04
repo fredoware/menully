@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'views/home.php',
@@ -16,6 +16,10 @@ angular.module('myApp')
             .when('/menu-setup', {
                 templateUrl: 'views/menuSetup.php',
                 controller: 'MenuController'
+            })
+            .when('/menu-item', {
+                templateUrl: 'views/menuItem.php',
+                controller: 'ItemController'
             })
             .otherwise({
                 redirectTo: '/' // Default route

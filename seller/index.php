@@ -43,6 +43,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <script src="controllers/OrderController.js"></script>
     <script src="controllers/MainController.js"></script>
     <script src="controllers/MenuController.js"></script>
+    <script src="controllers/ItemController.js"></script>
 
 
     <!-- Favicons -->
