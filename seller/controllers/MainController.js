@@ -1,6 +1,6 @@
 // controllers/MainController.js
 angular.module('myApp')
-    .controller('MainController', ['$scope', function ($scope) {
+    .controller('MainController', ['$scope', '$location', function ($scope, $location) {
         $scope.sideBarView = 'fragments/sideBar.html';
         $scope.pageSpinner = false;
         $scope.menuButton = true;
@@ -49,6 +49,12 @@ angular.module('myApp')
             txt.innerHTML = html;
             return txt.value;
         };
+
+        // Retrieve query parameter by name
+        $scope.getQueryParam = function (param) {
+            return $location.search()[param];
+        };
+
 
 
     }]);

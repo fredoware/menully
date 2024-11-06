@@ -136,6 +136,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 
 <script>
 sessionStorage.setItem('storeCode', '<?=$storeCode?>');
+sessionStorage.setItem('storeLogo', '<?=$store->logo?>');
 
 <?php if ($isLocal): ?>
     sessionStorage.setItem('baseUrl', '/menully');

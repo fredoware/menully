@@ -5,27 +5,6 @@ require_once '../../config/Models.php';
 
 header("Content-Type: application/json");
 
-// $requestBody = json_decode(file_get_contents("php://input"), true);
-
-// $response = [
-//     "status" => "success",
-//     "message" => "Received data successfully",
-//     "data" => $requestBody
-// ];
-
-// $storeCode = $requestBody["storeCode"];
-// $store = store()->get("storeCode='$storeCode'");
-
-// $model = menuCategory();
-// $model->obj["storeId"] = $store->Id;
-// $model->obj["name"] = $requestBody["name"];
-// $model->obj["description"] = $requestBody["description"];
-// $model->create();
-
-// echo json_encode($response);
-
-header("Content-Type: application/json");
-
 // Ensure the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

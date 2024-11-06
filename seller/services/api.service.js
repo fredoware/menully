@@ -94,5 +94,36 @@ angular.module('myApp')
                 });
         };
 
+        this.saveItem = function (data, varations) {
+            var formData = new FormData();
+            formData.append("storeCode", data.storeCode);
+            formData.append("catId", data.catId);
+            formData.append("Id", data.Id);
+            formData.append("name", data.name);
+            formData.append("description", data.description);
+            formData.append("image", data.image);
+            formData.append("isAvailable", data.isAvailable);
+            formData.append("isBestSeller", data.isBestSeller);
+            formData.append("varations", JSON.stringify(varations));
+
+            return $http.post(apiUrl + 'itemSave.php', formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            });
+        };
+
+
+        this.getItems = function (catId) {
+            return $http.get(apiUrl + 'itemList.php?Id=' + catId)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
 
     }]);

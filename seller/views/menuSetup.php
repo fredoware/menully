@@ -19,8 +19,8 @@
                         <button class="fab-2" ng-click="updateCategory(item)">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button class="fab-2">
-                            <i class="fa fa-trash"></i>
+                        <button class="fab-2 bg-danger">
+                            <i class="fa fa-trash text-white"></i>
                         </button>
                     </div>
                 </div>

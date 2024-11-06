@@ -26,6 +26,9 @@ angular.module('myApp')
             });
         };
 
+        // Initial data fetch
+        $scope.fetchData(storeCode);
+
         $scope.updateCategory = function (item) {
             $scope.formData.Id = item.Id;
             $scope.formData.name = $scope.decodeHtml(item.name);
@@ -37,9 +40,6 @@ angular.module('myApp')
             $scope.openBottomSheet();
             $scope.clearForm();
         }
-
-        // Initial data fetch
-        $scope.fetchData(storeCode);
 
 
         $scope.submitForm = function () {

@@ -1,11 +1,6 @@
 angular.module('myApp')
-    .controller('OrderController', ['$scope', '$location', 'ApiService', function ($scope, $location, ApiService) {
+    .controller('OrderController', ['$scope', 'ApiService', function ($scope, ApiService) {
         var storeCode = sessionStorage.getItem('storeCode');
-
-        // Retrieve query parameter by name
-        $scope.getQueryParam = function (param) {
-            return $location.search()[param];
-        };
 
         // Example usage: Get the 'id' query parameter
         var status = $scope.getQueryParam('status');
