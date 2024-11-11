@@ -449,6 +449,47 @@
     z-index: 100;
 }
 
-.form-control {
+.form-control, .form-select {
     background: rgb(228, 230, 228) !important;
 }
+
+
+/* ratings and feedback  */
+.star-rating {
+    display: flex;
+    gap: 4px;
+    float: right;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%,
+            79% 91%, 50% 70%, 21% 91%, 32% 57%,
+            2% 35%, 39% 35%);
+    background-color: #ccc;
+    /* Default color for empty stars */
+}
+
+.star.filled {
+    background-color: #FFD700;
+    /* Gold color for filled stars */
+}
+
+.star.empty {
+    background-color: #ccc;
+}
+
+
+/* chart for reports  */
+     /* Optional styling for canvas layout */
+     .chart-container {
+        width: 100%; /* Take full width of container */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        padding: 20px 0;
+    }
+
+    .chart-container canvas {
+        min-width: 500px; /* Set a minimum width for canvas to force scrolling */
+    }

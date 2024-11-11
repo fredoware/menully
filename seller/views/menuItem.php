@@ -1,5 +1,5 @@
 <div ng-controller="ItemController">
-    <div class="category-name text-center">{{category}}</div>
+    <div class="category-name text-center">{{title}}</div>
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6">
             <button class="add-category" ng-click="newItem()"><i class="fa fa-plus"></i> </button>
@@ -40,11 +40,11 @@
                 <span ng-bind-html="item.product.name"></span>
             </div>
 
-            <div class="card-buttons">
+            <div class="card-buttons mb-3">
                 <button class="fab-2" ng-click="updateItem(item)">
                     <i class="fa fa-pencil"></i>
                 </button>
-                <button class="fab-2 bg-danger">
+                <button class="fab-2 bg-danger" ng-click="deleteItem(item)">
                     <i class="fa fa-trash text-white"></i>
                 </button>
             </div>
@@ -73,12 +73,12 @@
 
                         <b>Pricing:</b>
 
-                        <div class="d-flex mb-3" ng-show="varations.length==1" ng-repeat="var in varations">
+                        <div class="d-flex mb-3" ng-if="varations.length==1" ng-repeat="var in varations">
                             <input type="text" placeholder="Price" ng-model="var.price" class="form-control m-1"
                                 required>
                         </div>
 
-                        <div class="d-flex mb-3" ng-show="varations.length>1" ng-repeat="var in varations">
+                        <div class="d-flex mb-3" ng-if="varations.length>1" ng-repeat="var in varations">
                             <input type="text" placeholder="Unit" ng-model="var.unit" class="form-control m-1" required>
                             <input type="text" placeholder="Price" ng-model="var.price" class="form-control m-1"
                                 required>
@@ -91,13 +91,13 @@
 
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox"  ng-model="formData.isAvailable"  ng-true-value="1" ng-false-value="0" ng-change="isAvailableChanged()" id="flexCheckChecked" checked>
+                                <input class="form-check-input" type="checkbox"  ng-model="formData.isAvailable"  ng-true-value="1" ng-false-value="0" id="flexCheckChecked" checked>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Available
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" ng-model="formData.isBestSeller"  ng-true-value="1" ng-false-value="0" ng-change="isBestSellerChanged()" value="" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" ng-model="formData.isBestSeller"  ng-true-value="1" ng-false-value="0" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Best Seller
                                 </label>

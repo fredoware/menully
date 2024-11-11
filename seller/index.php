@@ -44,6 +44,10 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <script src="controllers/MainController.js"></script>
     <script src="controllers/MenuController.js"></script>
     <script src="controllers/ItemController.js"></script>
+    <script src="controllers/VoucherController.js"></script>
+    <script src="controllers/FeedbackController.js"></script>
+    <script src="controllers/ReportController.js"></script>
+    <script src="controllers/NotificationController.js"></script>
 
 
     <!-- Favicons -->
@@ -59,12 +63,17 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Vendor CSS Files -->
     <link href="templates/source/bootstrap.min.css" rel="stylesheet">
     <link href="templates/source/bootstrap-icons.css" rel="stylesheet">
     <link href="templates/source/aos.css" rel="stylesheet">
     <link href="templates/source/glightbox.min.css" rel="stylesheet">
     <link href="templates/source/swiper-bundle.min.css" rel="stylesheet">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
     /* Dynamic colors based on the theme */

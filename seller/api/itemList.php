@@ -6,11 +6,26 @@ require_once '../../config/Models.php';
 
 header("Content-Type: application/json");
 
-$categoryId = $_GET["Id"];
-$category = menuCategory()->get("Id=$categoryId");
+$key = $_GET["key"];
+$value = $_GET["value"];
+$storeCode = $_GET["storeCode"];
+$store = store()->get("storeCode='$storeCode'");
+$title = "";
+
+if ($key=="menuCategoryId") {
+    $category = menuCategory()->get("Id=$value");
+    $title = $category->name;
+}
+if ($key=="isAvailable" && $value==0) {
+    $title = "Unavailable Items";
+}
+if ($key=="isBestSeller") {
+    $title = "Best Sellers";
+}
 
 
-$itemList = menuItem()->list("menuCategoryId=$categoryId and isDeleted=0 order by isAvailable desc");
+
+$itemList = menuItem()->list("$key=$value and storeId=$store->Id and isDeleted=0 order by isAvailable desc");
 $json = array();
 $json["total"] = count($itemList);
 
@@ -33,7 +48,7 @@ foreach ($itemList as $row) {
 }
 
 $json["list"] = $itemListArray;
-$json["category"] = $category->name;
+$json["title"] = $title;
 
  $jsonList = json_encode($json, JSON_FORCE_OBJECT);
 

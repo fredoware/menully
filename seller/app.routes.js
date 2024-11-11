@@ -21,6 +21,22 @@ angular.module('myApp')
                 templateUrl: 'views/menuItem.php',
                 controller: 'ItemController'
             })
+            .when('/voucher-setup', {
+                templateUrl: 'views/voucherSetup.php',
+                controller: 'VoucherController'
+            })
+            .when('/feedback', {
+                templateUrl: 'views/feedback.php',
+                controller: 'FeedbackController'
+            })
+            .when('/reports', {
+                templateUrl: 'views/reports.php',
+                controller: 'ReportController'
+            })
+            .when('/notification', {
+                templateUrl: 'views/notification.php',
+                controller: 'NotificationController'
+            })
             .otherwise({
                 redirectTo: '/' // Default route
             });

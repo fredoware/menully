@@ -67,14 +67,12 @@ $page = "main";
 }
 
 .menu-content {
-  position: absolute;
-  top: 180px;
-  z-index: 10;
-  min-height: 500px;
-  width: 100%;
-  border-radius: 25px 25px 0 0; 
-  bottom: 0px;
-  box-shadow: none !important;
+    position: absolute;
+    top: 180px;
+    z-index: 10;
+    min-height: 500px;
+    width: 100%;
+    border-radius: 25px;
 }
 
 .btn-fab-back {
@@ -254,9 +252,9 @@ $page = "main";
     <a class="btn-fab-back clickable" href="./" ng-click="spinner()"><i class="bi bi-arrow-left"></i></a>
     <?php else: ?>
 
-    <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i
-            class="bi bi-arrow-left"></i></button>
-
+    <button class="btn-fab-back clickable" ng-show="buttonToCategory" ng-click="categoryPage()"><i class="bi bi-arrow-left"></i></button>
+    
+    <div class="notification-badge" id="notificationBadge" style="display:none"></div>
     <button class="btn-fab-history clickable" ng-click="notificationPage()"><i class="bi bi-bell-fill"></i></button>
 
     <a class="btn-fab-settings clickable" href="?settings=1" ng-click="spinner()"><i class="bi bi-gear-fill"></i></a>
@@ -322,15 +320,6 @@ $page = "main";
     <div class="card menu-content">
         <div class="card-body text-center">
 
-            <div class="row" ng-show="alertBar">
-
-                <div class="col-lg-4 col-md-6 mt-2" ng-click="viewNotification()">
-                    <div class="alert alert-danger" role="alert">
-                        <span>{{notificationMessage}}</span>
-                    </div>
-                </div>
-            </div>
-
 
             <!-- MAIN PAGE ========================================================================== -->
             <?php if ($page=="main"): ?>
@@ -357,24 +346,36 @@ $page = "main";
 
             <div class="row" ng-show="notificationDisplay">
 
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                
 
-                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
-                    <div class="card clickable">
-                        <div class="card-body">
-                            <div class="home-item">Call a waiter</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
-                    <div class="card clickable">
-                        <div class="card-body">
-                            <div class="home-item">Request for bill</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="alert alert-danger" role="alert" id="alertBar" style="display:none;">
+          <span id="notificationMessage">0</span>
+       </div>
+       
 
             </div>
+
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                <div class="card clickable">
+                    <div class="card-body">
+                        <div class="home-item">Call a waiter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up">
+                <div class="card clickable">
+                    <div class="card-body">
+                        <div class="home-item">Request for bill</div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+
+
 
 
             <?php endif; ?>
@@ -478,7 +479,7 @@ $page = "main";
         <div class="row">
             <?php foreach ($myStoreList as $row): ?>
             <div class="col-4 col-lg-3">
-                <a href="../seller/?storeCode=<?=$row->storeCode?>">
+                <a href="../pages/process.php?action=store-log-in&store=<?=$row->storeCode?>">
                     <div class="square-container">
                         <img src="../media/<?=$row->logo?>" />
                     </div>
@@ -709,7 +710,7 @@ $page = "main";
                         {{productUnit}}
                     </div>
                 </div>
-                <ul class="list-group mt-2" ng-if="totalVariations>1">
+                <ul class="list-group mt-2">
                     <li class="list-group-item clickable product-variation" ng-click="selectVariation(vari)"
                         ng-repeat="vari in priceVariation">
                         {{vari.unit}} - {{vari.price}}
@@ -754,7 +755,7 @@ $page = "main";
     <div class="modal-dialog product-modal">
         <div class="modal-content" style="min-height:500px">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="historyModalLabel"><span ng-bind-html="orderMain.orderNumber"></span></h1>
+                <h1 class="modal-title fs-5" id="historyModalLabel"><span ng-bind-html="productName"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -764,38 +765,10 @@ $page = "main";
                         <div class=""> ₱{{item.variation.price*item.orderItem.quantity}} </div>
                     </li>
                 </ul>
-
-                <button class="btn btn-warning mt-5" data-bs-toggle="modal" data-bs-target="#feedbackModal"
-                    data-bs-dismiss="modal" aria-label="Close">Add Feed back</button>
             </div>
             <div class="modal-footer">
                 <div>Total: </div>
                 <b>₱{{orderMainTotal}}</b>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-    <div class="modal-dialog product-modal">
-        <div class="modal-content" style="min-height:500px">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="feedbackModalLabel">{{orderMain.orderNumber}}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <div id='rating'>
-                        <span ng-click="get_rating_value(1)"></span>
-                        <span ng-click="get_rating_value(2)"></span>
-                        <span ng-click="get_rating_value(3)"></span>
-                        <span ng-click="get_rating_value(4)"></span>
-                        <span ng-click="get_rating_value(5)"></span>
-                    </div>
-
-                    <textarea name="feedback" ng-model="feedback" class="form-control" style="height:200px;"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="submitFeedback()"  data-bs-dismiss="modal" aria-label="Close">Submit Feedback</button>
             </div>
         </div>
     </div>
@@ -863,18 +836,74 @@ $page = "main";
 
 
 
-<script>
+<script type="text/javascript">
+ var hasNotification = 0;
+ var statusLevel = 0;
+ document.getElementById("notificationBadge").style.display = "none";
 
-document.querySelector('#rating').addEventListener('click', function(e) {
-    let action = 'add';
-    for (const span of this.children) {
-        span.classList[action]('active');
-        if (span === e.target) action = 'remove';
-    }
+ function activateNotif(){
+
+     var intervalId = window.setInterval(function(){
+       $.ajax({
+           type: "GET",
+           url: "../pages/api.php?action=customer-notification&storeCode=<?=$store->storeCode?>",
+           success: function(data){
+             const obj = JSON.parse(data);
+
+            if (obj.status=="Confirmed" && hasNotification==0 && statusLevel==0) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->confirmedMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+                    statusLevel = 1;
+            }
+            if (obj.status=="Delivered" && hasNotification==1 && statusLevel==1) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->deliveredMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+                    statusLevel = 2;
+            }
+            if (obj.status=="Canceled" && hasNotification==1 && statusLevel==2) {
+                   document.getElementById("alertBar").style.display = "";
+                    document.getElementById("notificationMessage").innerHTML = "<?=$store->canceledMessage?>";
+                    notificationSound();
+                    hasNotification = 1;
+                    statusLevel = 3;
+            }
+             
+            if (hasNotification) {
+                document.getElementById("notificationBadge").style.display = "";
+            }
+
+           }
+         });
+     }, 2000);
+ }
+
+
+
+ function notificationSound(){
+   const audio = new Audio("../pages/templates/audio/notification.wav");
+   audio.play();
+ }
+
+ </script>
+
+
+<script type="text/javascript">
+
+var qrcode = new QRCode(document.getElementById("storeQrCode"), {
+    text: "https://menully.com/<?=$store->storeCode;?>/",
+    width: 300,
+    height: 300,
+    colorDark: "#000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
 });
+</script>
 
-
-
+<script>
 var app = angular.module("myApp", ['ngSanitize']);
 
 app.controller('myCtrl', function($scope, $http) {
@@ -889,39 +918,10 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.notificationDisplay = false;
     $scope.buttonToCategory = false;
     $scope.notes = "";
-    $scope.inputRatings = 0;
-
-    $scope.get_rating_value = function(rate) {
-        $scope.inputRatings = rate;
-    }
 
     if ($scope.totalCartQuantity) {
         $scope.cartSection = true;
     }
-
-    $scope.submitFeedback = function() {
-        $http({
-            method: "GET",
-            url: "../pages/api.php?action=submit-feedback",
-            params: {
-                'storeId': <?=$store->Id?>,
-                'orderId': $scope.orderMain.Id,
-                'stars': $scope.inputRatings,
-                'feedback': $scope.feedback,
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function mySuccess(response) {
-            Swal.fire({
-                title: "Success",
-                text: "Thank you for sharing your feedback!",
-                icon: "success"
-            })
-        }, function myError(response) {
-            console.log("Validation", response.statusText)
-        });
-    };
 
     <?php if ($page=="main"): ?>
     $scope.categoryDisplay = true;
@@ -954,7 +954,7 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.notificationDisplay = true;
         $scope.buttonToCategory = true;
 
-        $scope.activateNotif();
+        activateNotif();
     }
 
     $scope.categoryPage = function() {
@@ -1104,8 +1104,6 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.pageSpinner = true;
     };
 
-    $scope.totalVariations = 0;
-
     $scope.itemModalContent = function(item) {
         $scope.productName = item.product.name;
         $scope.productImage = item.product.image;
@@ -1116,12 +1114,9 @@ app.controller('myCtrl', function($scope, $http) {
         $scope.productUnit = "";
         $scope.productVarId = item.varId;
         $scope.priceVariation = item.variation;
-        console.log("itemVariation", item.variation)
-        $scope.totalVariations = Object.keys(item.variation).length;
     };
 
     $scope.orderModalContent = function(item) {
-        $scope.orderMain = item.main;
         $scope.orderItemList = item.items;
         $scope.orderMainTotal = item.total;
         if (item.main.voucherId) {
@@ -1291,139 +1286,6 @@ app.controller('myCtrl', function($scope, $http) {
         });
     };
 
-
-    var qrcode = new QRCode(document.getElementById("storeQrCode"), {
-        text: "https://menully.com/<?=$store->storeCode;?>/",
-        width: 300,
-        height: 300,
-        colorDark: "#000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
-
-
-    $scope.hasNotification = 0;
-    $scope.statusLevel = 0;
-    $scope.orderStatus = "<?=$orderNotification?>";
-    $scope.alertBar = false;
-    $scope.notificationMessage = "";
-
-
-    $scope.getNotificationMessage = function(status) {
-        var msg = "";
-        if (status == "Pending") {
-            msg = "<?=$store->pendingMessage?>";
-        }
-        if (status == "Confirmed") {
-            msg = "<?=$store->confirmedMessage?>";
-        }
-        if (status == "Ready") {
-            msg = "<?=$store->readyMessage?>";
-        }
-        if (status == "Delivered") {
-            msg = "<?=$store->deliveredMessage?>";
-        }
-        if (status == "Canceled") {
-            msg = "<?=$store->canceledMessage?>";
-        }
-
-        return msg;
-    }
-
-
-    $scope.notificationSound = function() {
-        const audio = new Audio("../pages/templates/audio/notification.wav");
-        audio.play();
-    }
-
-
-    if ($scope.orderStatus != "") {
-        $scope.alertBar = true;
-        $scope.notificationMessage = $scope.getNotificationMessage($scope.orderStatus);
-    }
-
-    $scope.updateOrderNotification = function(newStatus) {
-        $http({
-            method: "GET",
-            url: "../pages/api.php?action=update-order-notification",
-            params: {
-                'status': newStatus,
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function mySuccess(response) {
-                // do nothing
-            },
-            function myError(response) {
-                console.log("Validation", response.statusText)
-            });
-
-    }
-
-    $scope.activateNotif = function() {
-        setInterval(function() {
-
-            console.log("Interval...", "Interval is running")
-            $http({
-                method: "GET",
-                url: "../pages/api.php?action=customer-notification",
-                params: {
-                    'storeCode': "<?=$store->storeCode?>",
-                },
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function mySuccess(response) {
-                    if (response.data.status != $scope.orderStatus) {
-
-                        if (response.data.status != "") {
-
-                            $scope.alertBar = true;
-
-                            $scope.notificationMessage = $scope.getNotificationMessage(response
-                                .data
-                                .status);
-
-                            $scope.notificationSound();
-                            $scope.orderStatus = response.data.status;
-                        } else {
-                            $scope.alertBar = false;
-                        }
-
-                    }
-                    $scope.updateOrderNotification(response.data.status);
-                },
-                function myError(response) {
-                    console.log("Validation", response.statusText)
-                });
-
-        }, 2000);
-
-
-    }
-
-    $scope.activateNotif();
-
-
-
-    $scope.viewNotification = function() {
-        $http({
-            method: "GET",
-            url: "../pages/api.php?action=view-notification",
-            params: {
-                'storeCode': "<?=$store->storeCode?>",
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function mySuccess(response) {
-                window.location.href = "./?history=1";
-            },
-            function myError(response) {
-                console.log("Validation", response.statusText)
-            });
-    }
 
 });
 </script>

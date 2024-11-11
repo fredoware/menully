@@ -1,10 +1,26 @@
 angular.module('myApp')
     .controller('ItemController', ['$scope', 'ApiService', function ($scope, ApiService) {
-        $scope.category = "Category";
+        $scope.title = "ooo";
         $scope.storeLogo = sessionStorage.getItem('storeLogo');
         var storeCode = sessionStorage.getItem('storeCode');
 
+        var queryKey = "";
+        var queryValue = "";
         var catId = $scope.getQueryParam('Id');
+        if (catId) {
+            queryKey = "menuCategoryId";
+            queryValue = catId;
+        }
+        var isAvailable = $scope.getQueryParam('isAvailable');
+        if (isAvailable) {
+            queryKey = "isAvailable";
+            queryValue = isAvailable;
+        }
+        var isBestSeller = $scope.getQueryParam('isBestSeller');
+        if (isBestSeller) {
+            queryKey = "isBestSeller";
+            queryValue = isBestSeller;
+        }
 
         $scope.clearForm = function () {
             $scope.formData = {
@@ -31,9 +47,9 @@ angular.module('myApp')
 
         // Fetch data from the API
         $scope.fetchData = function () {
-            ApiService.getItems(catId).then(function (data) {
+            ApiService.getItems(queryKey, queryValue, storeCode).then(function (data) {
                 $scope.itemList = data.list;
-                $scope.category = $scope.decodeHtml(data.category);
+                $scope.title = $scope.decodeHtml(data.title);
             });
         };
         // Initial data fetch
@@ -90,5 +106,28 @@ angular.module('myApp')
                     $scope.message = "An error occurred while submitting data.";
                 });
         };
+
+        $scope.deleteItem = function (item) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ApiService.deleteItem(item.product.Id).then(function (data) {
+                        $scope.fetchData(storeCode);
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Item has been deleted.",
+                            icon: "success"
+                        });
+                    });
+                }
+            });
+        }
 
     }]);

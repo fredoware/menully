@@ -74,6 +74,7 @@ angular.module('myApp')
                 });
         };
 
+
         this.saveCategory = function (data) {
             var formData = new FormData();
             formData.append("storeCode", data.storeCode);
@@ -91,6 +92,17 @@ angular.module('myApp')
                 })
                 .catch(function (error) {
                     console.error('Error posting data:', error);
+                });
+        };
+
+        this.deleteCategory = function (categoryId) {
+            return $http.get(apiUrl + 'categoryDelete.php?Id=' + categoryId)
+                .then(function (response) {
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
                 });
         };
 
@@ -112,9 +124,20 @@ angular.module('myApp')
             });
         };
 
+        this.deleteItem = function (itemId) {
+            return $http.get(apiUrl + 'itemDelete.php?Id=' + itemId)
+                .then(function (response) {
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
 
-        this.getItems = function (catId) {
-            return $http.get(apiUrl + 'itemList.php?Id=' + catId)
+
+        this.getItems = function (key, value, storeCode) {
+            return $http.get(apiUrl + 'itemList.php?key=' + key + '&value=' + value + '&storeCode=' + storeCode)
                 .then(function (response) {
 
                     console.log('fetching data:', response.data);
@@ -124,6 +147,79 @@ angular.module('myApp')
                     console.error('Error fetching data:', error);
                 });
         };
+
+        this.getVouchers = function (storeCode) {
+            return $http.get(apiUrl + 'voucherList.php?storeCode=' + storeCode)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.saveVoucher = function (data) {
+            var formData = new FormData();
+            formData.append("storeCode", data.storeCode);
+            formData.append("Id", data.Id);
+            formData.append("name", data.name);
+            formData.append("type", data.type);
+            formData.append("minimumSpend", data.minimumSpend);
+            formData.append("quantity", data.quantity);
+            formData.append("validUntil", data.validUntilFormatted);
+            formData.append("status", data.status);
+            return $http.post(apiUrl + 'voucherSave.php', formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+                .then(function (response) {
+                    console.log("return data", response);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error posting data:', error);
+                });
+        };
+
+
+        this.deleteVoucher = function (itemId) {
+            return $http.get(apiUrl + 'voucherDelete.php?Id=' + itemId)
+                .then(function (response) {
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+
+        this.getFeedbacks = function (storeCode) {
+            return $http.get(apiUrl + 'feedbackList.php?storeCode=' + storeCode)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.getPendingOrders = function (storeCode) {
+            return $http.get(apiUrl + 'ordersPending.php?storeCode=' + storeCode)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
 
 
     }]);

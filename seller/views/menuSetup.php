@@ -19,7 +19,7 @@
                         <button class="fab-2" ng-click="updateCategory(item)">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button class="fab-2 bg-danger">
+                        <button class="fab-2 bg-danger"  ng-click="deleteCategory(item)">
                             <i class="fa fa-trash text-white"></i>
                         </button>
                     </div>

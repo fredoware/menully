@@ -1,7 +1,7 @@
 // controllers/MainController.js
 angular.module('myApp')
     .controller('MainController', ['$scope', '$location', function ($scope, $location) {
-        $scope.sideBarView = 'fragments/sideBar.html';
+        $scope.sideBarView = 'fragments/sideBar.php';
         $scope.pageSpinner = false;
         $scope.menuButton = true;
 
@@ -54,6 +54,33 @@ angular.module('myApp')
         $scope.getQueryParam = function (param) {
             return $location.search()[param];
         };
+
+
+        // Function to format datetime for MySQL before saving
+        $scope.dateTimeToString = function (myDateTime) {
+            if (myDateTime) {
+                // Format the datetime to "YYYY-MM-DD HH:MM:SS"
+                const date = new Date(myDateTime);
+                const formattedDateTime = date.getFullYear() + '-' +
+                    ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + date.getDate()).slice(-2) + ' ' +
+                    ('0' + date.getHours()).slice(-2) + ':' +
+                    ('0' + date.getMinutes()).slice(-2) + ':' +
+                    ('0' + date.getSeconds()).slice(-2);
+
+                return formattedDateTime;
+            }
+            return null;
+        };
+
+        $scope.stringToDateTime = function (datetime) {
+            const date = new Date(datetime);
+            return date.getFullYear() + '-' +
+                ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + date.getDate()).slice(-2) + 'T' +
+                ('0' + date.getHours()).slice(-2) + ':' +
+                ('0' + date.getMinutes()).slice(-2);
+        }
 
 
 
