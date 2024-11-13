@@ -42,7 +42,7 @@ $peopleList = storePeople()->list("storeId=$Id order by role");
                         
         <a href="store-form.php?Id=<?=$Id?>" class="btn btn-warning mt-2">Modify</a>
 
-<a href="../seller/?storeCode=<?=$store->storeCode?>" target="_blank" class="btn btn-primary mt-2">Manage Products</a>
+<a href="<?=general_link('/seller/?storeCode='.$store->storeCode)?>" target="_blank" class="btn btn-primary mt-2">Manage Products</a>
 
 <button class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add People</button>
 
