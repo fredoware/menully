@@ -1,7 +1,10 @@
 angular.module('myApp')
     .service('ApiService', ['$http', '$location', function ($http, $location) {
+        // Add sharedserivices
+        this.backButton = false;
+
         var baseUrl = sessionStorage.getItem('baseUrl');
-        var apiUrl = baseUrl + '/seller/api/'; // Update to the correct path
+        var apiUrl = baseUrl + '/customer/api/'; // Update to the correct path
 
         this.getData = function () {
             return $http.get(apiUrl + 'data.php')
@@ -24,6 +27,61 @@ angular.module('myApp')
         };
 
         // ==============================================
+        this.addToCart = function (varId, quantity) {
+            return $http.get(apiUrl + 'cartAdd.php?varId=' + varId + '&value=' + quantity)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+
+        this.getCart = function () {
+            return $http.get(apiUrl + 'cartList.php')
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.updateCart = function (varId, quantity) {
+            return $http.get(apiUrl + 'cartUpdate.php?varId=' + varId + '&value=' + quantity)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.submitOrder = function (storeCode, name, Id, notes) {
+            return $http.get(apiUrl + 'cartPlaceOrder.php?storeCode=' + storeCode + '&name=' + name + '&Id=' + Id + '&notes=' + notes)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+
+
+
+
+
+        // ===============================================
 
         this.getOrderData = function (storeCode, status) {
             return $http.get(apiUrl + 'orderList.php?storeCode=' + storeCode + '&status=' + status)
