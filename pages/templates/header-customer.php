@@ -32,68 +32,68 @@ header("Location: ../customer/?storeCode=" . $_GET["store"] . $tableQuery);
 
 // ==================================================================
 
-if (!isset($_SESSION["cart"])) {
-	$_SESSION["cart"] = array();
-	$_SESSION["voucherId"] = 0;
-	$_SESSION["voucherDiscount"] = 0;
-}
+// if (!isset($_SESSION["cart"])) {
+// 	$_SESSION["cart"] = array();
+// 	$_SESSION["voucherId"] = 0;
+// 	$_SESSION["voucherDiscount"] = 0;
+// }
 
-if (!isset($_SESSION["orderNotification"])) {
-	$_SESSION["orderNotification"] = "";
-}
-$orderNotification = $_SESSION["orderNotification"];
-
-
-if (isset($_GET["store"])) {
-  $storeCode = $_GET["store"];
-  $store = store()->get("storeCode='$storeCode'");
-  $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
-}
-else{
-  header("Location: qr-expired.php");
-}
+// if (!isset($_SESSION["orderNotification"])) {
+// 	$_SESSION["orderNotification"] = "";
+// }
+// $orderNotification = $_SESSION["orderNotification"];
 
 
-if (isset($_GET["tblno"])) {
-  $tblNo = $_GET["tblno"];
-  $tbl = storeTable()->get("Id=$tblNo");
-	$_SESSION["table"] = array();
-  $_SESSION["table"]["Id"] = $tbl->Id;
-  $_SESSION["table"]["name"] = $tbl->name;
-}
-
-// =========================================================
-// Check device Id exists
-if (!isset($_SESSION['customer'])) {
-  $fingerPrint = deviceFingerPrint();
-  $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
-  if ($checkDeviceSaved) {
-    $customer = customer()->get("deviceId='$fingerPrint'");
-    $_SESSION['customer'] = array();
-    $_SESSION['customer']["Id"] = $customer->Id;
-    $_SESSION['customer']["name"] = $customer->name;
-    $_SESSION['customer']["deviceId"] = $customer->deviceId;
-  }
-  else{
-    header('Location: new-customer');
-  }
-}
+// if (isset($_GET["store"])) {
+//   $storeCode = $_GET["store"];
+//   $store = store()->get("storeCode='$storeCode'");
+//   $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
+// }
+// else{
+//   header("Location: qr-expired.php");
+// }
 
 
-// header('Location: ../customer/?storeCode=' . $storeCode);
+// if (isset($_GET["tblno"])) {
+//   $tblNo = $_GET["tblno"];
+//   $tbl = storeTable()->get("Id=$tblNo");
+// 	$_SESSION["table"] = array();
+//   $_SESSION["table"]["Id"] = $tbl->Id;
+//   $_SESSION["table"]["name"] = $tbl->name;
+// }
 
-// =========================================================
+// // =========================================================
+// // Check device Id exists
+// if (!isset($_SESSION['customer'])) {
+//   $fingerPrint = deviceFingerPrint();
+//   $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
+//   if ($checkDeviceSaved) {
+//     $customer = customer()->get("deviceId='$fingerPrint'");
+//     $_SESSION['customer'] = array();
+//     $_SESSION['customer']["Id"] = $customer->Id;
+//     $_SESSION['customer']["name"] = $customer->name;
+//     $_SESSION['customer']["deviceId"] = $customer->deviceId;
+//   }
+//   else{
+//     header('Location: new-customer');
+//   }
+// }
 
-$myStoreList = array();
-if (isset($_SESSION['user_session'])) {
-	  $username = $_SESSION['user_session']['username'];
-	  $user = user()->get("username='$username'");
-		$storePeopleList = storePeople()->list("userId=$user->Id");
-		foreach ($storePeopleList as $row) {
-			$myStore = store()->get("Id=$row->storeId");
-			array_push($myStoreList, $myStore);
-		}
-}
+
+// // header('Location: ../customer/?storeCode=' . $storeCode);
+
+// // =========================================================
+
+// $myStoreList = array();
+// if (isset($_SESSION['user_session'])) {
+// 	  $username = $_SESSION['user_session']['username'];
+// 	  $user = user()->get("username='$username'");
+// 		$storePeopleList = storePeople()->list("userId=$user->Id");
+// 		foreach ($storePeopleList as $row) {
+// 			$myStore = store()->get("Id=$row->storeId");
+// 			array_push($myStoreList, $myStore);
+// 		}
+// }
 
 ?>
 <!DOCTYPE html>
