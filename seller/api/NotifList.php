@@ -23,3 +23,5 @@ $model = notification();
 $model->obj["status"] = "Received";
 $model->obj["dateReceived"] = "NOW()";
 $model->update("status='Pending' and storeCode='$storeCode' and receiver='Store'");
+
+?>
