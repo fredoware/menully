@@ -34,24 +34,24 @@ if (isset($_GET["storeCode"])) {
 
 $storeCode = $_SESSION["storeCode"];
 $store = store()->get("storeCode='$storeCode'");
-$category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
+// $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
 
-// =========================================================
-// Check device Id exists
-if (!isset($_SESSION['customer'])) {
-    $fingerPrint = deviceFingerPrint();
-    $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
-    if ($checkDeviceSaved) {
-      $customer = customer()->get("deviceId='$fingerPrint'");
-      $_SESSION['customer'] = array();
-      $_SESSION['customer']["Id"] = $customer->Id;
-      $_SESSION['customer']["name"] = $customer->name;
-      $_SESSION['customer']["deviceId"] = $customer->deviceId;
-    }
-    else{
-      header('Location: ../'.$storeCode.'/new-customer');
-    }
-  }
+// // =========================================================
+// // Check device Id exists
+// if (!isset($_SESSION['customer'])) {
+//     $fingerPrint = deviceFingerPrint();
+//     $checkDeviceSaved = customer()->count("deviceId='$fingerPrint'");
+//     if ($checkDeviceSaved) {
+//       $customer = customer()->get("deviceId='$fingerPrint'");
+//       $_SESSION['customer'] = array();
+//       $_SESSION['customer']["Id"] = $customer->Id;
+//       $_SESSION['customer']["name"] = $customer->name;
+//       $_SESSION['customer']["deviceId"] = $customer->deviceId;
+//     }
+//     else{
+//       header('Location: ../'.$storeCode.'/new-customer');
+//     }
+//   }
   
 
 $isLocal = true;
