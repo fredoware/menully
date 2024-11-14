@@ -98,7 +98,7 @@
 
                     <div class="row justify-content-center" ng-if="!thisItem.isAvailable">
                         <div class="col">
-                            <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                            <button type="button"
                                 class="btn btn-danger add-to-cart">Sold Out</button>
                         </div>
                     </div>

@@ -15,9 +15,6 @@ $storeCode = $_SESSION["storeCode"];
     <a href="./" class="list-group-item list-group-item-action ps-3" ng-click="closeNav()">
         Home
     </a>
-    <a href="./notification" class="list-group-item list-group-item-action ps-3" ng-click="closeNav()">
-        Notification
-    </a>
     <!-- First Menu Item -->
     <a href="#submenu1" class="list-group-item list-group-item-action ps-3" data-bs-toggle="collapse" aria-expanded="false">
         Orders

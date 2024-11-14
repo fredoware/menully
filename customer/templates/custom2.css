@@ -65,12 +65,13 @@
 .notification-badge {
     position: fixed;
     top: 15px;
-    right: 75px;
+    right: 78px;
     z-index: 2000;
     background: #eb1526;
+    color: white;
     border-radius: 30px;
     padding: 10px;
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 900;
     border: 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -120,6 +121,12 @@
     position: fixed;
     top: 20px;
     right: 20px;
+}
+
+.fixed-tr-2 {
+    position: fixed;
+    top: 20px;
+    right: 80px;
 }
 
 
@@ -185,7 +192,7 @@
     height: 100%;
     top: 0px;
     z-index: 1000;
-    background: rgba(248, 248, 251, 0.7);
+    /* background: rgba(248, 248, 251, 0.7); */
     text-align: center;
     padding-top: 200px;
 }

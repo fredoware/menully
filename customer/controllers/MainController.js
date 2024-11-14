@@ -1,14 +1,89 @@
 // controllers/MainController.js
 angular.module('myApp')
-    .controller('MainController', ['$scope', '$location', 'ApiService', function ($scope, $location, ApiService) {
+    .controller('MainController', ['$scope', '$route', '$location', 'ApiService', function ($scope, $route, $location, ApiService) {
         $scope.pageSpinner = false;
         $scope.settingsButton = true;
+        var deviceId = sessionStorage.getItem('userIdSession');
+
+        $scope.goTo = function (page) {
+            $route.reload(); // Forces the current route to reload
+            $scope.hasNotif = false;
+            $location.path(page);
+        }
+
+
+
+        // for notification  
+        var storeCode = sessionStorage.getItem('storeCode');
+        var baseUrl = sessionStorage.getItem('baseUrl');
+        $scope.hasNotif = false;
+
+        if (sessionStorage.getItem('userSession')) {
+            console.log('userSession exists in sessionStorage');
+            $scope.pagesView = true;
+            $scope.settingsButton = true;
+        } else {
+            console.log('userSession does not exist in sessionStorage');
+            $scope.pagesView = false;
+            $scope.settingsButton = false;
+        }
+
+        $scope.customerForm = function () {
+            sessionStorage.setItem('userSession', $scope.customerName);
+            let userId = localStorage.getItem('userId');
+            FingerprintJS.load().then(fp => {
+                fp.get().then(result => {
+                    userId = result.visitorId;
+                    sessionStorage.setItem('userIdSession', userId);
+                    console.log('Generated User ID:', userId);
+                });
+            });
+
+            $scope.pagesView = true;
+            $scope.settingsButton = true;
+            $scope.fetchNotification();
+        }
+
+
+        // Notification ==========================================================
+
+        $scope.fetchNotification = function () {
+
+            setInterval(function () {
+
+                ApiService.getNotifications(storeCode, deviceId).then(function (data) {
+                    console.log("notification data", data.pending);
+                    if (data.pending > 0) {
+                        $scope.hasNotif = true;
+                        $scope.notificationSound();
+                    }
+                });
+
+            }, 2000);
+
+        };
+        // Initial data fetch
+        if (deviceId) {
+            $scope.fetchNotification();
+        }
+
+
+        $scope.notificationSound = function () {
+            const audio = new Audio(baseUrl + "/pages/templates/audio/notification.wav");
+            audio.play();
+        }
+
 
         // This is to share models from a child controller
         $scope.apiService = ApiService;
-        $scope.apiService.totalCartAmount = sessionStorage.getItem('totalAmount');
-        $scope.apiService.totalCartQuantity = sessionStorage.getItem('totalQuantity');
-        $scope.apiService.showCartBanner = true;
+        $scope.apiService.updateCartService = function (hasBanner = true) {
+            let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            $scope.apiService.showCartBanner = hasBanner;
+            $scope.apiService.totalCartQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+            $scope.apiService.totalCartAmount = cart.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+
+        }
+        $scope.apiService.updateCartService();
 
 
         $scope.spinner = function (value) {

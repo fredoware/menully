@@ -11,6 +11,27 @@ include_once("../config/Models.php");
 
 $_SESSION['returnLink'] = $actual_link;
 
+
+// Redirect to new layout ===========================================
+
+$tableQuery = "";
+if (isset($_GET["tblno"])) {
+  $tblNo = $_GET["tblno"];
+  $tbl = storeTable()->get("Id=$tblNo");
+	$_SESSION["table"] = array();
+  $_SESSION["table"]["Id"] = $tbl->Id;
+  $_SESSION["table"]["name"] = $tbl->name;
+  $tableQuery = "&tableId=" . $tbl->Id. "&tableName=" .$tbl->name;
+}
+
+header("Location: ../customer/?storeCode=" . $_GET["store"] . $tableQuery);
+
+
+
+
+
+// ==================================================================
+
 if (!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = array();
 	$_SESSION["voucherId"] = 0;
@@ -21,6 +42,16 @@ if (!isset($_SESSION["orderNotification"])) {
 	$_SESSION["orderNotification"] = "";
 }
 $orderNotification = $_SESSION["orderNotification"];
+
+
+if (isset($_GET["store"])) {
+  $storeCode = $_GET["store"];
+  $store = store()->get("storeCode='$storeCode'");
+  $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
+}
+else{
+  header("Location: qr-expired.php");
+}
 
 
 if (isset($_GET["tblno"])) {
@@ -48,6 +79,9 @@ if (!isset($_SESSION['customer'])) {
   }
 }
 
+
+// header('Location: ../customer/?storeCode=' . $storeCode);
+
 // =========================================================
 
 $myStoreList = array();
@@ -61,14 +95,6 @@ if (isset($_SESSION['user_session'])) {
 		}
 }
 
-if (isset($_GET["store"])) {
-  $storeCode = $_GET["store"];
-  $store = store()->get("storeCode='$storeCode'");
-  $category_list = menuCategory()->list("storeId=$store->Id and isDeleted=0 order by priority");
-}
-else{
-  header("Location: qr-expired.php");
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

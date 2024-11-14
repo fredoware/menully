@@ -118,6 +118,8 @@ angular.module('myApp')
             formData.append("isBestSeller", data.isBestSeller);
             formData.append("varations", JSON.stringify(varations));
 
+            console.log("varaition stringify", JSON.stringify(varations));
+
             return $http.post(apiUrl + 'itemSave.php', formData, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
@@ -222,6 +224,30 @@ angular.module('myApp')
 
         this.getReports = function (storeCode) {
             return $http.get(apiUrl + 'reportList.php?storeCode=' + storeCode)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.changeNotifStatus = function (type, status) {
+            return $http.get(apiUrl + 'notifStatusUpdate.php?status=' + status + '&type=' + type)
+                .then(function (response) {
+
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
+
+        this.getNotifications = function (storeCode) {
+            return $http.get(apiUrl + 'notifList.php?storeCode=' + storeCode)
                 .then(function (response) {
 
                     console.log('fetching data:', response.data);

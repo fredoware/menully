@@ -101,4 +101,10 @@ function ratings() {
 	return $crud;
 }
 
+function notification() {
+	$crud = new CRUD;
+	$crud->table = "notification";
+	return $crud;
+}
+
 ?>

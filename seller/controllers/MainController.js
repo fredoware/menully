@@ -1,13 +1,51 @@
 // controllers/MainController.js
 angular.module('myApp')
-    .controller('MainController', ['$scope', '$location', function ($scope, $location) {
+    .controller('MainController', ['$scope', '$route', '$location', 'ApiService', function ($scope, $route, $location, ApiService) {
         $scope.sideBarView = 'fragments/sideBar.php';
         $scope.pageSpinner = false;
         $scope.menuButton = true;
 
+        // for notification  
+        var storeCode = sessionStorage.getItem('storeCode');
+        var baseUrl = sessionStorage.getItem('baseUrl');
+        $scope.hasOrder = false;
+        $scope.totalOrders = 0;
+
+        $scope.goTo = function (page) {
+            $route.reload(); // Forces the current route to reload
+            $scope.hasNotif = false;
+            $location.path(page);
+        }
+
 
         $scope.spinner = function (value) {
             $scope.pageSpinner = value;
+        }
+
+        // Notification ==========================================================
+
+        $scope.fetchNotification = function () {
+
+            setInterval(function () {
+
+                ApiService.getNotifications(storeCode).then(function (data) {
+                    console.log("notification data", data.pending);
+                    if (data.pending > 0) {
+                        $scope.hasNotif = true;
+                        $scope.notificationSound();
+                    }
+                });
+
+            }, 2000);
+
+        };
+        // Initial data fetch
+        $scope.fetchNotification();
+
+
+        $scope.notificationSound = function () {
+            const audio = new Audio(baseUrl + "/pages/templates/audio/notification.wav");
+            audio.play();
         }
 
         // Side Nav ============================================================== 

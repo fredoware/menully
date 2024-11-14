@@ -1,6 +1,6 @@
 <div ng-controller="OrderController">
     <div class="row">
-        <div class="category-name text-center">{{message}}</div>
+        <div class="category-name text-center">Order History</div>
         <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in orderList" data-aos="fade-up">
             <div ng-class="cardColor(item.main.isPaid)" ng-click="orderModalContent(item)">
                 <div class="card-body">
@@ -167,12 +167,7 @@
 
             </div>
             <div class="sheet-footer">
-                <button ng-if="!orderInfo.isPaid" class="btn btn-success" ng-click="markAsPaid(orderInfo.Id)">Mark as
-                    Paid</button>
-                <button class="btn btn-primary" ng-click="changeOrderStatus(orderInfo.Id, nextStatus)"
-                    ng-hide="orderInfo.status === 'Delivered' || orderInfo.status === 'Canceled'">{{nextStatus}}</button>
-                <button class="btn btn-danger" ng-click="changeOrderStatus(orderInfo.Id, 'Canceled')"
-                    ng-hide="orderInfo.status === 'Delivered' || orderInfo.status === 'Canceled'">Cancel Order</button>
+                <button class="btn btn-danger" ng-if="orderInfo.status==='Pending'" ng-click="changeOrderStatus(orderInfo.Id, 'Canceled')">Cancel Order</button>
 
             </div>
         </div>

@@ -2,35 +2,54 @@ angular.module('myApp')
     .controller('NotificationController', ['$scope', 'ApiService', function ($scope, ApiService) {
         var storeCode = sessionStorage.getItem('storeCode');
         var baseUrl = sessionStorage.getItem('baseUrl');
-        $scope.hasOrder = false;
-        $scope.totalOrders = 0;
+        var deviceId = sessionStorage.getItem('userIdSession');
+        ApiService.backButton = "./";
 
-        $scope.fetchData = function () {
+
+        $scope.fetchOnce = function () {
+            $scope.hasNotif = false;
+            ApiService.getNotifications(storeCode, deviceId).then(function (data) {
+                $scope.notifList = data.all;
+            });
+        }
+        $scope.fetchOnce();
+
+
+        $scope.fetchNotification = function () {
 
             setInterval(function () {
 
-                ApiService.getPendingOrders(storeCode).then(function (data) {
-                    if (data > 0) {
-                        $scope.hasOrder = true;
-                        if (data > $scope.totalOrders) {
-
-                            $scope.totalOrders = data;
-                            $scope.notificationSound();
-                        }
+                ApiService.getNotifications(storeCode, deviceId).then(function (data) {
+                    console.log("notification all data", data.all);
+                    if (data.pending > 0) {
+                        $scope.notifList = data.all;
+                        $scope.notificationSound();
                     }
                 });
-
 
             }, 2000);
 
         };
         // Initial data fetch
-        $scope.fetchData();
+        if (deviceId) {
+            $scope.fetchNotification();
+        }
 
 
         $scope.notificationSound = function () {
             const audio = new Audio(baseUrl + "/pages/templates/audio/notification.wav");
             audio.play();
+        }
+
+
+        $scope.readNotif = function (item) {
+            item.status = "Read";
+            ApiService.changeNotifStatus(item.Id, "Read").then(function (data) {
+            });
+            Swal.fire({
+                title: item.message,
+                confirmButtonText: "Close" // Change the button text here
+            });
         }
 
     }]);

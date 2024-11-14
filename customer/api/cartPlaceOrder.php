@@ -5,49 +5,67 @@ require_once '../../config/Models.php';
 
 header("Content-Type: application/json");
 
-$cart = $_SESSION["cart"];
 $orderNumber = rand(100000, 999999);
-$store = $_GET["storeCode"];
-// $voucherId = $_SESSION["voucherId"];
-$customerId = $_SESSION['customer']["Id"];
+$store = $_POST["storeCode"];
+$voucherId = $_POST["voucherId"];
+$deviceId = $_POST['Id'];
+$tableId = $_POST['tableId'];
 
 $model = orderMain();
-$model->obj["customer"] = $_SESSION['customer']["name"];
+$model->obj["customer"] = $_POST['name'];
 if (isset($_SESSION["table"]["Id"])) {
     $model->obj["tableId"] = $_SESSION["table"]["Id"];
 }
-$model->obj["customerId"] = $customerId;
-$model->obj["notes"] = $_GET["notes"];
+$model->obj["deviceId"] = $deviceId;
+$model->obj["notes"] = $_POST["notes"];
 $model->obj["orderNumber"] = $orderNumber;
 $model->obj["date"] = "NOW()";
 $model->obj["time"] = "NOW()";
 $model->obj["storeCode"] = $store;
-// $model->obj["voucherId"] = $voucherId;
+$model->obj["voucherId"] = $voucherId;
+$model->obj["tableId"] = $tableId;
 $model->create();
 
-foreach ($cart as $key => $value) {
+$deviceExist = customer()->count("deviceId='$deviceId'");
+if (!$deviceExist) {
+    $model = customer();
+    $model->obj["deviceId"] = $deviceId;
+    $model->obj["name"] = $_POST['name'];
+    $model->create();
+}
 
-    $var = variation()->get("Id=$key");
+
+$cartList = json_decode($_POST["cart"], true);
+foreach ($cartList as $row) {
+
+    $Id = $row["id"];
+
+    $var = variation()->get("Id=$Id");
     $item = menuItem()->get("Id=$var->itemId");
 
     $model = orderItem();
     $model->obj["orderNumber"] = $orderNumber;
     $model->obj["itemId"] = $item->Id;
-    $model->obj["varId"] = $key;
-    $model->obj["quantity"] = $value;
+    $model->obj["varId"] = $Id;
+    $model->obj["quantity"] = $row["quantity"];
     $model->obj["dateAdded"] = "NOW()";
     $model->create();
 
     $model = menuItem();
     $model->obj["totalOrder"] = $item->totalOrder + 1;
     $model->update("Id=$item->Id");
-
 }
 
-// $model = custVoucher();
-// $model->obj["status"] = "Used";
-// $model->obj["dateUsed"] = "NOW()";
-// $model->update("voucherId=$voucherId and custId=$customerId");
+$model = custVoucher();
+$model->obj["status"] = "Used";
+$model->obj["dateUsed"] = "NOW()";
+$model->update("voucherId=$voucherId and deviceId='$deviceId'");
 
-$_SESSION["cart"] = array();
-$_SESSION["voucherId"] = 0;
+$model = notification();
+$model->obj["storeCode"] = $store;
+$model->obj["deviceId"] = $deviceId;
+$model->obj["receiver"] = "Store";
+$model->obj["type"] = "Order";
+$model->obj["message"] = "A new order submitted by " . $_POST['name'];
+$model->create();
+

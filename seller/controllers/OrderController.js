@@ -73,10 +73,10 @@ angular.module('myApp')
             });
         }
 
-        $scope.changeOrderStatus = function (itemId) {
+        $scope.changeOrderStatus = function (itemId, nextStatus) {
             $scope.closeBottomSheet();
             $scope.spinner(true);
-            ApiService.changeOrderStatus(itemId, $scope.nextStatus).then(function (data) {
+            ApiService.changeOrderStatus(itemId, nextStatus).then(function (data) {
                 $scope.fetchData(storeCode, status);
                 $scope.spinner(false);
             });

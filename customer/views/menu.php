@@ -1,8 +1,17 @@
-<div ng-controller="MenuController">
+<div ng-controller="MenuController" style="margin-bottom:100px;">
 
     <div class="category-name text-center">menu</div>
 
     <div class="row text-center">
+        <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" href="#"
+            ng-click="spinner()">
+            <a class="card clickable" href="./menu-item?isBestSeller=1">
+                <div class="card-body">
+                    <div class="home-item text-danger">Best Sellers</div>
+
+                </div>
+            </a>
+        </div>
         <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" data-aos="fade-up" href="#"
             ng-click="spinner()">
             <a class="card clickable" href="./menu-item?Id={{item.Id}}">

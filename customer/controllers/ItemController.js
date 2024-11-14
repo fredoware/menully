@@ -54,11 +54,34 @@ angular.module('myApp')
         $scope.addToCart = function () {
             $scope.closeBottomSheet();
 
-            $scope.apiService.totalCartAmount = parseFloat($scope.apiService.totalCartAmount) + (parseFloat($scope.selectedPrice) * parseInt($scope.selectedQuantity));
-            $scope.apiService.totalCartQuantity = parseInt($scope.apiService.totalCartQuantity) + parseInt($scope.selectedQuantity);
+            // sessionStorage.removeItem('cart');
 
-            ApiService.addToCart($scope.selectedVarId, $scope.selectedQuantity).then(function (data) {
-            });
+            // Check if 'cart' exists in sessionStorage
+            let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+            var id = $scope.selectedVarId;
+            var quantity = $scope.selectedQuantity;
+            var price = $scope.selectedPrice;
+
+
+            // Check if the item with the given ID already exists in the cart
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                // If the item exists, update its quantity
+                existingItem.quantity += quantity;
+            } else {
+                // If the item does not exist, add a new record
+                cart.push({ id, quantity, price });
+            }
+
+
+            // Save the updated cart back to sessionStorage
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+
+            console.log('Updated Cart:', cart);
+            ApiService.cart = cart.length;
+            $scope.apiService.updateCartService();
         }
 
 

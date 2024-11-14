@@ -1,14 +1,9 @@
-<?php 
-session_start();
-$customerName = $_SESSION['customer']["name"];
-$customerId = $_SESSION['customer']["Id"];
-?>
 <div ng-controller="CartController">
 
     <div class="category-name">My Cart</div>
 
     <div class="row" style="margin-bottom:200px">
-        <div class="col-lg-4 col-md-6 mt-2" mt-2" ng-repeat="item in cartList" ng-if="item.quantity!=0">
+        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in cartList" ng-if="item.quantity!=0">
             <div data-aos="fade-up">
                 <div class="card">
                     <div class="card-body">
@@ -56,7 +51,12 @@ $customerId = $_SESSION['customer']["Id"];
                             Voucher:
                         </div>
 
-                        <a class="col-6 mt-3" href="">
+                        <div class="col-6 mt-3" ng-click="removeVoucher()" ng-if="voucherId">
+                            <div class="cart-selected-voucher mb-2">
+                                <span>{{voucherName}}</span>
+                            </div>
+                        </div>
+                        <a class="col-6 mt-3" href="./vouchers" ng-if="!voucherId">
                             Select Voucher <i class="bi bi-chevron-right"></i>
                         </a>
                         <div class="col-6 mt-3 mb-3">
@@ -73,9 +73,6 @@ $customerId = $_SESSION['customer']["Id"];
         </div>
     </div>
 
-    <div ng-init="customerName = '<?=$customerName?>'"></div>
-    <div ng-init="customerId = '<?=$customerId?>'"></div>
-
     <div class="backdrop" id="bottomBackdrop" ng-click="closeCartSheet()"></div>
 
     <div class="row justify-content-center">
@@ -86,15 +83,18 @@ $customerId = $_SESSION['customer']["Id"];
                         <span class="close-btn" ng-click="closeCartSheet()">&times;</span>
                     </div>
                     <div class="sheet-body">
-                        
-                        <h4>Customer</h4>
+                        <h3>
+                        <span ng-if="tableName">Table {{tableName}}</span></h3>
+                        <b>
+                            Customer
+</b>
                         <input type="text" class="form-control mb-3" ng-model="customerName" required>
-                        <h4>Notes to kitchen</h4>
+                        <b>Notes to kitchen</b>
                         <textarea class="form-control" ng-model="customerNotes"></textarea>
 
                     </div>
                     <div class="sheet-footer p-3">
-                        
+
                         <div class="row justify-content-center">
                             <div class="col">
                                 <button type="button" ng-click="submitOrder()"

@@ -4,23 +4,33 @@ session_start();
 include_once "../config/database.php";
 include_once "../config/Models.php";
 
+?>
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<?php 
+
+if (isset($_GET["tableId"])) {
+    $tableId= $_GET["tableId"];
+    $tableName= $_GET["tableName"];
+
+    ?>
+<script>
+    
+    sessionStorage.setItem('tableId', '<?=$tableId?>');
+    sessionStorage.setItem('tableName', '<?=$tableName?>');
+
+</script>
+<?php
+
+}
+
+
 if (isset($_GET["storeCode"])) {
     $_SESSION["storeCode"] = $_GET["storeCode"];
-    header("Location: ../customer/");
+    // header("Location: ../customer/");
 }
 
-if (!isset($_SESSION["cart"])) {
-    $_SESSION["cart"] = array();
-}
-$cart = $_SESSION["cart"];
-$totalAmount = 0;
-$totalQuantity = 0;
-
-foreach ($cart as $key => $qty){
-  $item = variation()->get("Id=$key");
-  $totalAmount += $item->price*$qty;
-  $totalQuantity += $qty;
-}
 
 $storeCode = $_SESSION["storeCode"];
 $store = store()->get("storeCode='$storeCode'");
@@ -39,7 +49,7 @@ if (!isset($_SESSION['customer'])) {
       $_SESSION['customer']["deviceId"] = $customer->deviceId;
     }
     else{
-      header('Location: ../pages/new-customer');
+      header('Location: ../'.$storeCode.'/new-customer');
     }
   }
   
@@ -50,16 +60,14 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
   }
 
 ?>
-<!DOCTYPE html>
-<html lang="en" ng-app="myApp">
 
 <head>
-    
-<?php if ($isLocal): ?>
+
+    <?php if ($isLocal): ?>
     <base href="/menully/customer/">
-<?php else: ?>
+    <?php else: ?>
     <base href="/customer/">
-<?php endif; ?>
+    <?php endif; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My AngularJS App</title>
@@ -80,6 +88,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <script src="controllers/ReportController.js"></script>
     <script src="controllers/NotificationController.js"></script>
     <script src="controllers/CartController.js"></script>
+    <script src="controllers/SettingsController.js"></script>
 
 
     <!-- Favicons -->
@@ -97,6 +106,12 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+
+
     <!-- Vendor CSS Files -->
     <link href="templates/source/bootstrap.min.css" rel="stylesheet">
     <link href="templates/source/bootstrap-icons.css" rel="stylesheet">
@@ -104,8 +119,8 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <link href="templates/source/glightbox.min.css" rel="stylesheet">
     <link href="templates/source/swiper-bundle.min.css" rel="stylesheet">
 
-    
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
     /* Dynamic colors based on the theme */
@@ -130,34 +145,37 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
         </div>
 
 
-        <a class="fab fixed-tl clickable" ng-show="apiService.backButton" href="{{apiService.backButton}}" ><i
+        <a class="fab fixed-tl clickable" ng-show="apiService.backButton" href="{{apiService.backButton}}"><i
                 class="bi bi-arrow-left"></i></a>
 
-        <button class="fab fixed-tr clickable" ng-show="settingsButton" ng-click="openNav()"><i
-        class="bi bi-gear-fill"></i></button>
+        <a class="fab fixed-tr-2 clickable"  ng-click="goTo('/notification')">
+            <span class="notification-badge" ng-show="hasNotif"></span>
+            <i class="bi bi-bell-fill"></i></a>
+            
+        <a class="fab fixed-tr clickable" ng-show="settingsButton" href="./settings"><i class="bi bi-gear-fill"></i></a>
 
-        
-    <div ng-if="apiService.totalCartAmount>0">
-        <a class="row justify-content-center cart-main" href="./cart" ng-show="apiService.showCartBanner">
-            <div class="col-lg-6 col-md-10 col-sm-12 cart">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2">
-                                {{apiService.totalCartQuantity}}
-                            </div>
-                            <div class="col">
-                                View your cart
-                            </div>
-                            <div class="col-3">
-                                ₱{{apiService.totalCartAmount | formatMoney}}
+
+        <div ng-if="apiService.totalCartQuantity>0">
+            <a class="row justify-content-center cart-main" href="./cart" ng-show="apiService.showCartBanner">
+                <div class="col-lg-6 col-md-10 col-sm-12 cart">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    {{apiService.totalCartQuantity}}
+                                </div>
+                                <div class="col">
+                                    View your cart
+                                </div>
+                                <div class="col-3">
+                                    ₱{{apiService.totalCartAmount | formatMoney}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
 
         <img src="../media/<?=$store->logo?>" class="logo">
         <img src="../media/<?=$store->cover?>" class="cover-photo">
@@ -167,7 +185,15 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 
                 <!-- ===================================================================== -->
 
-                <div ng-view></div>
+                <div ng-view ng-show="pagesView"></div>
+
+                <!-- ===================================================================== -->
+
+                <div ng-hide="pagesView">
+                    <b>Customer Nick name</b>
+                    <input type="text" class="form-control" ng-model="customerName" required>
+                    <button class="btn btn-primary" ng-click="customerForm()">Start</button>
+                </div>
 
                 <!-- ===================================================================== -->
 
@@ -197,12 +223,10 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 <script>
 sessionStorage.setItem('storeCode', '<?=$storeCode?>');
 sessionStorage.setItem('storeLogo', '<?=$store->logo?>');
-sessionStorage.setItem('totalAmount', '<?=$totalAmount?>');
-sessionStorage.setItem('totalQuantity', '<?=$totalQuantity?>');
 
 <?php if ($isLocal): ?>
-    sessionStorage.setItem('baseUrl', '/menully');
+sessionStorage.setItem('baseUrl', '/menully');
 <?php else: ?>
-    sessionStorage.setItem('baseUrl', '');
+sessionStorage.setItem('baseUrl', '');
 <?php endif; ?>
 </script>

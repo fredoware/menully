@@ -1,23 +1,17 @@
 angular.module('myApp')
     .controller('OrderController', ['$scope', 'ApiService', function ($scope, ApiService) {
         var storeCode = sessionStorage.getItem('storeCode');
-
-        // Example usage: Get the 'id' query parameter
-        var status = $scope.getQueryParam('status');
-        console.log('ID parameter:', status);
-
-        // Assign to scope variable to display in view
-        $scope.message = status + " Orders";
+        var deviceId = sessionStorage.getItem('userIdSession');
 
         // Fetch data from the API
-        $scope.fetchData = function (storeCode, status) {
-            ApiService.getOrderData(storeCode, status).then(function (data) {
+        $scope.fetchData = function () {
+            ApiService.getOrderData(storeCode, deviceId).then(function (data) {
                 $scope.orderList = data;
             });
         };
 
         // Initial data fetch
-        $scope.fetchData(storeCode, status);
+        $scope.fetchData();
 
         $scope.orderModalContent = function (item) {
             $scope.openBottomSheet();
@@ -73,10 +67,10 @@ angular.module('myApp')
             });
         }
 
-        $scope.changeOrderStatus = function (itemId) {
+        $scope.changeOrderStatus = function (itemId, status) {
             $scope.closeBottomSheet();
             $scope.spinner(true);
-            ApiService.changeOrderStatus(itemId, $scope.nextStatus).then(function (data) {
+            ApiService.changeOrderStatus(itemId, status).then(function (data) {
                 $scope.fetchData(storeCode, status);
                 $scope.spinner(false);
             });

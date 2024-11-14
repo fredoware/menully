@@ -17,6 +17,22 @@ angular.module('myApp')
                 templateUrl: 'views/cart.php',
                 controller: 'CartController'
             })
+            .when('/settings', {
+                templateUrl: 'views/settings.php',
+                controller: 'SettingsController'
+            })
+            .when('/vouchers', {
+                templateUrl: 'views/vouchers.php',
+                controller: 'VoucherController'
+            })
+            .when('/history', {
+                templateUrl: 'views/history.php',
+                controller: 'OrderController'
+            })
+            .when('/notification', {
+                templateUrl: 'views/notification.php',
+                controller: 'NotificationController'
+            })
             .otherwise({
                 redirectTo: '/' // Default route
             });

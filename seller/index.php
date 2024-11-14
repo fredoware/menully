@@ -23,12 +23,12 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 <html lang="en" ng-app="myApp">
 
 <head>
-    
-<?php if ($isLocal): ?>
+
+    <?php if ($isLocal): ?>
     <base href="/menully/seller/">
-<?php else: ?>
+    <?php else: ?>
     <base href="/seller/">
-<?php endif; ?>
+    <?php endif; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My AngularJS App</title>
@@ -37,6 +37,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.js"></script>
     <script src="app.module.js"></script>
     <script src="app.routes.js"></script>
+    <script src="services/shared.service.js"></script>
     <script src="services/api.service.js"></script>
     <script src="controllers/HomeController.js"></script>
     <script src="controllers/AboutController.js"></script>
@@ -72,8 +73,8 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <link href="templates/source/glightbox.min.css" rel="stylesheet">
     <link href="templates/source/swiper-bundle.min.css" rel="stylesheet">
 
-    
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
     /* Dynamic colors based on the theme */
@@ -108,11 +109,20 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
         <button class="fab fixed-tl clickable" ng-show="menuButton" ng-click="openNav()"><i
                 class="bi bi-list"></i></button>
 
+        <a class="fab fixed-tr clickable" ng-click="goTo('/notification')">
+            <span class="notification-badge" ng-show="hasNotif"></span>
+            <i class="bi bi-bell-fill"></i></a>
+
         <img src="../media/<?=$store->logo?>" class="logo">
         <img src="../media/<?=$store->cover?>" class="cover-photo">
 
         <div class="card menu-content">
             <div class="card-body">
+                <div class="alert alert-danger" ng-show="hasOrder" role="alert"
+                    onclick="location.href='./orders?status=Pending'">
+                    {{totalOrders}} new pending orders!
+                </div>
+
 
                 <!-- ===================================================================== -->
 
@@ -148,8 +158,8 @@ sessionStorage.setItem('storeCode', '<?=$storeCode?>');
 sessionStorage.setItem('storeLogo', '<?=$store->logo?>');
 
 <?php if ($isLocal): ?>
-    sessionStorage.setItem('baseUrl', '/menully');
+sessionStorage.setItem('baseUrl', '/menully');
 <?php else: ?>
-    sessionStorage.setItem('baseUrl', '');
+sessionStorage.setItem('baseUrl', '');
 <?php endif; ?>
 </script>

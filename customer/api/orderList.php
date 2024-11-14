@@ -6,11 +6,11 @@ require_once '../../config/Models.php';
 
 header("Content-Type: application/json");
 
-$status = $_GET['status'];
+$deviceId = $_GET['deviceId'];
 $storeCode = $_GET['storeCode'];
 
 	$historyList = array();
-    $orderMainList = orderMain()->list("status='$status' and storeCode='$storeCode'");
+    $orderMainList = orderMain()->list("deviceId='$deviceId' and storeCode='$storeCode' order by FIELD(status, 'Pending', 'Confirmed', 'Ready', 'Delivered', 'Canceled')");
 	foreach ($orderMainList as $row) {
 		$item = array();
 		$item["main"] = $row;

@@ -1,6 +1,66 @@
 angular.module('myApp')
     .controller('VoucherController', ['$scope', '$location', 'ApiService', function ($scope, $location, ApiService) {
         var storeCode = sessionStorage.getItem('storeCode');
+        var deviceId = sessionStorage.getItem('userIdSession');
+        ApiService.showCartBanner = false;
+        ApiService.backButton = './cart';
+
+        $scope.fetchData = function () {
+            $scope.spinner(true);
+            ApiService.getVouchers(storeCode, deviceId).then(function (data) {
+                $scope.spinner(false);
+                console.log("storeCode", storeCode);
+                console.log("deviceId", deviceId);
+                console.log("vouchers", data);
+                $scope.vouchers = data.vouchers;
+                $scope.myVouchers = data.myVouchers;
+            });
+        };
+
+        // Initial data fetch
+        $scope.fetchData();
+
+
+        $scope.claimVoucher = function (item) {
+            ApiService.claimVoucher(deviceId, item.voucher.Id).then(function (data) {
+                $scope.fetchData();
+                Swal.fire({
+                    title: "Congratulations!",
+                    text: "You successfully claimed this voucher!",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Use now!",
+                    cancelButtonText: "Next Time"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $scope.useVoucher(item);
+                    }
+                });
+            });
+        }
+
+        $scope.useVoucher = function (item) {
+            console.log("minSpend", item.voucher.minimumSpend);
+            console.log("totalAmount", ApiService.totalCartAmount);
+            if (item.voucher.minimumSpend > ApiService.totalCartAmount) {
+                Swal.fire({
+                    title: "Warning",
+                    text: "Minimum spend must be " + item.voucher.minimumSpend,
+                    icon: "error"
+                });
+            }
+            else {
+                sessionStorage.setItem('voucherId', item.voucher.Id);
+                sessionStorage.setItem('voucherName', item.voucher.name);
+                sessionStorage.setItem('voucherMinSpend', item.voucher.minimumSpend);
+                $location.path("/cart");
+            }
+        }
+
+
+        // ===============================================================
 
         $scope.clearForm = function () {
             $scope.formData = {
@@ -24,16 +84,6 @@ angular.module('myApp')
             $scope.formData.validUntilFormatted = $scope.dateTimeToString($scope.formData.validUntil);
         };
 
-        $scope.fetchData = function (storeCode) {
-            $scope.spinner(true);
-            ApiService.getVouchers(storeCode).then(function (data) {
-                $scope.voucherList = data;
-                $scope.spinner(false);
-            });
-        };
-
-        // Initial data fetch
-        $scope.fetchData(storeCode);
 
         $scope.updateVoucher = function (item) {
             $scope.formData.Id = item.Id;
