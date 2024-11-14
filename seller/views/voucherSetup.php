@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row">
-            <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in voucherList" data-aos="fade-up"
+            <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in voucherList"  data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-out-cubic"
                 ng-click="useVoucher(item)">
                 <div class="card clickable">
                     <div class="card-body">

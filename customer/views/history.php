@@ -1,7 +1,7 @@
 <div ng-controller="OrderController">
     <div class="row">
         <div class="category-name text-center">Order History</div>
-        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in orderList" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in orderList"  data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-out-cubic">
             <div ng-class="cardColor(item.main.isPaid)" ng-click="orderModalContent(item)">
                 <div class="card-body">
                     <div class="row">

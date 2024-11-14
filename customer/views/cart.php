@@ -4,7 +4,7 @@
 
     <div class="row" style="margin-bottom:200px">
         <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in cartList" ng-if="item.quantity!=0">
-            <div data-aos="fade-up">
+            <div  data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-out-cubic">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">

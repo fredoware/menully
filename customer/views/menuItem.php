@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-lg-3 col-md-4 col-6 mt-2" ng-repeat="item in itemList"">
-            <div data-aos="fade-up">
+            <div  data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-out-cubic">
             <div class="card" ng-click="openItem(item)">
                 <button class="btn-add"><i class="bi bi-plus"></i></button>
                 <div class="square-container">

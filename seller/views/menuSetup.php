@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row text-center">
-        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList" data-aos="fade-up" href="#"
+        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in categoryList"  data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-out-cubic" href="#"
             ng-click="spinner()">
             <div class="card clickable">
                 <div class="card-body">
