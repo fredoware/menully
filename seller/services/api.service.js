@@ -247,7 +247,7 @@ angular.module('myApp')
         };
 
         this.getNotifications = function (storeCode) {
-            return $http.get(apiUrl + 'notifList.php?storeCode=' + storeCode)
+            return $http.get(apiUrl + 'notificationList.php?storeCode=' + storeCode)
                 .then(function (response) {
 
                     console.log('fetching data:', response.data);
