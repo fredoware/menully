@@ -33,6 +33,10 @@ angular.module('myApp')
                 templateUrl: 'views/notification.php',
                 controller: 'NotificationController'
             })
+            .when('/feedback', {
+                templateUrl: 'views/feedback.php',
+                controller: 'FeedbackController'
+            })
             .otherwise({
                 redirectTo: '/' // Default route
             });

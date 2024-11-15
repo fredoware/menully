@@ -490,6 +490,25 @@
 }
 
 
+ /* this is for feedback form  */
+ .stars span {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #ccc; /* Outlined stars */
+    transition: color 0.3s;
+}
+.stars span.selected {
+    color: #ffd700; /* Selected stars */
+}
+.stars span:hover {
+    color: #ffae00; /* Hover glow effect */
+}
+.stars span.hovered {
+    color: #ffd700; /* Stars glow during hover */
+}
+
+
+
 /* chart for reports  */
      /* Optional styling for canvas layout */
      .chart-container {

@@ -25,6 +25,7 @@ angular.module('myApp')
         $scope.fetchData = function () {
             $scope.spinner(true);
             ApiService.getReports(storeCode).then(function (data) {
+                console.log("report list", data);
                 // $scope.categoryList = data.list;
                 $scope.productLabels = data.productLabels
                 $scope.productSalesData = data.productData

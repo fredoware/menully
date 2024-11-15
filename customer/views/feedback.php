@@ -1,64 +1,23 @@
 <div ng-controller="FeedbackController">
-
-    <div class="row">
-        <div class="category-name text-center">Customer's feedback</div>
-        <div class="col-lg-4 col-md-6 mt-2" ng-repeat="item in feedbackList" data-aos="fade-up">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col order-label">
-                            Date:
-                        </div>
-                        <div class="col order-value">
-                            {{item.item.dateAdded}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col order-label">
-                            Order Number:
-                        </div>
-                        <div class="col order-value">
-                            {{item.order.orderNumber}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col order-label" style="">
-                            Ratings:
-                        </div>
-                        <div class="col order-value">
-                        <div class="star-rating">
-                                    <span ng-repeat="star in getStars()"
-                                        ng-class="{'filled': star <= item.item.stars, 'empty': star > item.item.stars}"
-                                        class="star"></span>
-                                </div>
-                        </div>
-                    </div>
+    
+<div class="category-name text-center">Customer's feedback</div>
+<div class="text-center">"We value your opinion—share your feedback with us to help improve your experience!"</div>
 
 
-                    <div class="row">
-                        <div class="col order-label" style="">
-                            Customer:
-                        </div>
-                        <div class="col order-value">
-                            {{item.customer.name}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col order-label" style="">
-                            Feedback:
-                        </div>
-                        <div class="col order-value">
-                            {{item.item.feedback}}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<div class="stars text-center mt-3">
+        <span ng-repeat="star in stars track by $index"
+              ng-class="{'selected': $index < rating}"
+              ng-mouseenter="hoverRating($index + 1)"
+              ng-mouseleave="resetHover()"
+              ng-click="setRating($index + 1)">
+            &#9733;
+        </span>
     </div>
+    <p class="text-center">You rated: {{ rating }} star{{ rating > 1 ? 's' : '' }}</p>
 
+    <b class="mt-3">Feedback</b>
+    <textarea class="form-control" ng-model="feedback"></textarea>
 
+    <button class="btn btn-primary mt-3" ng-click="submitFeedback()">Submit</button>
+    
 </div>

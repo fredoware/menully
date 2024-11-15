@@ -3,7 +3,6 @@ session_start();
 require_once '../../config/database.php';
 require_once '../../config/Models.php';
 
-
 header("Content-Type: application/json");
 
 function notif($status, $storeCode)
@@ -29,7 +28,6 @@ function notif($status, $storeCode)
     return $msg;
 }
 
-
 $itemId = $_GET["itemId"];
 
 $model = orderMain();
@@ -45,4 +43,13 @@ $model->obj["receiver"] = "Customer";
 $model->obj["type"] = "Order";
 $model->obj["message"] = notif($order->status, $order->storeCode);
 $model->create();
-?>
+
+if ($_GET["status"] == "Delivered") {
+    $model = notification();
+    $model->obj["storeCode"] = $order->storeCode;
+    $model->obj["deviceId"] = $order->deviceId;
+    $model->obj["receiver"] = "Customer";
+    $model->obj["type"] = "Feedback";
+    $model->obj["message"] = "We value your opinion—share your feedback with us to help improve your experience!";
+    $model->create();
+}

@@ -14,14 +14,14 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col order-label">
                             Order Number:
                         </div>
                         <div class="col order-value">
                             {{item.order.orderNumber}}
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col order-label" style="">
@@ -42,7 +42,7 @@
                             Customer:
                         </div>
                         <div class="col order-value">
-                            {{item.customer.name}}
+                            {{item.item.name}}
                         </div>
                     </div>
 

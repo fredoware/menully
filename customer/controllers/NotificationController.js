@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .controller('NotificationController', ['$scope', 'ApiService', function ($scope, ApiService) {
+    .controller('NotificationController', ['$scope', 'ApiService', '$location', function ($scope, ApiService, $location) {
         var storeCode = sessionStorage.getItem('storeCode');
         var baseUrl = sessionStorage.getItem('baseUrl');
         var deviceId = sessionStorage.getItem('userIdSession');
@@ -46,10 +46,16 @@ angular.module('myApp')
             item.status = "Read";
             ApiService.changeNotifStatus(item.Id, "Read").then(function (data) {
             });
-            Swal.fire({
-                title: item.message,
-                confirmButtonText: "Close" // Change the button text here
-            });
+
+            if (item.type == "Order") {
+                Swal.fire({
+                    title: item.message,
+                    confirmButtonText: "Close" // Change the button text here
+                });
+            }
+            if (item.type == "Feedback") {
+                $location.path("/feedback");
+            }
         }
 
     }]);

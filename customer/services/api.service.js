@@ -151,6 +151,16 @@ angular.module('myApp')
                 });
         };
 
+        this.submitFeedback = function (storeCode, name, rating, feedback) {
+            return $http.get(apiUrl + 'feedbackSubmit.php?storeCode=' + storeCode + '&name=' + name + '&stars=' + rating + '&feedback=' + feedback)
+                .then(function (response) {
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        };
 
 
         // ===============================================
