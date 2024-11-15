@@ -189,10 +189,11 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
 
                 <!-- ===================================================================== -->
 
-                <div ng-hide="pagesView">
-                    <b>Customer Nick name</b>
-                    <input type="text" class="form-control" ng-model="customerName" required>
-                    <button class="btn btn-primary" ng-click="customerForm()">Start</button>
+                <div ng-hide="pagesView" class="text-center">
+                <br><br><br>
+Hi There! <br> Please enter your nickname to personalize your order.
+                    <input type="text" class="form-control mt-3" ng-model="customerName" required>
+                    <button class="btn btn-primary mt-3" ng-click="customerForm()">Start</button>
                 </div>
 
                 <!-- ===================================================================== -->
