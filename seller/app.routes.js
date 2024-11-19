@@ -17,6 +17,10 @@ angular.module('myApp')
                 templateUrl: 'views/menuSetup.php',
                 controller: 'MenuController'
             })
+            .when('/mass-upload', {
+                templateUrl: 'views/massUpload.php',
+                controller: 'ItemMassUploadController'
+            })
             .when('/menu-item', {
                 templateUrl: 'views/menuItem.php',
                 controller: 'ItemController'

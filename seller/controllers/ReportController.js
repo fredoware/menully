@@ -21,78 +21,96 @@ angular.module('myApp')
         // const values = Object.values(obj);
         // console.log(values); // Output: ["aac", "asa", "aaa", "ada"]
 
-
-        $scope.fetchData = function () {
-            $scope.spinner(true);
-            ApiService.getReports(storeCode).then(function (data) {
-                console.log("report list", data);
-                // $scope.categoryList = data.list;
-                $scope.productLabels = data.productLabels
-                $scope.productSalesData = data.productData
-                $scope.spinner(false);
-            });
-        };
-
-        // Initial data fetch
-        $scope.fetchData();
+        // const keys = Object.keys(obj); // ["a", "b", "c"]
+        // const values = Object.values(obj); // [1, 2, 3]
 
 
-    }]).directive('chartDirective', function () {
+        // $scope.fetchData = function () {
+        //     $scope.spinner(true);
+        //     ApiService.getReports(storeCode).then(function (data) {
+        //         const labels = data.menuItems.map(item => item.label);
+        //         const values = data.menuItems.map(item => item.value);
+        //         console.log("report key", labels);
+        //         console.log("report value", values);
+        //         // $scope.categoryList = data.list;
+        //         $scope.productLabels = labels;
+        //         $scope.productSalesData = values;
+        //         $scope.spinner(false);
+        //     });
+        // };
+
+        // // Initial data fetch
+        // $scope.fetchData();
+
+
+    }]).directive('echartsBarChart', function () {
         return {
             restrict: 'A',
             scope: {
-                chartData: '=',
-                chartLabels: '=',
-                chartTitle: '='
+                chartData: '=',    // Sales data
+                chartLabels: '=',  // Labels (e.g., product names)
+                chartTitle: '@'    // Title for the chart
             },
             link: function (scope, element) {
-                var ctx = element[0].getContext('2d');
+                // Initialize the chart
+                var chart = echarts.init(element[0]);
 
-                var chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: scope.chartLabels,
-                        datasets: [{
-                            label: scope.chartTitle,
-                            data: scope.chartData,
-                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false // Disable the legend display
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Sales Amount'
+                // Watch for changes to the data and labels
+                scope.$watchGroup(['chartData', 'chartLabels'], function (newValues) {
+                    if (newValues[0] && newValues[1]) {
+                        // Configure chart options for a horizontal bar chart
+                        var options = {
+                            title: {
+                                text: scope.chartTitle || 'Sales Bar Chart',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: { type: 'shadow' }
+                            },
+                            grid: {
+                                left: '10%',
+                                right: '10%',
+                                bottom: '10%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value', // Horizontal scale (bar width)
+                                name: 'Sales Amount',
+                                axisLabel: {
+                                    formatter: '{value}'
                                 }
                             },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: scope.chartTitle.includes('Product') ? 'Products' : 'Categories'
+                            yAxis: {
+                                type: 'category', // Category axis (vertical items)
+                                data: scope.chartLabels,
+                                axisLabel: {
+                                    formatter: function (value) {
+                                        return value; // Item names on Y-axis
+                                    }
                                 }
-                            }
-                        }
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: scope.chartData,
+                                barWidth: '40%', // Adjust bar width
+                                itemStyle: { color: '#73C0DE' }
+                            }]
+                        };
+
+                        // Set the options
+                        chart.setOption(options);
                     }
                 });
 
-                // Update the chart when data changes
-                scope.$watchGroup(['chartData', 'chartLabels'], function (newValues, oldValues) {
-                    if (newValues !== oldValues) {
-                        chart.data.labels = scope.chartLabels;
-                        chart.data.datasets[0].data = scope.chartData;
-                        chart.update();
-                    }
+                // Handle responsiveness
+                window.addEventListener('resize', function () {
+                    chart.resize();
+                });
+
+                // Clean up on directive destroy
+                scope.$on('$destroy', function () {
+                    chart.dispose();
                 });
             }
         };

@@ -2,10 +2,12 @@
 
 <div class="category-name text-center">Sales Reports</div>
 
+
 <!-- Product Sales Chart -->
 <div class="chart-container">
     <canvas chart-directive chart-data="productSalesData" chart-labels="productLabels" chart-title="'Sales by Product'"></canvas>
 </div>
+
 
 <!-- Category Sales Chart -->
 <div class="chart-container">

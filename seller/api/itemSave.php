@@ -15,9 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $model->obj["menuCategoryId"] = $_POST["catId"];
     $model->obj["storeId"] = $store->Id;
     $model->obj["name"] = $_POST["name"];
+    $model->obj["quantity"] = $_POST["quantity"];
     $model->obj["description"] = $_POST["description"];
     $model->obj["isAvailable"] = $_POST["isAvailable"];
     $model->obj["isBestSeller"] = $_POST["isBestSeller"];
+    $model->obj["isForSale"] = $_POST["isForSale"];
 
     if (isset($_FILES['image']["name"])) {
         $image_file_name = uploadImage($_FILES["image"], $store->storeCode);
@@ -26,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_POST["Id"]) {
         $Id = $_POST["Id"];
+        $model->obj["status"] = "Available";
         $model->update("Id=$Id");
     } else {
         $model->create();

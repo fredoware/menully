@@ -32,7 +32,8 @@ $storeCode = $_SESSION["storeCode"];
         <i class="fa fa-angle-right float-end toggle-icon me-2 mt-1"></i>
     </a>
     <div class="collapse" id="submenu2">
-        <a href="./menu-setup" class="list-group-item list-group-item-action" ng-click="closeNav()">Menu Set Up</a>
+    <a href="./menu-setup" class="list-group-item list-group-item-action" ng-click="closeNav()">Menu Set Up</a>
+    <a href="./mass-upload" class="list-group-item list-group-item-action" ng-click="closeNav()">Mass Upload</a>
         <a href="./voucher-setup" class="list-group-item list-group-item-action" ng-click="closeNav()">Voucher Set Up</a>
         <a href="./menu-item?isBestSeller=1" class="list-group-item list-group-item-action" ng-click="closeNav()">Best
             Sellers!</a>

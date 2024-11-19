@@ -12,20 +12,29 @@ $storeCode = $_GET["storeCode"];
 $store = store()->get("storeCode='$storeCode'");
 $title = "";
 
+$sqlQuery = "";
 if ($key=="menuCategoryId") {
     $category = menuCategory()->get("Id=$value");
     $title = $category->name;
+    $sqlQuery = "and $key=$value";
 }
 if ($key=="isAvailable" && $value==0) {
     $title = "Unavailable Items";
+    $sqlQuery = "and $key=$value";
 }
 if ($key=="isBestSeller") {
     $title = "Best Sellers";
+    $sqlQuery = "and $key=$value";
+}
+
+if ($key=="status") {
+    $title = "Draft Items";
+    $sqlQuery = "and $key='$value'";
 }
 
 
 
-$itemList = menuItem()->list("$key=$value and storeId=$store->Id and isDeleted=0 order by isAvailable desc");
+$itemList = menuItem()->list("Id>0 $sqlQuery and storeId=$store->Id and isDeleted=0 order by isAvailable desc");
 $json = array();
 $json["total"] = count($itemList);
 

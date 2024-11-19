@@ -139,6 +139,20 @@ function uploadImage($uploadedImage, $dir){
 		}
 }
 
+function uploadCsv($uploadedImage, $dir){
+	$maxDim = 300;
+	$tempName = $uploadedImage['tmp_name'];
+	$target_path = "../../media/" . $dir . "/";
+
+	$newfilename = round(microtime(true)) . ".csv";
+	if(move_uploaded_file($tempName, $target_path . $newfilename)) {
+			return $dir ."/". $newfilename;
+		}
+		else{
+			return 0;
+		}
+}
+
 function uploadFile($uploadedImage, $dir){
 	$maxDim = 300;
 	$tempName = $uploadedImage['tmp_name'];

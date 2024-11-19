@@ -31,7 +31,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <?php endif; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AngularJS App</title>
+    <title>Store - Menully</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.js"></script>
@@ -45,11 +45,11 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <script src="controllers/MainController.js"></script>
     <script src="controllers/MenuController.js"></script>
     <script src="controllers/ItemController.js"></script>
+    <script src="controllers/ItemMassUploadController.js"></script>
     <script src="controllers/VoucherController.js"></script>
     <script src="controllers/FeedbackController.js"></script>
     <script src="controllers/ReportController.js"></script>
     <script src="controllers/NotificationController.js"></script>
-
 
     <!-- Favicons -->
     <link href="templates/source/img/favicon.png" rel="icon">
@@ -62,7 +62,6 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
 
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -72,7 +71,6 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
     <link href="templates/source/aos.css" rel="stylesheet">
     <link href="templates/source/glightbox.min.css" rel="stylesheet">
     <link href="templates/source/swiper-bundle.min.css" rel="stylesheet">
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -105,7 +103,6 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
             <div class="spinner-border"></div>
         </div>
 
-
         <button class="fab fixed-tl clickable" ng-show="menuButton" ng-click="openNav()"><i
                 class="bi bi-list"></i></button>
 
@@ -133,7 +130,6 @@ if ($_SERVER['HTTP_HOST'] == 'www.menully.com' || $_SERVER['HTTP_HOST'] == 'menu
             </div>
         </div>
     </div>
-
 
     <script src="templates/source/bootstrap.bundle.min.js"></script>
     <script src="templates/source/aos.js"></script>

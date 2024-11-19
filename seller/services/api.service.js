@@ -110,6 +110,8 @@ angular.module('myApp')
             var formData = new FormData();
             formData.append("storeCode", data.storeCode);
             formData.append("catId", data.catId);
+            formData.append("isForSale", data.isForSale);
+            formData.append("quantity", data.quantity);
             formData.append("Id", data.Id);
             formData.append("name", data.name);
             formData.append("description", data.description);
@@ -124,6 +126,25 @@ angular.module('myApp')
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             });
+        };
+
+        this.uploadCsv = function (csvFile, storeCode) {
+
+            var formData = new FormData();
+            formData.append('storeCode', storeCode);
+            formData.append('csvFile', csvFile);
+
+            return $http.post(apiUrl + 'itemCsvUpload.php', formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+                .then(function (response) {
+                    console.log('fetching data:', response.data);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
         };
 
         this.deleteItem = function (itemId) {

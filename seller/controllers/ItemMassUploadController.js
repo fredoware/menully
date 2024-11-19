@@ -1,37 +1,21 @@
 angular.module('myApp')
-    .controller('ItemController', ['$scope', 'ApiService', function ($scope, ApiService) {
+    .controller('ItemMassUploadController', ['$scope', 'ApiService', function ($scope, ApiService) {
         $scope.title = "ooo";
         $scope.storeLogo = sessionStorage.getItem('storeLogo');
         var storeCode = sessionStorage.getItem('storeCode');
 
-        var queryKey = "";
-        var queryValue = "";
-        var catId = $scope.getQueryParam('Id');
-        if (catId) {
-            queryKey = "menuCategoryId";
-            queryValue = catId;
-        }
-        var isAvailable = $scope.getQueryParam('isAvailable');
-        if (isAvailable) {
-            queryKey = "isAvailable";
-            queryValue = isAvailable;
-        }
-        var isBestSeller = $scope.getQueryParam('isBestSeller');
-        if (isBestSeller) {
-            queryKey = "isBestSeller";
-            queryValue = isBestSeller;
-        }
+        var queryKey = "status";
+        var queryValue = "Draft";
 
         $scope.clearForm = function () {
             $scope.formData = {
                 Id: 0,
                 storeCode: storeCode,
-                catId: catId,
+                catId: null,
                 quantity: 0,
                 name: '',
                 description: '',
                 isAvailable: 1,
-                isForSale: 1,
                 isBestSeller: 0,
                 description: '',
                 image: null
@@ -49,6 +33,7 @@ angular.module('myApp')
 
         // Fetch data from the API
         $scope.fetchData = function () {
+
             ApiService.getItems(queryKey, queryValue, storeCode).then(function (data) {
                 $scope.itemList = data.list;
                 $scope.title = $scope.decodeHtml(data.title);
@@ -58,20 +43,22 @@ angular.module('myApp')
         $scope.fetchData();
 
 
-        $scope.categoryOptions = function () {
+        $scope.getCategoryOptions = function () {
             ApiService.getCategories(storeCode).then(function (data) {
                 $scope.categoryOptions = data.list;
             });
         };
 
-        $scope.categoryOptions();
+        $scope.getCategoryOptions();
 
         $scope.newItem = function () {
+            $scope.bottomSheetState = 'massUpload';
             $scope.openBottomSheet();
             $scope.clearForm();
         }
 
         $scope.updateItem = function (item) {
+            $scope.bottomSheetState = 'form';
             console.log("item detail", item.variation[0].unit);
             $scope.openBottomSheet();
             $scope.clearForm();
@@ -113,6 +100,7 @@ angular.module('myApp')
                     // Reset form
                     // $scope.clearForm();
                     $scope.fetchData();
+                    $scope.getCategoryOptions();
                 })
                 .catch(function (error) {
                     // Handle error response
@@ -143,5 +131,26 @@ angular.module('myApp')
                 }
             });
         }
+
+
+        $scope.uploadCsv = function () {
+            if (!$scope.csvFile) {
+                alert('Please select a CSV file to upload.');
+                return;
+            }
+
+            console.log("csv file", $scope.csvFile);
+
+            ApiService.uploadCsv($scope.csvFile, storeCode)
+                .then(function (response) {
+                    $scope.fetchData();
+                })
+                .catch(function (error) {
+                    // Handle error response
+                    console.error('Error occurred:', error);
+                    $scope.message = "An error occurred while submitting data.";
+                });
+
+        };
 
     }]);
