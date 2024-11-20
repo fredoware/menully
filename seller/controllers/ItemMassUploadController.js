@@ -135,9 +135,41 @@ angular.module('myApp')
 
         $scope.uploadCsv = function () {
             if (!$scope.csvFile) {
-                alert('Please select a CSV file to upload.');
+                Swal.fire({
+                    title: "Warning",
+                    text: "Please select a CSV file to upload.",
+                    icon: "error"
+                });
                 return;
             }
+
+            let timerInterval;
+            Swal.fire({
+                title: "Importing CSV!",
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+
+                    $scope.closeBottomSheet();
+                    Swal.fire({
+                        title: "Success",
+                        text: "Items successfully imported",
+                        icon: "success"
+                    });
+                }
+            });
 
             console.log("csv file", $scope.csvFile);
 

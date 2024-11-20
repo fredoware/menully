@@ -103,8 +103,8 @@
 
                     <hr>
 
-                    <a href="./templates/sampleCsv/menully_items.csv" download rel="noopener" target="_self"
-                        class="btn btn-info">Download Sample CSV</a>
+                    <a href="./templates/sampleCsv/menully_items.csv" download type="text/csv" rel="noopener"
+                        target="_self" class="btn btn-info">Download Sample CSV</a>
 
                     <form ng-submit="uploadCsv()">
                         <input type="file" file-model="csvFile" accept=".csv" class="form-control mt-3 mb-3" />
@@ -158,9 +158,10 @@
                         </div>
 
                         <div class="mb-3">
-                            
-                        <div class="form-check">
-                                <input class="form-check-input" type="checkbox"  ng-model="formData.isForSale"  ng-true-value="1" ng-false-value="0" id="flexCheckChecked" checked>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" ng-model="formData.isForSale"
+                                    ng-true-value="1" ng-false-value="0" id="flexCheckChecked" checked>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Item for Sale
                                 </label>
