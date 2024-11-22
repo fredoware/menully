@@ -5,11 +5,19 @@ require_once '../../config/Models.php';
 
 header("Content-Type: application/json");
 
-$orderNumber = rand(100000, 999999);
-$store = $_POST["storeCode"];
+// $orderNumber = rand(100000, 999999);
+$storeCode = $_POST["storeCode"];
+$store = store()->get("storeCode='$storeCode'");
 $voucherId = $_POST["voucherId"];
 $deviceId = $_POST['Id'];
 $tableId = $_POST['tableId'];
+$dateToday = date("Y-m-d");
+
+$countOrders = orderMain()->count("storeCode='$storeCode' and date='$dateToday'");
+$nextSequence = $countOrders + 1;
+$dateSequence = date("ym-d");
+
+$orderNumber = $dateSequence. sprintf("%03d", $nextSequence);;
 
 $model = orderMain();
 $model->obj["customer"] = $_POST['name'];
@@ -21,7 +29,7 @@ $model->obj["notes"] = $_POST["notes"];
 $model->obj["orderNumber"] = $orderNumber;
 $model->obj["date"] = "NOW()";
 $model->obj["time"] = "NOW()";
-$model->obj["storeCode"] = $store;
+$model->obj["storeCode"] = $storeCode;
 $model->obj["voucherId"] = $voucherId;
 $model->obj["tableId"] = $tableId;
 $model->create();
@@ -45,6 +53,7 @@ foreach ($cartList as $row) {
 
     $model = orderItem();
     $model->obj["orderNumber"] = $orderNumber;
+    $model->obj["storeId"] = $store->Id;
     $model->obj["itemId"] = $item->Id;
     $model->obj["varId"] = $Id;
     $model->obj["quantity"] = $row["quantity"];
@@ -62,7 +71,7 @@ $model->obj["dateUsed"] = "NOW()";
 $model->update("voucherId=$voucherId and deviceId='$deviceId'");
 
 $model = notification();
-$model->obj["storeCode"] = $store;
+$model->obj["storeCode"] = $storeCode;
 $model->obj["deviceId"] = $deviceId;
 $model->obj["receiver"] = "Store";
 $model->obj["type"] = "Order";

@@ -15,6 +15,15 @@ angular.module('myApp', ['ngRoute', 'ngSanitize'])
         };
     })
 
+    .filter('format12hour', function () {
+        return function (hour) {
+            if (!hour) return '';
+            const period = hour >= 12 ? "PM" : "AM";
+            const formattedHour = hour % 12 || 12;
+            return `${formattedHour}:00 ${period}`;
+        };
+    })
+
     .directive('fileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A',

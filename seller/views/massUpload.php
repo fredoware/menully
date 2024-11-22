@@ -114,7 +114,6 @@
                 </div>
             </div>
 
-
             <form ng-submit="submitForm()" ng-show="bottomSheetState==='form'">
                 <div class="sheet-content">
                     <div class="sheet-header">
