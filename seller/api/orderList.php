@@ -8,13 +8,14 @@ header("Content-Type: application/json");
 
 $status = $_GET['status'];
 $storeCode = $_GET['storeCode'];
+$store = store()->get("storeCode='$storeCode'");
 
 	$historyList = array();
     $orderMainList = orderMain()->list("status='$status' and storeCode='$storeCode'");
 	foreach ($orderMainList as $row) {
 		$item = array();
 		$item["main"] = $row;
-		$item["total"] = total_order_amount($row->orderNumber);
+		$item["total"] = total_order_amount($row->orderNumber, $store->Id);
 		
 		if ($row->voucherId) {
 			$item["voucher"] = voucher()->get("Id=$row->voucherId");

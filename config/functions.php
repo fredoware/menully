@@ -70,12 +70,18 @@ function rand_string($length)
 }
 
 
-function total_order_amount($orderNumber){
+function total_order_amount($orderNumber, $storeId){
     $result = 0;
 
-    foreach (orderItem()->list("orderNumber='$orderNumber'") as $row) {
-      $var = variation()->get("Id=$row->varId");
-      $result += $var->price*$row->quantity;
+    foreach (orderItem()->list("orderNumber='$orderNumber' and storeId=$storeId") as $row) {
+		
+		$checkVar = variation()->count("Id=$row->varId");
+		$varPrice = 0;
+		if ($checkVar) {
+			$var = variation()->get("Id=$row->varId");
+			$varPrice = $var->price;
+		}
+      $result += $varPrice*$row->quantity;
     }
 
     return $result;
