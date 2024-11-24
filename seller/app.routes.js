@@ -41,6 +41,10 @@ angular.module('myApp')
                 templateUrl: 'views/notification.php',
                 controller: 'NotificationController'
             })
+            .when('/testing', {
+                templateUrl: 'views/test.php',
+                controller: 'TestController'
+            })
             .otherwise({
                 redirectTo: '/' // Default route
             });
