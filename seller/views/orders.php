@@ -120,7 +120,7 @@
             <div class="sheet-body">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between" ng-repeat="item in orderItemList">
-                        <div class="">{{item.item.name}} ({{item.variation.unit}}) x {{item.orderItem.quantity}} </div>
+                        <div class="">{{item.item.name}} <span ng-show="item.variation.unit">({{item.variation.unit}})</span> x {{item.orderItem.quantity}} </div>
                         <div class=""> ₱{{item.variation.price*item.orderItem.quantity}} </div>
                     </li>
 
