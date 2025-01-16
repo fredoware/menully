@@ -24,7 +24,7 @@ $store = store()->get("storeCode='$storeCode'");
 			$item["table"] = storeTable()->get("Id=$row->tableId");
 		}
 		$orderItemList = array();
-		$orderItem = orderItem()->list("orderNumber=$row->orderNumber");
+		$orderItem = orderItem()->list("orderNumber='$row->orderNumber'");
 		foreach ($orderItem as $row) {
 			$item2 = array();
 			$item2["orderItem"] = $row;
